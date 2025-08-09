@@ -6,107 +6,548 @@
     <title>WUIZZIZZZ - OSN IPS</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-orange: #ff6b00;
-            --secondary-yellow: #f4c425;
-            --creamy-peach: #FFE8B0;
-            --background-light: #f0f0f0;
-            --text-color-light: #333;
-            --card-bg-light: #fff;
-            --correct-green: #28a745;
-            --wrong-red: #dc3545;
-        }
-
-        body.dark-mode {
-            --background-light: #121212;
-            --text-color-light: #e0e0e0;
-            --card-bg-light: #2c2c2c;
-        }
-
         * {
-            box-sizing: border-box;
             margin: 0;
             padding: 0;
+            box-sizing: border-box;
             font-family: 'Poppins', sans-serif;
-            transition: background-color 0.3s, color 0.3s;
         }
 
         body {
-            background-color: var(--background-light);
-            color: var(--text-color-light);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            text-align: center;
-            padding: 20px;
+            background-color: #FFE8B0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
         }
 
         .container {
-            width: 100%;
-            max-width: 700px;
-            background-color: var(--creamy-peach);
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b00;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
+
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .start-screen, .question-screen, .result-screen {
+            background: #fff;
             border-radius: 20px;
             padding: 30px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            position: relative;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            transition: background-color 0.3s;
         }
 
-        .dark-mode-toggle {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            cursor: pointer;
-            font-size: 24px;
+        body.dark-mode .start-screen,
+        body.dark-mode .question-screen,
+        body.dark-mode .result-screen {
+            background: #444;
         }
 
-        #start-page, #quiz-page, #results-page {
-            display: none;
-            flex-direction: column;
-            gap: 20px;
-            animation: fadeIn 0.5s ease-in-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        h1 {
-            font-size: 3rem;
-            color: var(--primary-orange);
-            text-shadow: 2px 2px var(--secondary-yellow);
-            margin-bottom: 10px;
-        }
-        h2 {
-            font-size: 2rem;
-            color: var(--primary-orange);
-        }
-
-        p {
+        .start-screen p {
             font-size: 1.2rem;
-            line-height: 1.6;
+            color: #555;
+            margin-bottom: 30px;
         }
 
-        .cta-button {
-            background-color: var(--primary-orange);
-            color: white;
+        body.dark-mode .start-screen p {
+            color: #ccc;
+        }
+
+        .btn {
+            background: #ff6b00;
+            color: #fff;
             padding: 15px 30px;
             border: none;
             border-radius: 10px;
-            font-size: 1.5rem;
-            font-weight: 700;
+            font-size: 1.2rem;
             cursor: pointer;
-            text-transform: uppercase;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.2s, background-color 0.2s;
-        }
-        .cta-button:hover {
-            background-color: #e55b00;
-            transform: translateY(-3px);
+            transition: background 0.3s, transform 0.2s;
         }
 
-        #quiz-page {
+        .btn:hover {
+            background: #e55f00;
+            transform: scale(1.05);
+        }
+
+        .question-screen {
+            display: none;
+        }
+
+        .timer {
+            margin-bottom: 20px;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 10px;
+            background: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .timer-progress {
+            height: 100%;
+            background: #f4c425;
+            width: 100%;
+            transition: width linear;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .question-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f4c425;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .option:hover {
+            transform: scale(1.02);
+            background: #e0b020;
+        }
+
+        .option.correct {
+            animation: correct 0.5s;
+            background: #28a745;
+            color: #fff;
+        }
+
+        .option.wrong {
+            animation: wrong 0.5s;
+            background: #dc3545;
+            color: #fff;
+        }
+
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes wrong {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .short-answer input {
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 100%;
+            border: 2px solid #ff6b00;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .result-screen {
+            display: none;
+        }
+
+        .result-screen h2 {
+            font-size: 2rem;
+            color: #ff6b00;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .leaderboard ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .leaderboard li {
+            background: #f4c425;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .admin-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .admin-section input, .admin-section select, .admin-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b00;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
+            }
+
+            .logo {
+                font-size: 2rem;
+            }
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+    <div class="container">
+        <div class="start-screen">
+            <h1 class="logo">WUIZZIZZZ - OSN IPS</h1>
+            <p>Ayo asah pengetahuanmu tentang IPS untuk OSN! Tantang dirimu dengan 50 soal seru! Catatan: Jawaban isian singkat harus dalam HURUF BESAR dan TANPA TANDA BACA.</p>
+            <button class="btn" onclick="startQuiz()">Mulai Kuis</button>
+            <button class="btn" onclick="showAdmin()">Tambah Soal (Admin)</button>
+        </div>
+
+        <div class="question-screen">
+            <div class="timer">
+                <div class="timer-bar"><div class="timer-progress"></div></div>
+                <span class="timer-text">30 detik</span>
+            </div>
+            <div class="question-number"></div>
+            <div class="question-text"></div>
+            <img class="question-image" style="display: none;">
+            <div class="options"></div>
+            <div class="short-answer" style="display: none;">
+                <input type="text" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
+                <button class="btn" onclick="checkShortAnswer()">Kirim</button>
+            </div>
+            <div class="score">Skor: 0</div>
+        </div>
+
+        <div class="result-screen">
+            <h2>Hasil Kuis</h2>
+            <p id="total-score"></p>
+            <p id="correct-answers"></p>
+            <p id="time-taken"></p>
+            <button class="btn" onclick="playAgain()">Main Lagi</button>
+            <button class="btn" onclick="shareScore()">Bagikan Skor</button>
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <ul id="leaderboard-list"></ul>
+            </div>
+        </div>
+
+        <div class="admin-section">
+            <h2>Tambah Soal Baru</h2>
+            <select id="question-type">
+                <option value="multiple">Pilihan Ganda</option>
+                <option value="short">Isian Singkat</option>
+            </select>
+            <textarea id="question-text" placeholder="Masukkan teks soal"></textarea>
+            <input id="question-image" placeholder="URL gambar (opsional)">
+            <input id="option-a" placeholder="Pilihan A" style="display: none;">
+            <input id="option-b" placeholder="Pilihan B" style="display: none;">
+            <input id="option-c" placeholder="Pilihan C" style="display: none;">
+            <input id="option-d" placeholder="Pilihan D" style="display: none;">
+            <input id="correct-answer" placeholder="Jawaban benar (A/B/C/D untuk pilihan ganda, teks untuk isian)">
+            <button class="btn" onclick="addQuestion()">Tambah Soal</button>
+            <button class="btn" onclick="hideAdmin()">Kembali</button>
+        </div>
+    </div>
+
+    <script>
+        const questions = [
+            // 30 Multiple Choice Questions
+            {
+                type: "multiple",
+                text: "Luas laut Indonesia mencakup 2/3 dari seluruh luas wilayah Indonesia dan memiliki garis pantai terpanjang kedua di dunia dengan berbagai potensi sumberdaya air laut yang perlu dikelola dengan baik. Salah satu potensi sumber daya air laut adalah pemanfaatannya untuk pembuatan garam. Secara geografis wilayah yang paling berpotensi untuk mendukung kegiatan tersebut adalah pesisir ....",
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+                options: ["Utara Papua", "Timur Kalimantan", "Selatan Sulawesi", "Barat Sumatera"],
+                correct: "C"
+            },
+            {
+                type: "multiple",
+                text: "Sungai terpanjang di Indonesia adalah sungai ....",
+                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+                options: ["Kapuas", "Mahakam", "Barito", "Mamberamo"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Gunung tertinggi di Indonesia adalah ....",
+                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+                options: ["Rinjani", "Kerinci", "Jayawijaya", "Semeru"],
+                correct: "C"
+            },
+            // ... Add 27 more multiple-choice questions similarly ...
+            // Placeholder for additional 27 multiple-choice questions
+            ...Array(27).fill().map((_, i) => ({
+                type: "multiple",
+                text: `Contoh soal pilihan ganda ${i + 4}`,
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+                options: ["Pilihan A", "Pilihan B", "Pilihan C", "Pilihan D"],
+                correct: "A"
+            })),
+
+            // 20 Short Answer Questions
+            {
+                type: "short",
+                text: "Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran ................. yang menyatu dengan benua Australia merupakan daerah migrasi fauna.",
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+                correct: "SAHUL"
+            },
+            {
+                type: "short",
+                text: "Ibukota provinsi Jawa Tengah adalah ....",
+                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+                correct: "SEMARANG"
+            },
+            {
+                type: "short",
+                text: "Pulau terbesar di Indonesia adalah ....",
+                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+                correct: "KALIMANTAN"
+            },
+            // ... Add 17 more short-answer questions similarly ...
+            // Placeholder for additional 17 short-answer questions
+            ...Array(17).fill().map((_, i) => ({
+                type: "short",
+                text: `Contoh soal isian singkat ${i + 4}`,
+                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+                correct: `JAWABAN${i + 4}`
+            }))
+        ];
+
+        let currentQuestion = 0;
+        let score = 0;
+        let correctAnswers = 0;
+        let startTime = null;
+        let timerInterval = null;
+        let timeLeft = 30;
+        let totalTime = 0;
+
+        function startQuiz() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.question-screen').style.display = 'block';
+            startTime = new Date();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            timeLeft = q.type === "multiple" ? 30 : 45;
+            document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/50`;
+            document.querySelector('.question-text').textContent = q.text;
+            const img = document.querySelector('.question-image');
+            img.src = q.image;
+            img.style.display = q.image ? 'block' : 'none';
+            document.querySelector('.score').textContent = `Skor: ${score}`;
+
+            const optionsDiv = document.querySelector('.options');
+            const shortAnswerDiv = document.querySelector('.short-answer');
+            optionsDiv.innerHTML = '';
+            shortAnswerDiv.style.display = 'none';
+
+            if (q.type === "multiple") {
+                optionsDiv.style.display = 'grid';
+                q.options.forEach((option, i) => {
+                    const btn = document.createElement('div');
+                    btn.classList.add('option');
+                    btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+                    btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
+                    optionsDiv.appendChild(btn);
+                });
+            } else {
+                shortAnswerDiv.style.display = 'block';
+                optionsDiv.style.display = 'none';
+                document.querySelector('.short-answer input').value = '';
+            }
+
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const timerProgress = document.querySelector('.timer-progress');
+            const timerText = document.querySelector('.timer-text');
+            timerProgress.style.width = '100%';
+            timerText.textContent = `${timeLeft} detik`;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                totalTime++;
+                timerText.textContent = `${timeLeft} detik`;
+                timerProgress.style.width = `${(timeLeft / (questions[currentQuestion].type === "multiple" ? 30 : 45)) * 100}%`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(null);
+                }
+            }, 1000);
+        }
+
+        function checkAnswer(answer) {
+            clearInterval(timerInterval);
+            const q = questions[currentQuestion];
+            let isCorrect = false;
+
+            if (q.type === "multiple") {
+                const options = document.querySelectorAll('.option');
+                options.forEach((opt, i) => {
+                    if (String.fromCharCode(65 + i) === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (String.fromCharCode(65 + i) === answer) {
+                        opt.classList.add('wrong');
+                    }
+                    opt.onclick = null;
+                });
+                isCorrect = answer === q.correct;
+            } else {
+                const userAnswer = document.querySelector('.short-answer input').value.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                isCorrect = userAnswer === q.correct;
+            }
+
+            if (isCorrect) {
+                score += 10;
+                correctAnswers++;
+                if (timeLeft > (q.type === "multiple" ? 20 : 35)) {
+                    totalTime -= 10;
+                    alert("Power-up! +10 detik karena menjawab dalam waktu kurang dari 10 detik!");
+                }
+            }
+
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+        }
+
+        function checkShortAnswer() {
+            const answer = document.querySelector('.short-answer input').value;
+            checkAnswer(answer);
+        }
+
+        function showResult() {
+            document.querySelector('.question-screen').style.display = 'none';
+            document.querySelector('.result-screen').style.display = 'block';
+            const timeTaken = Math.floor((new Date() - startTime) / 1000);
+            document.getElementById('total-score').textContent = `Skor Total: ${score}`;
+            document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/50`;
+            document.getElementById('time-taken').textContent = `Waktu: ${Math.floor(timeTaken / 60)} menit ${timeTaken % 60} detik`;
+
+            updateLeaderboard(score, timeTaken);
+        }
+
+        function updateLeaderboard(score, timeTaken) {
+            const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+            const name = prompt("Masukkan nama untuk leaderboard:");
+            leaderboard.push({ name, score, time: timeTaken });
+            leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
+
+            const list = document.getElementById('leaderboard-list');
+            list.innerHTML = '';
+            leaderboard.slice(0, 5).forEach((entry, i) => {
+                const li = document.createElement('li');
+                li.textContent = `${i + 1}. ${entry.name}: ${entry.score} (${Math.floor(entry.time / 60)}m ${entry.time % 60}s)`;
+                list.appendChild(li);
+            });
+        }
+
+        function playAgain() {
+            currentQuestion = 0;
+            score = 0;
+            correctAnswers = 0;
+            totalTime = 0;
+            document.querySelector('.result-screen').style.display = 'none';
+            document.querySelector('.question-screen').style.display = 'block';
+            startTime = new Date();
+            loadQuestion();
+        }
+
+        function shareScore() {
+            alert("Fitur bagikan skor belum diimplementasikan. Silakan screenshot hasilmu!");
+        }
+
+        function showAdmin() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.admin-section').style.display = 'block';
+            document.getElementById('question-type').onchange = function() {
+                const isMultiple = this.value === "multiple";
+                document.getElementById('option-a').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-b').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-c').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-d').style.display = isMultiple ? 'block' : 'none';
+            };
+        }
+
+        function hideAdmin() {
+            document.querySelector('.admin-section').style.display = 'none';
+            document.querySelector('.start-screen').style.display = 'block';
+        }
+
+        function addQuestion() {
+            const type = document.getElementById('question-type').value;
+            const text = document.getElementById('question-text').value;
+            const image = document.getElementById('question-image').value;
+            const correct = document.getElementById('correct-answe        #quiz-page {
             text-align: left;
         }
 
@@ -463,471 +904,828 @@
             question: 'Ciri-ciri masyarakat agraris adalah ....',
             options: ['A sebagian besar penduduk bekerja di bidang industri', 'B sebagian besar penduduk bekerja di bidang pertanian', 'C sebagian besar penduduk bekerja di sektor jasa', 'D sebagian besar penduduk tinggal di perkotaan'],
             answer: 'B sebagian besar penduduk bekerja di bidang pertanian'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Salah satu dampak negatif globalisasi adalah ....',
-            options: ['A kemajuan teknologi', 'B kemudahan informasi', 'C lunturnya nilai-nilai budaya lokal', 'D peningkatan kerja sama internasional'],
-            answer: 'C lunturnya nilai-nilai budaya lokal'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Pembagian wilayah Indonesia menjadi Waktu Indonesia Barat (WIB), Waktu Indonesia Tengah (WITA), dan Waktu Indonesia Timur (WIT) didasarkan pada ....',
-            options: ['A garis lintang', 'B garis bujur', 'C iklim', 'D kepadatan penduduk'],
-            answer: 'B garis bujur'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Faktor pendorong mobilitas sosial adalah ....',
-            options: ['A kemiskinan', 'B pendidikan yang rendah', 'C status sosial yang tertutup', 'D status sosial yang terbuka'],
-            answer: 'D status sosial yang terbuka'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Peninggalan sejarah berupa bangunan suci tempat pemujaan roh nenek moyang pada masa megalitikum adalah ....',
-            options: ['A menhir', 'B punden berundak', 'C sarkofagus', 'D dolmen'],
-            answer: 'B punden berundak'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Berikut adalah contoh interaksi antara manusia dengan lingkungan sosial, yaitu ....',
-            options: ['A petani menanam padi', 'B nelayan menangkap ikan', 'C pedagang bertransaksi dengan pembeli', 'D penambang menggali batu bara'],
-            answer: 'C pedagang bertransaksi dengan pembeli'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Kegiatan ekonomi yang mengubah bahan mentah menjadi barang jadi disebut ....',
-            options: ['A konsumsi', 'B produksi', 'C distribusi', 'D impor'],
-            answer: 'B produksi'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Candi Borobudur dibangun pada masa kerajaan ....',
-            options: ['A Mataram Hindu', 'B Majapahit', 'C Sriwijaya', 'D Singasari'],
-            answer: 'A Mataram Hindu'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Permasalahan sosial yang terjadi karena perbedaan kelas ekonomi disebut ....',
-            options: ['A kriminalitas', 'B kemiskinan', 'C disorganisasi keluarga', 'D kenakalan remaja'],
-            answer: 'B kemiskinan'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Salah satu tujuan didirikannya ASEAN adalah ....',
-            options: ['A membentuk aliansi militer', 'B meningkatkan kerjasama ekonomi, sosial, dan budaya', 'C mendirikan negara federasi', 'D mendominasi ekonomi global'],
-            answer: 'B meningkatkan kerjasama ekonomi, sosial, dan budaya'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Pola pemukiman penduduk yang memanjang mengikuti jalur sungai atau jalan raya disebut ....',
-            options: ['A menyebar', 'B memanjang', 'C mengelompok', 'D terpusat'],
-            answer: 'B memanjang'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Pembentukan gunung berapi terjadi akibat ....',
-            options: ['A pergerakan lempeng tektonik', 'B erosi angin', 'C proses sedimentasi', 'D hujan asam'],
-            answer: 'A pergerakan lempeng tektonik'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Konflik sosial dapat diatasi dengan cara damai melalui ....',
-            options: ['A kekerasan', 'B mediasi', 'C persaingan', 'D paksaan'],
-            answer: 'B mediasi'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Pada masa pergerakan nasional, organisasi Budi Utomo didirikan oleh ....',
-            options: ['A Soekarno', 'B Mohammad Hatta', 'C dr. Soetomo', 'D Ki Hajar Dewantara'],
-            answer: 'C dr. Soetomo'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Faktor utama yang mendorong migrasi penduduk dari desa ke kota adalah ....',
-            options: ['A ketersediaan lahan pertanian', 'B fasilitas pendidikan dan pekerjaan yang lebih baik', 'C ikatan kekeluargaan yang kuat', 'D kondisi alam yang lebih subur'],
-            answer: 'B fasilitas pendidikan dan pekerjaan yang lebih baik'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Pasar yang hanya menjual satu jenis barang disebut ....',
-            options: ['A pasar monopoli', 'B pasar oligopoli', 'C pasar konkret', 'D pasar abstrak'],
-            answer: 'A pasar monopoli'
-        },
-        {
-            type: 'multiple-choice',
-            question: 'Salah satu ciri sistem ekonomi liberal adalah ....',
-            options: ['A campur tangan pemerintah yang besar', 'B peran swasta yang terbatas', 'C kebebasan individu dalam berusaha', 'D kepemilikan alat produksi oleh negara'],
-            answer: 'C kebebasan individu dalam berusaha'
-        },
-
-        // Isian Singkat (20 Soal)
-        {
-            type: 'short-answer',
-            question: 'Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran ................. yang menyatu dengan benua Australia merupakan daerah migrasi fauna.',
-            answer: 'SAHUL'
-        },
-        {
-            type: 'short-answer',
-            question: 'Lembaga yang bertugas untuk menciptakan ketertiban dan keamanan dalam masyarakat adalah lembaga ....',
-            answer: 'KEAMANAN'
-        },
-        {
-            type: 'short-answer',
-            question: 'Cabang ilmu geografi yang mempelajari tentang keadaan iklim suatu wilayah disebut ....',
-            answer: 'KLIMATOLOGI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Proses penyebaran kebudayaan dari satu tempat ke tempat lain disebut ....',
-            answer: 'AKULTURASI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Mata pencaharian penduduk di daerah pantai yang mayoritas adalah ....',
-            answer: 'NELAYAN'
-        },
-        {
-            type: 'short-answer',
-            question: 'Kerajaan Islam pertama di Indonesia yang berlokasi di Aceh adalah Kerajaan ....',
-            answer: 'SAMUDERA PASAI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Kondisi air laut yang naik dan menutupi daratan disebut ....',
-            answer: 'PASANG'
-        },
-        {
-            type: 'short-answer',
-            question: 'Nama tokoh yang memproklamasikan kemerdekaan Indonesia bersama Soekarno adalah ....',
-            answer: 'MOHAMMAD HATTA'
-        },
-        {
-            type: 'short-answer',
-            question: 'Istilah untuk perpindahan penduduk dari desa ke kota adalah ....',
-            answer: 'URBANISASI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Peninggalan sejarah berupa bangunan batu besar yang berfungsi sebagai tempat pemujaan adalah ....',
-            answer: 'MENHIR'
-        },
-        {
-            type: 'short-answer',
-            question: 'Faktor yang menyebabkan perubahan sosial dari luar adalah ....',
-            answer: 'INNOVASI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Kegiatan ekonomi yang menyalurkan barang dari produsen ke konsumen disebut ....',
-            answer: 'DISTRIBUSI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Pola hidup yang tidak menghargai waktu dan cenderung santai disebut ....',
-            answer: 'TRADISIONAL'
-        },
-        {
-            type: 'short-answer',
-            question: 'Salah satu penyebab terjadinya inflasi adalah ....',
-            answer: 'PERMINTAAN'
-        },
-        {
-            type: 'short-answer',
-            question: 'Organisasi internasional di bidang ekonomi yang berfokus pada perdagangan adalah ....',
-            answer: 'WTO'
-        },
-        {
-            type: 'short-answer',
-            question: 'Bentuk interaksi sosial yang bertujuan untuk mencapai kesepakatan adalah ....',
-            answer: 'KERJASAMA'
-        },
-        {
-            type: 'short-answer',
-            question: 'Salah satu contoh sumber daya alam yang tidak dapat diperbarui adalah ....',
-            answer: 'MINYAK BUMI'
-        },
-        {
-            type: 'short-answer',
-            question: 'Peristiwa perpindahan massa tanah secara tiba-tiba disebut ....',
-            answer: 'TANAH LONGSOR'
-        },
-        {
-            type: 'short-answer',
-            question: 'Kegiatan ekonomi yang menjual produk ke luar negeri disebut ....',
-            answer: 'EKSPOR'
-        },
-        {
-            type: 'short-answer',
-            question: 'Istilah untuk proses penyesuaian diri dalam masyarakat adalah ....',
-            answer: 'ASIMILASI'
-        }
-    ];
-
-    const startPage = document.getElementById('start-page');
-    const quizPage = document.getElementById('quiz-page');
-    const resultsPage = document.getElementById('results-page');
-    const startButton = document.getElementById('start-button');
-    const playAgainButton = document.getElementById('play-again-button');
-    const questionCounter = document.getElementById('question-counter');
-    const scoreDisplay = document.getElementById('score-display');
-    const questionText = document.getElementById('question-text');
-    const questionImage = document.getElementById('question-image');
-    const optionsContainer = document.getElementById('options-container');
-    const shortAnswerInput = document.getElementById('short-answer-input');
-    const submitAnswerBtn = document.getElementById('submit-answer-btn');
-    const finalScore = document.getElementById('final-score');
-    const correctAnswersCount = document.getElementById('correct-answers');
-    const wrongAnswersCount = document.getElementById('wrong-answers');
-    const timeTakenSpan = document.getElementById('time-taken');
-    const timeBar = document.getElementById('time-bar');
-    const shareScoreButton = document.getElementById('share-score-button');
-    const playerNameInput = document.getElementById('player-name-input');
-    const leaderboardList = document.getElementById('leaderboard-list');
-    const darkModeToggle = document.getElementById('darkModeToggle');
-
-    let currentQuestionIndex = 0;
-    let score = 0;
-    let correctCount = 0;
-    let wrongCount = 0;
-    let timer;
-    let timeRemaining;
-    let totalTime = 0;
-    let startTime;
-    const questionsTotal = questions.length;
-
-    const timerDurations = {
-        'multiple-choice': 30,
-        'short-answer': 45
-    };
-
-    function shuffleArray(array) {
-        for (let i = array.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [array[i], array[j]] = [array[j], array[i]];
-        }
-    }
-
-    function startQuiz() {
-        shuffleArray(questions);
-        startPage.style.display = 'none';
-        quizPage.style.display = 'flex';
-        currentQuestionIndex = 0;
-        score = 0;
-        correctCount = 0;
-        wrongCount = 0;
-        totalTime = 0;
-        startTime = new Date();
-        scoreDisplay.textContent = 'Skor: ' + score;
-        showQuestion();
-    }
-
-    function showQuestion() {
-        if (currentQuestionIndex >= questionsTotal) {
-            showResults();
-            return;
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WUIZZIZZZ - OSN IPS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
         }
 
-        const questionData = questions[currentQuestionIndex];
-        questionCounter.textContent = `${currentQuestionIndex + 1}/${questionsTotal}`;
-        questionText.innerHTML = questionData.question;
-        questionImage.style.display = 'none';
-        optionsContainer.innerHTML = '';
-        shortAnswerInput.style.display = 'none';
-        submitAnswerBtn.style.display = 'none';
-
-        if (questionData.type === 'multiple-choice') {
-            optionsContainer.style.display = 'flex';
-            shuffleArray(questionData.options);
-            const optionLetters = ['A', 'B', 'C', 'D'];
-            questionData.options.forEach((option, index) => {
-                const button = document.createElement('button');
-                button.className = 'option-button';
-                button.innerHTML = `<span>${optionLetters[index]}</span>${option}`;
-                button.onclick = () => checkAnswer(option);
-                optionsContainer.appendChild(button);
-            });
-        } else if (questionData.type === 'short-answer') {
-            optionsContainer.style.display = 'none';
-            shortAnswerInput.style.display = 'block';
-            submitAnswerBtn.style.display = 'block';
-            shortAnswerInput.value = '';
-            shortAnswerInput.focus();
-            submitAnswerBtn.onclick = () => checkAnswer(shortAnswerInput.value.toUpperCase().trim());
+        body {
+            background-color: #FFE8B0;
+            color: #333;
+            transition: background-color 0.3s, color 0.3s;
         }
 
-        resetTimer(timerDurations[questionData.type]);
-    }
+        body.dark-mode {
+            background-color: #333;
+            color: #fff;
+        }
 
-    function checkAnswer(userAnswer) {
-        clearInterval(timer);
-        const questionData = questions[currentQuestionIndex];
-        const isCorrect = questionData.type === 'multiple-choice'
-            ? userAnswer === questionData.answer
-            : userAnswer === questionData.answer;
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            text-align: center;
+        }
 
-        const timeSpent = timerDurations[questionData.type] - timeRemaining;
-        totalTime += timeSpent;
+        .logo {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #ff6b00;
+            margin-bottom: 20px;
+            animation: bounce 1s infinite alternate;
+        }
 
-        if (isCorrect) {
-            score += 10;
-            correctCount++;
-            if (timeSpent < 10) {
-                totalTime -= 10; // Bonus waktu
-                alert('Waktu Bonus 10 Detik! Keren!');
+        @keyframes bounce {
+            0% { transform: translateY(0); }
+            100% { transform: translateY(-10px); }
+        }
+
+        .start-screen, .question-screen, .result-screen {
+            background: #fff;
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+            margin: 20px auto;
+            transition: background-color 0.3s;
+        }
+
+        body.dark-mode .start-screen,
+        body.dark-mode .question-screen,
+        body.dark-mode .result-screen {
+            background: #444;
+        }
+
+        .start-screen p {
+            font-size: 1.2rem;
+            color: #555;
+            margin-bottom: 30px;
+        }
+
+        body.dark-mode .start-screen p {
+            color: #ccc;
+        }
+
+        .btn {
+            background: #ff6b00;
+            color: #fff;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .btn:hover {
+            background: #e55f00;
+            transform: scale(1.05);
+        }
+
+        .question-screen {
+            display: none;
+        }
+
+        .timer {
+            margin-bottom: 20px;
+        }
+
+        .timer-bar {
+            width: 100%;
+            height: 10px;
+            background: #ccc;
+            border-radius: 5px;
+            overflow: hidden;
+        }
+
+        .timer-progress {
+            height: 100%;
+            background: #f4c425;
+            width: 100%;
+            transition: width linear;
+        }
+
+        .question-number {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+        }
+
+        .question-image {
+            max-width: 100%;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .options {
+            display: grid;
+            gap: 10px;
+        }
+
+        .option {
+            background: #f4c425;
+            padding: 15px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 1.1rem;
+            transition: transform 0.2s, background 0.3s;
+        }
+
+        .option:hover {
+            transform: scale(1.02);
+            background: #e0b020;
+        }
+
+        .option.correct {
+            animation: correct 0.5s;
+            background: #28a745;
+            color: #fff;
+        }
+
+        .option.wrong {
+            animation: wrong 0.5s;
+            background: #dc3545;
+            color: #fff;
+        }
+
+        @keyframes correct {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes wrong {
+            0% { transform: translateX(0); }
+            25% { transform: translateX(-10px); }
+            50% { transform: translateX(10px); }
+            75% { transform: translateX(-10px); }
+            100% { transform: translateX(0); }
+        }
+
+        .short-answer input {
+            padding: 10px;
+            font-size: 1.1rem;
+            width: 100%;
+            border: 2px solid #ff6b00;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+        }
+
+        .result-screen {
+            display: none;
+        }
+
+        .result-screen h2 {
+            font-size: 2rem;
+            color: #ff6b00;
+            margin-bottom: 20px;
+        }
+
+        .leaderboard {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .leaderboard ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        .leaderboard li {
+            background: #f4c425;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 5px;
+            font-size: 1.1rem;
+        }
+
+        .admin-section {
+            display: none;
+            margin-top: 20px;
+        }
+
+        .admin-section input, .admin-section select, .admin-section textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #ff6b00;
+            color: #fff;
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 10px;
             }
-            if (questionData.type === 'multiple-choice') {
-                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
-                correctButton.classList.add('correct');
-            } else {
-                shortAnswerInput.style.backgroundColor = varColor('correct-green');
+
+            .logo {
+                font-size: 2rem;
             }
-        } else {
-            wrongCount++;
-            if (questionData.type === 'multiple-choice') {
-                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
-                const userButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(userAnswer));
-                if (userButton) userButton.classList.add('wrong');
-                if (correctButton) correctButton.classList.add('correct');
-            } else {
-                shortAnswerInput.style.backgroundColor = varColor('wrong-red');
+
+            .question-text {
+                font-size: 1.2rem;
+            }
+
+            .btn {
+                padding: 10px 20px;
+                font-size: 1rem;
             }
         }
+    </style>
+</head>
+<body>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+    <div class="container">
+        <div class="start-screen">
+            <h1 class="logo">WUIZZIZZZ - OSN IPS</h1>
+            <p>Ayo asah pengetahuanmu tentang IPS untuk OSN! Tantang dirimu dengan 50 soal seru! Catatan: Jawaban isian singkat harus dalam HURUF BESAR dan TANPA TANDA BACA.</p>
+            <button class="btn" onclick="startQuiz()">Mulai Kuis</button>
+            <button class="btn" onclick="showAdmin()">Tambah Soal (Admin)</button>
+        </div>
 
-        scoreDisplay.textContent = 'Skor: ' + score;
-        disableOptions();
-        setTimeout(() => {
-            currentQuestionIndex++;
-            showQuestion();
-        }, 1500);
-    }
+        <div class="question-screen">
+            <div class="timer">
+                <div class="timer-bar"><div class="timer-progress"></div></div>
+                <span class="timer-text">30 detik</span>
+            </div>
+            <div class="question-number"></div>
+            <div class="question-text"></div>
+            <img class="question-image" style="display: none;">
+            <div class="options"></div>
+            <div class="short-answer" style="display: none;">
+                <input type="text" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
+                <button class="btn" onclick="checkShortAnswer()">Kirim</button>
+            </div>
+            <div class="score">Skor: 0</div>
+        </div>
 
-    function disableOptions() {
-        const options = document.querySelectorAll('.option-button');
-        options.forEach(button => button.disabled = true);
-        if (shortAnswerInput) shortAnswerInput.disabled = true;
-        if (submitAnswerBtn) submitAnswerBtn.disabled = true;
-    }
+        <div class="result-screen">
+            <h2>Hasil Kuis</h2>
+            <p id="total-score"></p>
+            <p id="correct-answers"></p>
+            <p id="time-taken"></p>
+            <button class="btn" onclick="playAgain()">Main Lagi</button>
+            <button class="btn" onclick="shareScore()">Bagikan Skor</button>
+            <div class="leaderboard">
+                <h3>Leaderboard</h3>
+                <ul id="leaderboard-list"></ul>
+            </div>
+        </div>
 
-    function resetTimer(duration) {
-        timeRemaining = duration;
-        timeBar.style.width = '100%';
-        timeBar.style.backgroundColor = varColor('primary-orange');
+        <div class="admin-section">
+            <h2>Tambah Soal Baru</h2>
+            <select id="question-type">
+                <option value="multiple">Pilihan Ganda</option>
+                <option value="short">Isian Singkat</option>
+            </select>
+            <textarea id="question-text" placeholder="Masukkan teks soal"></textarea>
+            <input id="question-image" placeholder="URL gambar (opsional)">
+            <input id="option-a" placeholder="Pilihan A" style="display: none;">
+            <input id="option-b" placeholder="Pilihan B" style="display: none;">
+            <input id="option-c" placeholder="Pilihan C" style="display: none;">
+            <input id="option-d" placeholder="Pilihan D" style="display: none;">
+            <input id="correct-answer" placeholder="Jawaban benar (A/B/C/D untuk pilihan ganda, teks untuk isian)">
+            <button class="btn" onclick="addQuestion()">Tambah Soal</button>
+            <button class="btn" onclick="hideAdmin()">Kembali</button>
+        </div>
+    </div>
+
+    <script>
         
-        timer = setInterval(() => {
-            timeRemaining--;
-            const percentage = (timeRemaining / duration) * 100;
-            timeBar.style.width = percentage + '%';
 
-            if (percentage < 25) {
-                timeBar.style.backgroundColor = varColor('wrong-red');
-            } else if (percentage < 50) {
-                timeBar.style.backgroundColor = varColor('secondary-yellow');
+        let currentQuestion = 0;
+        let score = 0;
+        let correctAnswers = 0;
+        let startTime = null;
+        let timerInterval = null;
+        let timeLeft = 30;
+        let totalTime = 0;
+
+        function startQuiz() {
+            document.querySelector('.start-screen').style.diconst questions = [
+    // 30 Multiple-Choice Questions
+    {
+        type: "multiple",
+        text: "Luas laut Indonesia mencakup 2/3 dari seluruh luas wilayah Indonesia dan memiliki garis pantai terpanjang kedua di dunia. Salah satu potensi sumber daya air laut adalah pemanfaatannya untuk pembuatan garam. Secara geografis, wilayah yang paling berpotensi untuk mendukung kegiatan tersebut adalah pesisir ....",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        options: ["Utara Papua", "Timur Kalimantan", "Selatan Sulawesi", "Barat Sumatera"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Sungai terpanjang di Indonesia adalah sungai ....",
+        image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+        options: ["Kapuas", "Mahakam", "Barito", "Mamberamo"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Gunung tertinggi di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+        options: ["Rinjani", "Kerinci", "Jayawijaya", "Semeru"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Provinsi di Indonesia yang memiliki jumlah penduduk terbanyak adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        options: ["Jawa Barat", "Jawa Timur", "DKI Jakarta", "Sumatera Utara"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Kerajaan Hindu tertua di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        options: ["Sriwijaya", "Kutai", "Tarumanegara", "Mataram"]),
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Komoditas utama perdagangan pada masa kolonial Belanda di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Teh", "Kopi", "Cengkeh", "Berasa"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Pulau di Indonesia yang terkenal dengan tambang nikel terbesar adalah ....",
+        image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
+        options: ["Sumatera", "Kalimantan", "Sulawesi", "Papua"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Organisasi pergerakan nasional pertama di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+        options: ["Budi Utomo", "Sarekat Islam", "Indische Partij", "Partai Nasional Indonesia"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Ibu kota negara Indonesia sebelum Jakarta adalah ....",
+        image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
+        options: ["Bandung", "Yogyakarta", "Surabaya", "Medan"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Benua yang menjadi asal flora dan fauna di Indonesia bagian barat adalah ....",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        options: ["Asia", "Australia", "Afrika", "Eropa"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Sumber daya alam yang menjadi penyumbang devisa terbesar dari sektor pertambangan adalah ....",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        options: ["Emas", "Tembaga", "Minyak Bumi", "Batu Bara"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Pahlawan nasional yang memimpin perang gerilya di Aceh adalah ....",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        options: ["Cut Nyak Dien", "Sultan Hasanuddin", "Pangeran Diponegoro", "Tuanku Imam Bonjol"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Sistem tanam paksa pada masa kolonial Belanda disebut juga ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Landrent", "Cultuurstelsel", "Preangerstelsel", "Contingenten"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Wilayah Indonesia yang terkenal dengan produksi kopi adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Toraja", "Gayo", "Luwu", "Mandailing"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Candi Borobudur merupakan peninggalan kerajaan ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        options: ["Sriwijaya", "Mataram Kuno", "Majapahit", "Singhasari"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Pelabuhan tersibuk di Indonesia pada masa kolonial adalah ....",
+        image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+        options: ["Surabaya", "Makassar", "Banten", "Jakarta"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Gunung berapi yang terkenal di Bali adalah ....",
+        image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+        options: ["Agung", "Batur", "Bromo", "Merapi"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Organisasi internasional yang didirikan Indonesia bersama negara lain pada tahun 1967 adalah ....",
+        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+        options: ["ASEAN", "PBB", "OPEC", "APEC"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Suku yang mendiami wilayah Papua adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        options: ["Dayak", "Asmat", "Minangkabau", "Batak"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Mata uang resmi Indonesia sebelum kemerdekaan adalah ....",
+        image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
+        options: ["Gulden", "Rupiah", "Dollar", "Yen"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Pusat kerajaan Majapahit terletak di wilayah ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        options: ["Jawa Barat", "Jawa Tengah", "Jawa Timur", "Bali"],
+        correct: "C"
+    },
+    {
+        type: "multiple",
+        text: "Sumber daya alam yang banyak ditemukan di Kalimantan adalah ....",
+        image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
+        options: ["Emas", "Minyak Bumi", "Tembaga", "Nikel"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Tari tradisional dari Bali adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        options: ["Saman", "Kecak", "Jaipong", "Piring"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Proklamasi kemerdekaan Indonesia diumumkan di kota ....",
+        image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
+        options: ["Jakarta", "Yogyakarta", "Surabaya", "Bandung"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Wilayah Indonesia yang dikenal sebagai lumbung padi adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Jawa Tengah", "Sumatera Barat", "Sulawesi Selatan", "Kalimantan Selatan"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Pahlawan nasional dari Sulawesi Selatan adalah ....",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        options: ["Pattimura", "Sultan Hasanuddin", "Tuanku Imam Bonjol", "Cut Nyak Dien"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Sistem ekonomi yang diterapkan pada masa kolonial Inggris di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Cultuurstelsel", "Landrent", "Contingenten", "Preangerstelsel"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Wilayah Indonesia yang terkenal dengan produksi teh adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        options: ["Jawa Barat", "Sumatera Utara", "Jawa Tengah", "Bali"],
+        correct: "A"
+    },
+    {
+        type: "multiple",
+        text: "Candi Prambanan merupakan peninggalan kerajaan ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        options: ["Sriwijaya", "Mataram Kuno", "Majapahit", "Singhasari"],
+        correct: "B"
+    },
+    {
+        type: "multiple",
+        text: "Konferensi yang menghasilkan pengakuan kedaulatan Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+        options: ["Konferensi Meja Bundar", "Konferensi Asia Afrika", "Konferensi Panca Negara", "Konferensi Colombo"],
+        correct: "A"
+    },
+
+    // 20 Short-Answer Questions
+    {
+        type: "short",
+        text: "Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran ................. yang menyatu dengan benua Australia merupakan daerah migrasi fauna.",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        correct: "SAHUL"
+    },
+    {
+        type: "short",
+        text: "Ibukota provinsi Jawa Tengah adalah ....",
+        image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+        correct: "SEMARANG"
+    },
+    {
+        type: "short",
+        text: "Pulau terbesar di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+        correct: "KALIMANTAN"
+    },
+    {
+        type: "short",
+        text: "Pahlawan nasional yang dikenal sebagai Bapak Proklamator adalah ....",
+        image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
+        correct: "SOEKARNO"
+    },
+    {
+        type: "short",
+        text: "Sungai yang menjadi batas alam antara Pulau Jawa dan Bali adalah ....",
+        image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
+        correct: "SELAT BALI"
+    },
+    {
+        type: "short",
+        text: "Kerajaan Islam pertama di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        correct: "SAMUDERA PASAI"
+    },
+    {
+        type: "short",
+        text: "Gunung berapi aktif di Jawa Timur yang terkenal adalah ....",
+        image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
+        correct: "BROMO"
+    },
+    {
+        type: "short",
+        text: "Mata pencaharian utama penduduk di dataran tinggi Dieng adalah ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        correct: "PETANI"
+    },
+    {
+        type: "short",
+        text: "Suku yang mendiami wilayah Sumatera Barat adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        correct: "MINANGKABAU"
+    },
+    {
+        type: "short",
+        text: "Perjanjian yang mengakhiri kekuasaan Belanda di Indonesia adalah ....",
+        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+        correct: "KONFERENSI MEJA BUNDAR"
+    },
+    {
+        type: "short",
+        text: "Provinsi di Indonesia yang memiliki pulau terbanyak adalah ....",
+        image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
+        correct: "KEPULAUAN RIAU"
+    },
+    {
+        type: "short",
+        text: "Alat musik tradisional dari Jawa Barat adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        correct: "ANGKLUNG"
+    },
+    {
+        type: "short",
+        text: "Pahlawan nasional yang memimpin perlawanan di Bali adalah ....",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        correct: "I GUSTI NGURAH RAI"
+    },
+    {
+        type: "short",
+        text: "Sumber daya alam utama di Papua adalah ....",
+        image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
+        correct: "TEMBAGA"
+    },
+    {
+        type: "short",
+        text: "Tarian tradisional dari Aceh adalah ....",
+        image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
+        correct: "SAMAN"
+    },
+    {
+        type: "short",
+        text: "Wilayah Indonesia yang dikenal sebagai penghasil minyak bumi terbesar adalah ....",
+        image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
+        correct: "RIAU"
+    },
+    {
+        type: "short",
+        text: "Nama kerajaan yang berpusat di Yogyakarta pada masa kolonial adalah ....",
+        image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
+        correct: "MATARAM"
+    },
+    {
+        type: "short",
+        text: "Sistem irigasi tradisional di Bali disebut ....",
+        image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+        correct: "SUBAK"
+    },
+    {
+        type: "short",
+        text: "Pahlawan nasional yang dikenal dengan perang gerilya di Jawa adalah ....",
+        image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
+        correct: "PANGERAN DIPONEGORO"
+    },
+    {
+        type: "short",
+        text: "Organisasi pergerakan nasional yang didirikan oleh Ki Hajar Dewantara adalah ....",
+        image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
+        correct: "TAMAN SISWA"
+    }
+];
+            splay = 'none';
+            document.querySelector('.question-screen').style.display = 'block';
+            startTime = new Date();
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            const q = questions[currentQuestion];
+            timeLeft = q.type === "multiple" ? 30 : 45;
+            document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/50`;
+            document.querySelector('.question-text').textContent = q.text;
+            const img = document.querySelector('.question-image');
+            img.src = q.image;
+            img.style.display = q.image ? 'block' : 'none';
+            document.querySelector('.score').textContent = `Skor: ${score}`;
+
+            const optionsDiv = document.querySelector('.options');
+            const shortAnswerDiv = document.querySelector('.short-answer');
+            optionsDiv.innerHTML = '';
+            shortAnswerDiv.style.display = 'none';
+
+            if (q.type === "multiple") {
+                optionsDiv.style.display = 'grid';
+                q.options.forEach((option, i) => {
+                    const btn = document.createElement('div');
+                    btn.classList.add('option');
+                    btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+                    btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
+                    optionsDiv.appendChild(btn);
+                });
             } else {
-                timeBar.style.backgroundColor = varColor('primary-orange');
+                shortAnswerDiv.style.display = 'block';
+                optionsDiv.style.display = 'none';
+                document.querySelector('.short-answer input').value = '';
             }
 
-            if (timeRemaining <= 0) {
-                clearInterval(timer);
-                wrongCount++;
-                totalTime += duration;
-                disableOptions();
-                
-                const questionData = questions[currentQuestionIndex];
-                if (questionData.type === 'multiple-choice') {
-                    const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
-                    if (correctButton) correctButton.classList.add('correct');
+            startTimer();
+        }
+
+        function startTimer() {
+            clearInterval(timerInterval);
+            const timerProgress = document.querySelector('.timer-progress');
+            const timerText = document.querySelector('.timer-text');
+            timerProgress.style.width = '100%';
+            timerText.textContent = `${timeLeft} detik`;
+
+            timerInterval = setInterval(() => {
+                timeLeft--;
+                totalTime++;
+                timerText.textContent = `${timeLeft} detik`;
+                timerProgress.style.width = `${(timeLeft / (questions[currentQuestion].type === "multiple" ? 30 : 45)) * 100}%`;
+
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    checkAnswer(null);
                 }
-                
-                setTimeout(() => {
-                    currentQuestionIndex++;
-                    showQuestion();
-                }, 1500);
+            }, 1000);
+        }
+
+        function checkAnswer(answer) {
+            clearInterval(timerInterval);
+            const q = questions[currentQuestion];
+            let isCorrect = false;
+
+            if (q.type === "multiple") {
+                const options = document.querySelectorAll('.option');
+                options.forEach((opt, i) => {
+                    if (String.fromCharCode(65 + i) === q.correct) {
+                        opt.classList.add('correct');
+                    } else if (String.fromCharCode(65 + i) === answer) {
+                        opt.classList.add('wrong');
+                    }
+                    opt.onclick = null;
+                });
+                isCorrect = answer === q.correct;
+            } else {
+                const userAnswer = document.querySelector('.short-answer input').value.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
+                isCorrect = userAnswer === q.correct;
             }
-        }, 1000);
-    }
 
-    function varColor(variable) {
-        return getComputedStyle(document.documentElement).getPropertyValue('--' + variable);
-    }
-
-    function showResults() {
-        quizPage.style.display = 'none';
-        resultsPage.style.display = 'flex';
-        
-        finalScore.textContent = score;
-        correctAnswersCount.textContent = correctCount;
-        wrongAnswersCount.textContent = wrongCount;
-        timeTakenSpan.textContent = formatTime(totalTime);
-
-        saveScoreToLeaderboard(playerNameInput.value || 'Anonim', score, totalTime);
-    }
-
-    function formatTime(seconds) {
-        const minutes = Math.floor(seconds / 60);
-        const remainingSeconds = seconds % 60;
-        return `${minutes.toString().padStart(2, '0')}:${remainingSeconds.toString().padStart(2, '0')}`;
-    }
-
-    function saveScoreToLeaderboard(name, score, time) {
-        const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-        leaderboard.push({ name, score, time });
-        leaderboard.sort((a, b) => {
-            if (b.score !== a.score) {
-                return b.score - a.score;
+            if (isCorrect) {
+                score += 10;
+                correctAnswers++;
+                if (timeLeft > (q.type === "multiple" ? 20 : 35)) {
+                    totalTime -= 10;
+                    alert("Power-up! +10 detik karena menjawab dalam waktu kurang dari 10 detik!");
+                }
             }
-            return a.time - b.time;
-        });
-        localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
-        renderLeaderboard();
-    }
 
-    function renderLeaderboard() {
-        const leaderboard = JSON.parse(localStorage.getItem('leaderboard')) || [];
-        leaderboardList.innerHTML = '';
-        if (leaderboard.length === 0) {
-            leaderboardList.innerHTML = '<li>Belum ada data skor.</li>';
-        } else {
-            leaderboard.forEach((entry, index) => {
+            setTimeout(() => {
+                currentQuestion++;
+                if (currentQuestion < questions.length) {
+                    loadQuestion();
+                } else {
+                    showResult();
+                }
+            }, 1000);
+        }
+
+        function checkShortAnswer() {
+            const answer = document.querySelector('.short-answer input').value;
+            checkAnswer(answer);
+        }
+
+        function showResult() {
+            document.querySelector('.question-screen').style.display = 'none';
+            document.querySelector('.result-screen').style.display = 'block';
+            const timeTaken = Math.floor((new Date() - startTime) / 1000);
+            document.getElementById('total-score').textContent = `Skor Total: ${score}`;
+            document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/50`;
+            document.getElementById('time-taken').textContent = `Waktu: ${Math.floor(timeTaken / 60)} menit ${timeTaken % 60} detik`;
+
+            updateLeaderboard(score, timeTaken);
+        }
+
+        function updateLeaderboard(score, timeTaken) {
+            const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+            const name = prompt("Masukkan nama untuk leaderboard:");
+            leaderboard.push({ name, score, time: timeTaken });
+            leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
+
+            const list = document.getElementById('leaderboard-list');
+            list.innerHTML = '';
+            leaderboard.slice(0, 5).forEach((entry, i) => {
                 const li = document.createElement('li');
-                li.innerHTML = `<span>${index + 1}. ${entry.name}</span><span>Skor: ${entry.score} - Waktu: ${formatTime(entry.time)}</span>`;
-                leaderboardList.appendChild(li);
+                li.textContent = `${i + 1}. ${entry.name}: ${entry.score} (${Math.floor(entry.time / 60)}m ${entry.time % 60}s)`;
+                list.appendChild(li);
             });
         }
-    }
 
-    function shareScore() {
-        const text = `🎉 Aku berhasil meraih skor ${score} di WUIZZIZZZ - OSN IPS dalam waktu ${formatTime(totalTime)}! Ayo coba tantanganku! #WUIZZIZZZ #OSNIPS`;
-        if (navigator.share) {
-            navigator.share({
-                title: 'Hasil Kuis WUIZZIZZZ',
-                text: text,
-                url: window.location.href,
-            }).catch(error => console.error('Error sharing:', error));
-        } else {
-            alert(text);
+        function playAgain() {
+            currentQuestion = 0;
+            score = 0;
+            correctAnswers = 0;
+            totalTime = 0;
+            document.querySelector('.result-screen').style.display = 'none';
+            document.querySelector('.question-screen').style.display = 'block';
+            startTime = new Date();
+            loadQuestion();
         }
-    }
 
-    function toggleDarkMode() {
-        document.body.classList.toggle('dark-mode');
-        const isDarkMode = document.body.classList.contains('dark-mode');
-        darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
-    }
+        function shareScore() {
+            alert("Fitur bagikan skor belum diimplementasikan. Silakan screenshot hasilmu!");
+        }
 
-    startButton.addEventListener('click', startQuiz);
-    playAgainButton.addEventListener('click', () => {
-        resultsPage.style.display = 'none';
-        startPage.style.display = 'flex';
-        renderLeaderboard();
-    });
-    shareScoreButton.addEventListener('click', shareScore);
-    darkModeToggle.addEventListener('click', toggleDarkMode);
-    
-    // Initial calls
-    renderLeaderboard();
-    document.getElementById('start-page').style.display = 'flex';
-</script>
+        function showAdmin() {
+            document.querySelector('.start-screen').style.display = 'none';
+            document.querySelector('.admin-section').style.display = 'block';
+            document.getElementById('question-type').onchange = function() {
+                const isMultiple = this.value === "multiple";
+                document.getElementById('option-a').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-b').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-c').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-d').style.display = isMultiple ? 'block' : 'none';
+            };
+        }
 
-</body>
-</html>
+        function hideAdmin() {
+            document.querySelector('.admin-section').style.display = 'none';
+            document.querySelector('.start-screen').style.display = 'block';
+        }
+
+        function addQuestion() {
+            const type = document.getElementById('question-type').value;
+            const text = document.getElementById('question-text').value;
+            const image = document.getElementById('question-image').value;
+            const correct = document.getElementById('correct-answe
