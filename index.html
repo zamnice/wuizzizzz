@@ -5,166 +5,42 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WUIZZIZZZ - OSN IPS</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
-
         body {
-            background-color: #FFE8B0;
-            color: #333;
+            font-family: 'Poppins', sans-serif;
             transition: background-color 0.3s, color 0.3s;
         }
-
-        body.dark-mode {
-            background-color: #333;
+        .gradient-bg {
+            background: linear-gradient(135deg, #ff6b00, #f4c425);
+        }
+        .dark-mode {
+            background: linear-gradient(135deg, #333, #555);
             color: #fff;
         }
-
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .logo {
-            font-size: 3rem;
-            font-weight: 700;
-            color: #ff6b00;
-            margin-bottom: 20px;
-            animation: bounce 1s infinite alternate;
-        }
-
-        @keyframes bounce {
-            0% { transform: translateY(0); }
-            100% { transform: translateY(-10px); }
-        }
-
-        .start-screen, .question-screen, .result-screen, .admin-section {
-            background: #fff;
-            border-radius: 20px;
-            padding: 30px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-            margin: 20px auto;
-            transition: background-color 0.3s;
-        }
-
-        body.dark-mode .start-screen,
-        body.dark-mode .question-screen,
-        body.dark-mode .result-screen,
-        body.dark-mode .admin-section {
-            background: #444;
-        }
-
-        .start-screen p {
-            font-size: 1.2rem;
-            color: #555;
-            margin-bottom: 30px;
-        }
-
-        body.dark-mode .start-screen p {
-            color: #ccc;
-        }
-
         .btn {
-            background: #ff6b00;
-            color: #fff;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 10px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
-            pointer-events: auto;
+            transition: all 0.3s ease;
         }
-
         .btn:hover {
-            background: #e55f00;
             transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
         }
-
-        .question-screen, .result-screen, .admin-section {
-            display: none;
-        }
-
-        .timer {
-            margin-bottom: 20px;
-        }
-
-        .timer-bar {
-            width: 100%;
-            height: 10px;
-            background: #ccc;
-            border-radius: 5px;
-            overflow: hidden;
-        }
-
-        .timer-progress {
-            height: 100%;
-            background: #f4c425;
-            width: 100%;
-            transition: width linear;
-        }
-
-        .question-number {
-            font-size: 1.2rem;
-            margin-bottom: 10px;
-        }
-
-        .question-text {
-            font-size: 1.5rem;
-            margin-bottom: 20px;
-        }
-
-        .question-image {
-            max-width: 100%;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            display: none;
-        }
-
-        .options {
-            display: grid;
-            gap: 10px;
-        }
-
-        .option {
-            background: #f4c425;
-            padding: 15px;
-            border-radius: 10px;
-            cursor: pointer;
-            font-size: 1.1rem;
-            transition: transform 0.2s, background 0.3s;
-            pointer-events: auto;
-        }
-
         .option:hover {
             transform: scale(1.02);
-            background: #e0b020;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
         }
-
-        .option.correct {
-            animation: correct 0.5s;
-            background: #28a745;
-            color: #fff;
+        .correct {
+            animation: correct 0.5s ease;
         }
-
-        .option.wrong {
-            animation: wrong 0.5s;
-            background: #dc3545;
-            color: #fff;
+        .wrong {
+            animation: wrong 0.5s ease;
         }
-
         @keyframes correct {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-
         @keyframes wrong {
             0% { transform: translateX(0); }
             25% { transform: translateX(-10px); }
@@ -172,470 +48,385 @@
             75% { transform: translateX(-10px); }
             100% { transform: translateX(0); }
         }
-
-        .short-answer input {
-            padding: 10px;
-            font-size: 1.1rem;
-            width: 100%;
-            border: 2px solid #ff6b00;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            text-transform: uppercase;
+        .pulse {
+            animation: pulse 1s infinite;
         }
-
-        .result-screen h2 {
-            font-size: 2rem;
-            color: #ff6b00;
-            margin-bottom: 20px;
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
         }
-
-        .leaderboard {
-            margin-top: 20px;
-            text-align: left;
-        }
-
-        .leaderboard ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .leaderboard li {
-            background: #f4c425;
-            padding: 10px;
-            margin: 5px 0;
-            border-radius: 5px;
-            font-size: 1.1rem;
-        }
-
-        .admin-section input, .admin-section select, .admin-section textarea {
-            width: 100%;
-            padding: 10px;
-            margin: 10px 0;
-            border-radius: 5px;
-            border: 1px solid #ccc;
-        }
-
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
-            right: 20px;
-            background: #ff6b00;
-            color: #fff;
-            padding: 10px;
-            border-radius: 50%;
-            cursor: pointer;
+            right: 50px;
         }
-
+        .question-text {
+            font-size: 1.1rem;
+        }
         @media (max-width: 600px) {
-            .container {
-                padding: 10px;
-            }
-
-            .logo {
-                font-size: 2rem;
-            }
-
             .question-text {
-                font-size: 1.2rem;
+                font-size: 0.9rem;
             }
-
-            .btn {
-                padding: 10px 20px;
-                font-size: 1rem;
+            .dark-mode-toggle {
+                right: 30px;
             }
         }
     </style>
 </head>
-<body>
-    <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
-    <div class="container">
-        <div class="start-screen">
-            <h1 class="logo">WUIZZIZZZ - OSN IPS</h1>
-            <p>Ayo asah pengetahuanmu tentang IPS untuk OSN! Tantang dirimu dengan 50 soal seru! Catatan: Jawaban isian singkat harus dalam HURUF BESAR dan TANPA TANDA BACA.</p>
-            <button class="btn" onclick="startQuiz()">Mulai Kuis</button>
-            <button class="btn" onclick="showAdmin()">Tambah Soal (Admin)</button>
+<body class="gradient-bg min-h-screen">
+    <div class="dark-mode-toggle bg-orange-500 text-white p-2 rounded-full cursor-pointer" onclick="toggleDarkMode()">🌙</div>
+    <div class="container max-w-3xl mx-auto p-4">
+        <div class="start-screen bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+            <h1 class="text-4xl font-bold text-orange-500 mb-4 animate-bounce">WUIZZIZZZ - OSN IPS</h1>
+            <p class="text-lg text-gray-600 dark:text-gray-300 mb-6">
+                Tantang dirimu dengan 50 soal OSN IPS level nasional! 💪 Jawab 30 soal pilihan ganda (30 detik/soal) dan 20 soal isian singkat (45 detik/soal). Jawaban isian harus dalam <strong>HURUF BESAR</strong> tanpa tanda baca. Dapatkan <strong>power-up</strong> (🔥 +10 detik) jika menjawab dalam 10 detik! Pilih hingga 3 soal untuk redemption quiz di akhir. Ayo raih skor tertinggi! 🚀
+            </p>
+            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="startQuiz()">Mulai Kuis</button>
+            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold ml-4" onclick="showAdmin()">Tambah Soal (Admin)</button>
         </div>
 
-        <div class="question-screen">
-            <div class="timer">
-                <div class="timer-bar"><div class="timer-progress"></div></div>
-                <span class="timer-text">30 detik</span>
+        <div class="question-screen hidden">
+            <div class="nav-card bg-white dark:bg-gray-800 rounded-2xl p-4 mb-4 shadow-lg flex justify-between items-center">
+                <div class="score text-lg font-semibold text-orange-500">Skor: 0</div>
+                <div class="powerup hidden text-2xl pulse">🔥</div>
+                <div class="timer flex items-center">
+                    <div class="timer-bar w-32 h-2 bg-gray-300 rounded-full overflow-hidden mr-2">
+                        <div class="timer-progress h-full bg-yellow-400" style="width: 100%;"></div>
+                    </div>
+                    <span class="timer-text text-gray-600 dark:text-gray-300">30 detik</span>
+                </div>
             </div>
-            <div class="question-number"></div>
-            <div class="question-text"></div>
-            <img class="question-image">
-            <div class="options"></div>
-            <div class="short-answer" style="display: none;">
-                <input type="text" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
-                <button class="btn" onclick="checkShortAnswer()">Kirim</button>
-            </div>
-            <div class="score">Skor: 0</div>
-        </div>
-
-        <div class="result-screen">
-            <h2>Hasil Kuis</h2>
-            <p id="total-score"></p>
-            <p id="correct-answers"></p>
-            <p id="time-taken"></p>
-            <button class="btn" onclick="playAgain()">Main Lagi</button>
-            <button class="btn" onclick="shareScore()">Bagikan Skor</button>
-            <div class="leaderboard">
-                <h3>Leaderboard</h3>
-                <ul id="leaderboard-list"></ul>
+            <div class="question-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                <div class="question-number text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2"></div>
+                <div class="question-text mb-4"></div>
+                <div class="options grid gap-3"></div>
+                <div class="short-answer hidden">
+                    <input type="text" class="w-full p-3 border-2 border-orange-500 rounded-lg text-uppercase" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
+                    <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold mt-3" onclick="checkShortAnswer()">Kirim</button>
+                </div>
             </div>
         </div>
 
-        <div class="admin-section">
-            <h2>Tambah Soal Baru</h2>
-            <select id="question-type">
+        <div class="result-screen hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-orange-500 mb-4">Hasil Kuis</h2>
+            <p id="total-score" class="text-lg mb-2"></p>
+            <p id="correct-answers" class="text-lg mb-2"></p>
+            <p id="time-taken" class="text-lg mb-4"></p>
+            <div class="redemption hidden mb-4">
+                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Redemption Quiz</h3>
+                <p class="text-gray-600 dark:text-gray-300 mb-2">Pilih hingga 3 soal yang salah/tidak dijawab untuk dijawab ulang:</p>
+                <div id="redemption-options" class="flex flex-wrap gap-2"></div>
+                <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold mt-3" onclick="startRedemption()">Mulai Redemption</button>
+            </div>
+            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="playAgain()">Main Lagi</button>
+            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold ml-4" onclick="shareScore()">Bagikan Skor</button>
+            <div class="leaderboard mt-6">
+                <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Leaderboard</h3>
+                <ul id="leaderboard-list" class="text-left"></ul>
+            </div>
+        </div>
+
+        <div class="admin-section hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
+            <h2 class="text-2xl font-bold text-orange-500 mb-4">Tambah Soal Baru</h2>
+            <select id="question-type" class="w-full p-3 border rounded-lg mb-4">
                 <option value="multiple">Pilihan Ganda</option>
                 <option value="short">Isian Singkat</option>
             </select>
-            <textarea id="question-text" placeholder="Masukkan teks soal"></textarea>
-            <input id="question-image" placeholder="URL gambar (opsional)">
-            <input id="option-a" placeholder="Pilihan A" style="display: none;">
-            <input id="option-b" placeholder="Pilihan B" style="display: none;">
-            <input id="option-c" placeholder="Pilihan C" style="display: none;">
-            <input id="option-d" placeholder="Pilihan D" style="display: none;">
-            <input id="correct-answer" placeholder="Jawaban benar (A/B/C/D untuk pilihan ganda, teks untuk isian)">
-            <button class="btn" onclick="addQuestion()">Tambah Soal</button>
-            <button class="btn" onclick="hideAdmin()">Kembali</button>
+            <textarea id="question-text" class="w-full p-3 border rounded-lg mb-4" placeholder="Masukkan teks soal"></textarea>
+            <input id="option-a" class="w-full p-3 border rounded-lg mb-4 hidden" placeholder="Pilihan A">
+            <input id="option-b" class="w-full p-3 border rounded-lg mb-4 hidden" placeholder="Pilihan B">
+            <input id="option-c" class="w-full p-3 border rounded-lg mb-4 hidden" placeholder="Pilihan C">
+            <input id="option-d" class="w-full p-3 border rounded-lg mb-4 hidden" placeholder="Pilihan D">
+            <input id="correct-answer" class="w-full p-3 border rounded-lg mb-4" placeholder="Jawaban benar (A/B/C/D untuk pilihan ganda, teks untuk isian)">
+            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="addQuestion()">Tambah Soal</button>
+            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold ml-4" onclick="hideAdmin()">Kembali</button>
         </div>
     </div>
 
     <script>
         const questions = [
-            // 30 Multiple-Choice Questions
+            // 30 Multiple-Choice Questions (Challenging, OSN IPS Level)
             {
                 type: "multiple",
                 text: "Luas laut Indonesia mencakup 2/3 dari seluruh luas wilayah Indonesia dan memiliki garis pantai terpanjang kedua di dunia. Salah satu potensi sumber daya air laut adalah pemanfaatannya untuk pembuatan garam. Secara geografis, wilayah yang paling berpotensi untuk mendukung kegiatan tersebut adalah pesisir ....",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
                 options: ["Utara Papua", "Timur Kalimantan", "Selatan Sulawesi", "Barat Sumatera"],
                 correct: "C"
             },
             {
                 type: "multiple",
-                text: "Sungai terpanjang di Indonesia adalah sungai ....",
-                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
-                options: ["Kapuas", "Mahakam", "Barito", "Mamberamo"],
+                text: "Pada masa kolonial Belanda, sistem tanam paksa (Cultuurstelsel) diterapkan untuk memaksimalkan ekspor komoditas. Salah satu dampak sosial dari sistem ini adalah ....",
+                options: ["Peningkatan kesejahteraan petani", "Penurunan jumlah penduduk desa", "Peningkatan migrasi ke kota", "Pemusatan kekayaan di tangan bangsawan lokal"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Interaksi antara lempeng tektonik Indo-Australia dan Eurasia menyebabkan aktivitas vulkanik di Indonesia. Fenomena geologis ini paling dominan di wilayah ....",
+                options: ["Cincin Api Pasifik", "Dataran Sunda", "Lempeng Sahul", "Pegunungan Himalaya"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Gunung tertinggi di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
-                options: ["Rinjani", "Kerinci", "Jayawijaya", "Semeru"],
+                text: "Kerajaan Sriwijaya mencapai puncak kejayaan pada abad ke-7 karena penguasaan perdagangan di Selat Malaka. Salah satu komoditas utama yang diperdagangkan adalah ....",
+                options: ["Emas", "Cengkeh", "Lada", "Tembaga"],
                 correct: "C"
             },
             {
                 type: "multiple",
-                text: "Provinsi di Indonesia yang memiliki jumlah penduduk terbanyak adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                options: ["Jawa Barat", "Jawa Timur", "DKI Jakarta", "Sumatera Utara"],
+                text: "Pada masa revolusi kemerdekaan, Konferensi Meja Bundar menghasilkan pengakuan kedaulatan Indonesia. Salah satu syaratnya adalah pembentukan negara ....",
+                options: ["Republik Indonesia Serikat", "Negara Indonesia Timur", "Kesultanan Yogyakarta", "Republik Maluku Selatan"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Kerajaan Hindu tertua di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                options: ["Sriwijaya", "Kutai", "Tarumanegara", "Mataram"],
+                text: "Struktur sosial masyarakat Minangkabau berdasarkan garis keturunan ibu disebut ....",
+                options: ["Patrilineal", "Matrilineal", "Bilateral", "Unilineal"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Komoditas utama perdagangan pada masa kolonial Belanda di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Teh", "Kopi", "Cengkeh", "Beras"],
+                text: "Faktor utama yang mendorong masuknya pengaruh Hindu-Buddha ke Indonesia adalah ....",
+                options: ["Perang antarkerajaan", "Perdagangan maritim", "Penjajahan Eropa", "Migrasi besar-besaran"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Wilayah Indonesia yang memiliki potensi geotermal terbesar karena aktivitas vulkanik adalah ....",
+                options: ["Sumatera Utara", "Jawa Barat", "Sulawesi Utara", "Nusa Tenggara Timur"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Pada masa kolonial Inggris, sistem landrent diterapkan di Jawa untuk menggantikan Cultuurstelsel. Sistem ini berfokus pada ....",
+                options: ["Pajak tanah berdasarkan luas lahan", "Eksploitasi tenaga kerja petani", "Monopoli perdagangan rempah", "Pengelolaan irigasi sawah"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Perlawanan Diponegoro di Jawa dipicu oleh penyalahgunaan tanah oleh Belanda, termasuk pembangunan ....",
+                options: ["Jalan Anyer-Panarukan", "Benteng Stelsel", "Jembatan Kali Mas", "Pelabuhan Sunda Kelapa"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Sumber daya alam di Kalimantan yang menjadi penyumbang devisa terbesar adalah ....",
+                options: ["Minyak bumi", "Batu bara", "Emas", "Kayu"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Candi Borobudur mencerminkan pengaruh agama Buddha aliran ....",
+                options: ["Theravada", "Mahayana", "Hinayana", "Vajrayana"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Organisasi Budi Utomo didirikan pada tahun 1908 dengan tujuan utama ....",
+                options: ["Kemajuan pendidikan dan budaya", "Perlawanan bersenjata", "Pemisahan wilayah Jawa", "Pembentukan partai politik"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Wilayah Indonesia yang memiliki keanekaragaman flora dan fauna tipe Australis adalah ....",
+                options: ["Jawa", "Sumatera", "Papua", "Kalimantan"],
                 correct: "C"
             },
             {
                 type: "multiple",
-                text: "Pulau di Indonesia yang terkenal dengan tambang nikel terbesar adalah ....",
-                image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
-                options: ["Sumatera", "Kalimantan", "Sulawesi", "Papua"],
-                correct: "C"
-            },
-            {
-                type: "multiple",
-                text: "Organisasi pergerakan nasional pertama di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
-                options: ["Budi Utomo", "Sarekat Islam", "Indische Partij", "Partai Nasional Indonesia"],
-                correct: "A"
-            },
-            {
-                type: "multiple",
-                text: "Ibu kota negara Indonesia sebelum Jakarta adalah ....",
-                image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
-                options: ["Bandung", "Yogyakarta", "Surabaya", "Medan"],
+                text: "Pada masa kolonial Portugis, pelabuhan utama di Indonesia adalah ....",
+                options: ["Banten", "Malaka", "Makassar", "Surabaya"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Benua yang menjadi asal flora dan fauna di Indonesia bagian barat adalah ....",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-                options: ["Asia", "Australia", "Afrika", "Eropa"],
+                text: "Sistem irigasi tradisional Subak di Bali berfungsi untuk mengatur distribusi air pada lahan ....",
+                options: ["Sawah", "Kebun", "Tambak", "Tegalan"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Sumber daya alam yang menjadi penyumbang devisa terbesar dari sektor pertambangan adalah ....",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-                options: ["Emas", "Tembaga", "Minyak Bumi", "Batu Bara"],
-                correct: "C"
-            },
-            {
-                type: "multiple",
-                text: "Pahlawan nasional yang memimpin perang gerilya di Aceh adalah ....",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-                options: ["Cut Nyak Dien", "Sultan Hasanuddin", "Pangeran Diponegoro", "Tuanku Imam Bonjol"],
+                text: "Faktor utama yang menyebabkan keruntuhan Kerajaan Majapahit adalah ....",
+                options: ["Perang saudara Paregreg", "Penjajahan Belanda", "Bencana alam", "Krisis ekonomi"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Sistem tanam paksa pada masa kolonial Belanda disebut juga ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Landrent", "Cultuurstelsel", "Preangerstelsel", "Contingenten"],
-                correct: "B"
-            },
-            {
-                type: "multiple",
-                text: "Wilayah Indonesia yang terkenal dengan produksi kopi adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Toraja", "Gayo", "Luwu", "Mandailing"],
-                correct: "B"
-            },
-            {
-                type: "multiple",
-                text: "Candi Borobudur merupakan peninggalan kerajaan ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                options: ["Sriwijaya", "Mataram Kuno", "Majapahit", "Singhasari"],
-                correct: "B"
-            },
-            {
-                type: "multiple",
-                text: "Pelabuhan tersibuk di Indonesia pada masa kolonial adalah ....",
-                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
-                options: ["Surabaya", "Makassar", "Banten", "Jakarta"],
-                correct: "C"
-            },
-            {
-                type: "multiple",
-                text: "Gunung berapi yang terkenal di Bali adalah ....",
-                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
-                options: ["Agung", "Batur", "Bromo", "Merapi"],
+                text: "Sumber daya mineral yang dominan di Bangka Belitung adalah ....",
+                options: ["Timah", "Tembaga", "Nikel", "Besi"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Organisasi internasional yang didirikan Indonesia bersama negara lain pada tahun 1967 adalah ....",
-                image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
-                options: ["ASEAN", "PBB", "OPEC", "APEC"],
-                correct: "A"
-            },
-            {
-                type: "multiple",
-                text: "Suku yang mendiami wilayah Papua adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                options: ["Dayak", "Asmat", "Minangkabau", "Batak"],
+                text: "Pahlawan nasional yang memimpin perlawanan terhadap Belanda di Maluku adalah ....",
+                options: ["Sultan Hasanuddin", "Pattimura", "Tuanku Imam Bonjol", "Cut Nyak Dien"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Mata uang resmi Indonesia sebelum kemerdekaan adalah ....",
-                image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
-                options: ["Gulden", "Rupiah", "Dollar", "Yen"],
-                correct: "A"
-            },
-            {
-                type: "multiple",
-                text: "Pusat kerajaan Majapahit terletak di wilayah ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                options: ["Jawa Barat", "Jawa Tengah", "Jawa Timur", "Bali"],
-                correct: "C"
-            },
-            {
-                type: "multiple",
-                text: "Sumber daya alam yang banyak ditemukan di Kalimantan adalah ....",
-                image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
-                options: ["Emas", "Minyak Bumi", "Tembaga", "Nikel"],
+                text: "Konferensi Asia-Afrika 1955 di Bandung bertujuan untuk ....",
+                options: ["Memperkuat blok komunis", "Mempromosikan perdamaian dunia", "Mendirikan ASEAN", "Menentang kemerdekaan Indonesia"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Tari tradisional dari Bali adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                options: ["Saman", "Kecak", "Jaipong", "Piring"],
+                text: "Struktur ekonomi feodal pada masa Kerajaan Mataram Kuno didasarkan pada sistem ....",
+                options: ["Perdagangan maritim", "Pajak tanah sawah", "Monopoli rempah", "Perkebunan lada"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Proklamasi kemerdekaan Indonesia diumumkan di kota ....",
-                image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
-                options: ["Jakarta", "Yogyakarta", "Surabaya", "Bandung"],
+                text: "Wilayah Indonesia yang dikenal sebagai penghasil kopi Gayo adalah ....",
+                options: ["Aceh", "Jawa Barat", "Toraja", "Sumatera Utara"],
                 correct: "A"
             },
             {
                 type: "multiple",
-                text: "Wilayah Indonesia yang dikenal sebagai lumbung padi adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Jawa Tengah", "Sumatera Barat", "Sulawesi Selatan", "Kalimantan Selatan"],
-                correct: "A"
-            },
-            {
-                type: "multiple",
-                text: "Pahlawan nasional dari Sulawesi Selatan adalah ....",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-                options: ["Pattimura", "Sultan Hasanuddin", "Tuanku Imam Bonjol", "Cut Nyak Dien"],
+                text: "Pada masa kolonial Belanda, VOC mendirikan benteng di wilayah .... untuk menguasai perdagangan rempah",
+                options: ["Jakarta", "Ambon", "Surabaya", "Banten"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Sistem ekonomi yang diterapkan pada masa kolonial Inggris di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Cultuurstelsel", "Landrent", "Contingenten", "Preangerstelsel"],
+                text: "Faktor iklim yang memengaruhi persebaran flora di Indonesia adalah ....",
+                options: ["Tekanan udara", "Curah hujan", "Ketinggian tanah", "Suhu rata-rata"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Wilayah Indonesia yang terkenal dengan produksi teh adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                options: ["Jawa Barat", "Sumatera Utara", "Jawa Tengah", "Bali"],
-                correct: "A"
-            },
-            {
-                type: "multiple",
-                text: "Candi Prambanan merupakan peninggalan kerajaan ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                options: ["Sriwijaya", "Mataram Kuno", "Majapahit", "Singhasari"],
+                text: "Perlawanan Sultan Hasanuddin di Gowa dipicu oleh monopoli perdagangan oleh ....",
+                options: ["Portugis", "Belanda", "Inggris", "Spanyol"],
                 correct: "B"
             },
             {
                 type: "multiple",
-                text: "Konferensi yang menghasilkan pengakuan kedaulatan Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
-                options: ["Konferensi Meja Bundar", "Konferensi Asia Afrika", "Konferensi Panca Negara", "Konferensi Colombo"],
+                text: "Sistem ekonomi tradisional pada masyarakat Bugis-Makassar dikenal sebagai ....",
+                options: ["Subak", "Ladang berpindah", "Pattun", "Sawah"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Candi Prambanan merupakan peninggalan agama ....",
+                options: ["Buddha", "Hindu", "Islam", "Kristen"],
+                correct: "B"
+            },
+            {
+                type: "multiple",
+                text: "Sumber daya alam yang menjadi tulang punggung ekonomi di Riau adalah ....",
+                options: ["Minyak bumi", "Timah", "Emas", "Nikel"],
                 correct: "A"
             },
-            // 20 Short-Answer Questions
+            {
+                type: "multiple",
+                text: "Organisasi Sarekat Islam awalnya bertujuan untuk ....",
+                options: ["Kemajuan perdagangan pribumi", "Perlawanan politik", "Pendidikan modern", "Pemisahan agama dan negara"],
+                correct: "A"
+            },
+            {
+                type: "multiple",
+                text: "Perjanjian Linggarjati mengakui kedaulatan Indonesia atas wilayah ....",
+                options: ["Jawa dan Madura", "Sumatera", "Kalimantan", "Sulawesi"],
+                correct: "A"
+            },
+            // 20 Short-Answer Questions (Challenging, OSN IPS Level)
             {
                 type: "short",
                 text: "Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran ................. yang menyatu dengan benua Australia merupakan daerah migrasi fauna.",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
                 correct: "SAHUL"
             },
             {
                 type: "short",
-                text: "Ibukota provinsi Jawa Tengah adalah ....",
-                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
-                correct: "SEMARANG"
+                text: "Kerajaan Islam di Indonesia yang menjadi pusat pendidikan agama pada abad ke-16 adalah ....",
+                correct: "DEMAK"
             },
             {
                 type: "short",
-                text: "Pulau terbesar di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
-                correct: "KALIMANTAN"
+                text: "Gunung berapi di Indonesia yang menyebabkan bencana global pada tahun 1815 adalah ....",
+                correct: "TAMBORA"
             },
             {
                 type: "short",
-                text: "Pahlawan nasional yang dikenal sebagai Bapak Proklamator adalah ....",
-                image: "https://images.unsplash.com/photo-1516321313122-18b4c1a5e7b0",
-                correct: "SOEKARNO"
+                text: "Sistem tanam paksa di Jawa pada masa kolonial Belanda dikenal sebagai ....",
+                correct: "CULTUURSTELSEL"
             },
             {
                 type: "short",
-                text: "Sungai yang menjadi batas alam antara Pulau Jawa dan Bali adalah ....",
-                image: "https://images.unsplash.com/photo-1516306580123-e6e52b1b7b9f",
-                correct: "SELAT BALI"
+                text: "Pahlawan nasional yang memimpin perlawanan terhadap Belanda di Minangkabau adalah ....",
+                correct: "TUANKU IMAM BONJOL"
             },
             {
                 type: "short",
-                text: "Kerajaan Islam pertama di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                correct: "SAMUDERA PASAI"
+                text: "Provinsi di Indonesia yang memiliki potensi wisata bahari terbesar karena kepulauan karangnya adalah ....",
+                correct: "NUSA TENGGARA TIMUR"
             },
             {
                 type: "short",
-                text: "Gunung berapi aktif di Jawa Timur yang terkenal adalah ....",
-                image: "https://images.unsplash.com/photo-1608245447160-8a7924e6a420",
-                correct: "BROMO"
-            },
-            {
-                type: "short",
-                text: "Mata pencaharian utama penduduk di dataran tinggi Dieng adalah ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
-                correct: "PETANI"
-            },
-            {
-                type: "short",
-                text: "Suku yang mendiami wilayah Sumatera Barat adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                correct: "MINANGKABAU"
-            },
-            {
-                type: "short",
-                text: "Perjanjian yang mengakhiri kekuasaan Belanda di Indonesia adalah ....",
-                image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
-                correct: "KONFERENSI MEJA BUNDAR"
-            },
-            {
-                type: "short",
-                text: "Provinsi di Indonesia yang memiliki pulau terbanyak adalah ....",
-                image: "https://images.unsplash.com/photo-1507525428034-b723cf961d3e",
-                correct: "KEPULAUAN RIAU"
-            },
-            {
-                type: "short",
-                text: "Alat musik tradisional dari Jawa Barat adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                correct: "ANGKLUNG"
-            },
-            {
-                type: "short",
-                text: "Pahlawan nasional yang memimpin perlawanan di Bali adalah ....",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-                correct: "I GUSTI NGURAH RAI"
-            },
-            {
-                type: "short",
-                text: "Sumber daya alam utama di Papua adalah ....",
-                image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
-                correct: "TEMBAGA"
-            },
-            {
-                type: "short",
-                text: "Tarian tradisional dari Aceh adalah ....",
-                image: "https://images.unsplash.com/photo-1543726969-8f8d3c1e3934",
-                correct: "SAMAN"
-            },
-            {
-                type: "short",
-                text: "Wilayah Indonesia yang dikenal sebagai penghasil minyak bumi terbesar adalah ....",
-                image: "https://images.unsplash.com/photo-1521336575822-6b24d36e2b88",
-                correct: "RIAU"
-            },
-            {
-                type: "short",
-                text: "Nama kerajaan yang berpusat di Yogyakarta pada masa kolonial adalah ....",
-                image: "https://images.unsplash.com/photo-1561533717-998b3d6c5882",
-                correct: "MATARAM"
-            },
-            {
-                type: "short",
-                text: "Sistem irigasi tradisional di Bali disebut ....",
-                image: "https://images.unsplash.com/photo-1518972559570-7cc1d3e2d9e3",
+                text: "Sistem pemerintahan tradisional pada masyarakat Bali yang mengatur irigasi sawah adalah ....",
                 correct: "SUBAK"
             },
             {
                 type: "short",
-                text: "Pahlawan nasional yang dikenal dengan perang gerilya di Jawa adalah ....",
-                image: "https://images.unsplash.com/photo-1519681393784-d120267933ba",
-                correct: "PANGERAN DIPONEGORO"
+                text: "Organisasi internasional yang didirikan Indonesia pada tahun 1967 bersama negara-negara Asia Tenggara lainnya adalah ....",
+                correct: "ASEAN"
             },
             {
                 type: "short",
-                text: "Organisasi pergerakan nasional yang didirikan oleh Ki Hajar Dewantara adalah ....",
-                image: "https://images.unsplash.com/photo-1516321497487-e288fb19713f",
-                correct: "TAMAN SISWA"
+                text: "Suku di Indonesia yang terkenal dengan tradisi rumah adat Tambi adalah ....",
+                correct: "LORE"
+            },
+            {
+                type: "short",
+                text: "Perjanjian yang mengakhiri kekuasaan Belanda di Indonesia pada tahun 1949 adalah ....",
+                correct: "KONFERENSI MEJA BUNDAR"
+            },
+            {
+                type: "short",
+                text: "Sumber daya alam utama di Papua yang dikelola oleh perusahaan Freeport adalah ....",
+                correct: "TEMBAGA"
+            },
+            {
+                type: "short",
+                text: "Tarian tradisional dari Aceh yang diakui UNESCO sebagai warisan budaya adalah ....",
+                correct: "SAMAN"
+            },
+            {
+                type: "short",
+                text: "Wilayah di Indonesia yang dikenal sebagai penghasil timah terbesar adalah ....",
+                correct: "BANGKA BELITUNG"
+            },
+            {
+                type: "short",
+                text: "Pahlawan nasional yang memimpin perlawanan Puputan di Bali adalah ....",
+                correct: "I GUSTI NGURAH RAI"
+            },
+            {
+                type: "short",
+                text: "Sistem ekonomi yang diterapkan VOC di Ambon untuk menguasai perdagangan rempah adalah ....",
+                correct: "HONGI TOCHTEN"
+            },
+            {
+                type: "short",
+                text: "Gunung berapi aktif di Jawa Tengah yang memiliki nilai sejarah dan budaya adalah ....",
+                correct: "MERAPI"
+            },
+            {
+                type: "short",
+                text: "Organisasi pergerakan nasional yang didirikan oleh pelajar STOVIA pada tahun 1908 adalah ....",
+                correct: "BUDI UTOMO"
+            },
+            {
+                type: "short",
+                text: "Sumber daya alam yang menjadi penyumbang devisa terbesar di Kalimantan Timur adalah ....",
+                correct: "MINYAK BUMI"
+            },
+            {
+                type: "short",
+                text: "Sistem sosial yang mengatur perkawinan pada masyarakat Batak disebut ....",
+                correct: "DALIHAH TOLU"
+            },
+            {
+                type: "short",
+                text: "Konferensi internasional yang diadakan di Bandung pada tahun 1955 adalah ....",
+                correct: "KONFERENSI ASIA AFRIKA"
             }
         ];
 
@@ -646,11 +437,14 @@
         let timerInterval = null;
         let timeLeft = 30;
         let totalTime = 0;
+        let answers = [];
+        let redemptionQuestions = [];
 
         function startQuiz() {
-            document.querySelector('.start-screen').style.display = 'none';
-            document.querySelector('.question-screen').style.display = 'block';
+            document.querySelector('.start-screen').classList.add('hidden');
+            document.querySelector('.question-screen').classList.remove('hidden');
             startTime = new Date();
+            answers = Array(questions.length).fill(null);
             loadQuestion();
         }
 
@@ -659,29 +453,30 @@
             timeLeft = q.type === "multiple" ? 30 : 45;
             document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/50`;
             document.querySelector('.question-text').textContent = q.text;
-            const img = document.querySelector('.question-image');
-            img.src = q.image || '';
-            img.style.display = q.image ? 'block' : 'none';
             document.querySelector('.score').textContent = `Skor: ${score}`;
+            document.querySelector('.powerup').classList.add('hidden');
 
             const optionsDiv = document.querySelector('.options');
             const shortAnswerDiv = document.querySelector('.short-answer');
             optionsDiv.innerHTML = '';
-            shortAnswerDiv.style.display = 'none';
+            shortAnswerDiv.classList.add('hidden');
 
             if (q.type === "multiple") {
-                optionsDiv.style.display = 'grid';
+                optionsDiv.classList.remove('hidden');
                 q.options.forEach((option, i) => {
                     const btn = document.createElement('div');
-                    btn.classList.add('option');
+                    btn.classList.add('option', 'bg-yellow-400', 'text-gray-800', 'p-4', 'rounded-lg', 'cursor-pointer', 'transition-all');
                     btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
                     btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
                     optionsDiv.appendChild(btn);
                 });
             } else {
-                shortAnswerDiv.style.display = 'block';
-                optionsDiv.style.display = 'none';
-                document.querySelector('.short-answer input').value = '';
+                shortAnswerDiv.classList.remove('hidden');
+                optionsDiv.classList.add('hidden');
+                const input = document.querySelector('.short-answer input');
+                input.value = '';
+                input.disabled = false;
+                document.querySelector('.short-answer .btn').disabled = false;
             }
 
             startTimer();
@@ -712,13 +507,15 @@
             const q = questions[currentQuestion];
             let isCorrect = false;
 
+            answers[currentQuestion] = { answer, isCorrect: false };
+
             if (q.type === "multiple") {
                 const options = document.querySelectorAll('.option');
                 options.forEach((opt, i) => {
                     if (String.fromCharCode(65 + i) === q.correct) {
-                        opt.classList.add('correct');
+                        opt.classList.add('correct', 'bg-green-500', 'text-white');
                     } else if (String.fromCharCode(65 + i) === answer) {
-                        opt.classList.add('wrong');
+                        opt.classList.add('wrong', 'bg-red-500', 'text-white');
                     }
                     opt.onclick = null;
                 });
@@ -727,17 +524,26 @@
                 const userAnswer = document.querySelector('.short-answer input').value.toUpperCase().replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, "");
                 isCorrect = userAnswer === q.correct;
                 const input = document.querySelector('.short-answer input');
-                input.classList.add(isCorrect ? 'correct' : 'wrong');
+                input.classList.add(isCorrect ? 'border-green-500' : 'border-red-500');
                 input.disabled = true;
                 document.querySelector('.short-answer .btn').disabled = true;
             }
+
+            answers[currentQuestion].isCorrect = isCorrect;
 
             if (isCorrect) {
                 score += 10;
                 correctAnswers++;
                 if (timeLeft > (q.type === "multiple" ? 20 : 35)) {
                     totalTime -= 10;
-                    alert("Power-up! +10 detik karena menjawab dalam waktu kurang dari 10 detik!");
+                    document.querySelector('.powerup').classList.remove('hidden');
+                    Swal.fire({
+                        title: 'Power-up!',
+                        text: 'Kamu mendapat +10 detik karena menjawab dalam waktu kurang dari 10 detik! 🔥',
+                        icon: 'success',
+                        timer: 1500,
+                        showConfirmButton: false
+                    });
                 }
             }
 
@@ -757,29 +563,105 @@
         }
 
         function showResult() {
-            document.querySelector('.question-screen').style.display = 'none';
-            document.querySelector('.result-screen').style.display = 'block';
+            document.querySelector('.question-screen').classList.add('hidden');
+            document.querySelector('.result-screen').classList.remove('hidden');
             const timeTaken = Math.floor((new Date() - startTime) / 1000);
             document.getElementById('total-score').textContent = `Skor Total: ${score}`;
             document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/50`;
             document.getElementById('time-taken').textContent = `Waktu: ${Math.floor(timeTaken / 60)} menit ${timeTaken % 60} detik`;
 
+            const incorrectQuestions = answers
+                .map((ans, i) => ({ index: i, isCorrect: ans ? ans.isCorrect : false }))
+                .filter(ans => !ans.isCorrect)
+                .map(ans => ans.index);
+
+            if (incorrectQuestions.length > 0) {
+                document.querySelector('.redemption').classList.remove('hidden');
+                const redemptionOptions = document.getElementById('redemption-options');
+                redemptionOptions.innerHTML = '';
+                incorrectQuestions.forEach(i => {
+                    const btn = document.createElement('button');
+                    btn.classList.add('btn', 'bg-gray-200', 'text-gray-800', 'px-3', 'py-1', 'rounded-lg');
+                    btn.textContent = `Soal ${i + 1}`;
+                    btn.onclick = () => toggleRedemptionQuestion(i);
+                    redemptionOptions.appendChild(btn);
+                });
+            }
+
             updateLeaderboard(score, timeTaken);
+        }
+
+        function toggleRedemptionQuestion(index) {
+            if (redemptionQuestions.includes(index)) {
+                redemptionQuestions = redemptionQuestions.filter(i => i !== index);
+            } else if (redemptionQuestions.length < 3) {
+                redemptionQuestions.push(index);
+            } else {
+                Swal.fire({
+                    title: 'Batas Tercapai',
+                    text: 'Kamu hanya bisa memilih 3 soal untuk redemption quiz!',
+                    icon: 'warning',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                return;
+            }
+            const buttons = document.querySelectorAll('#redemption-options button');
+            buttons.forEach(btn => {
+                const i = parseInt(btn.textContent.replace('Soal ', '')) - 1;
+                btn.classList.toggle('bg-orange-500', redemptionQuestions.includes(i));
+                btn.classList.toggle('text-white', redemptionQuestions.includes(i));
+                btn.classList.toggle('bg-gray-200', !redemptionQuestions.includes(i));
+                btn.classList.toggle('text-gray-800', !redemptionQuestions.includes(i));
+            });
+        }
+
+        function startRedemption() {
+            if (redemptionQuestions.length === 0) {
+                Swal.fire({
+                    title: 'Pilih Soal',
+                    text: 'Silakan pilih minimal satu soal untuk redemption quiz!',
+                    icon: 'warning',
+                    timer: 1500,
+                    showConfirmButton: false
+                });
+                return;
+            }
+            currentQuestion = redemptionQuestions[0];
+            redemptionQuestions = redemptionQuestions.slice(1);
+            score -= answers.filter(ans => ans && ans.isCorrect).length * 10;
+            correctAnswers = 0;
+            answers = Array(questions.length).fill(null);
+            document.querySelector('.result-screen').classList.add('hidden');
+            document.querySelector('.question-screen').classList.remove('hidden');
+            loadQuestion();
         }
 
         function updateLeaderboard(score, timeTaken) {
             const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
-            const name = prompt("Masukkan nama untuk leaderboard:") || "Anonim";
-            leaderboard.push({ name, score, time: timeTaken });
-            leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
-            localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
+            Swal.fire({
+                title: 'Masukkan Nama',
+                input: 'text',
+                inputPlaceholder: 'Nama untuk leaderboard',
+                showCancelButton: true,
+                confirmButtonText: 'Simpan',
+                confirmButtonColor: '#ff6b00',
+                cancelButtonColor: '#f4c425'
+            }).then(result => {
+                if (result.isConfirmed && result.value) {
+                    leaderboard.push({ name: result.value, score, time: timeTaken });
+                    leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
+                    localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
 
-            const list = document.getElementById('leaderboard-list');
-            list.innerHTML = '';
-            leaderboard.slice(0, 5).forEach((entry, i) => {
-                const li = document.createElement('li');
-                li.textContent = `${i + 1}. ${entry.name}: ${entry.score} (${Math.floor(entry.time / 60)}m ${entry.time % 60}s)`;
-                list.appendChild(li);
+                    const list = document.getElementById('leaderboard-list');
+                    list.innerHTML = '';
+                    leaderboard.slice(0, 5).forEach((entry, i) => {
+                        const li = document.createElement('li');
+                        li.classList.add('bg-yellow-400', 'text-gray-800', 'p-2', 'rounded', 'my-1');
+                        li.textContent = `${i + 1}. ${entry.name}: ${entry.score} (${Math.floor(entry.time / 60)}m ${entry.time % 60}s)`;
+                        list.appendChild(li);
+                    });
+                }
             });
         }
 
@@ -788,43 +670,54 @@
             score = 0;
             correctAnswers = 0;
             totalTime = 0;
-            document.querySelector('.result-screen').style.display = 'none';
-            document.querySelector('.question-screen').style.display = 'block';
+            redemptionQuestions = [];
+            answers = [];
+            document.querySelector('.result-screen').classList.add('hidden');
+            document.querySelector('.question-screen').classList.remove('hidden');
             startTime = new Date();
             loadQuestion();
         }
 
         function shareScore() {
-            alert("Fitur bagikan skor belum diimplementasikan. Silakan screenshot hasilmu!");
+            Swal.fire({
+                title: 'Bagikan Skor',
+                text: 'Fitur ini belum diimplementasikan. Silakan screenshot hasilmu!',
+                icon: 'info',
+                confirmButtonColor: '#ff6b00'
+            });
         }
 
         function showAdmin() {
-            document.querySelector('.start-screen').style.display = 'none';
-            document.querySelector('.admin-section').style.display = 'block';
+            document.querySelector('.start-screen').classList.add('hidden');
+            document.querySelector('.admin-section').classList.remove('hidden');
             document.getElementById('question-type').onchange = function() {
                 const isMultiple = this.value === "multiple";
-                document.getElementById('option-a').style.display = isMultiple ? 'block' : 'none';
-                document.getElementById('option-b').style.display = isMultiple ? 'block' : 'none';
-                document.getElementById('option-c').style.display = isMultiple ? 'block' : 'none';
-                document.getElementById('option-d').style.display = isMultiple ? 'block' : 'none';
+                document.getElementById('option-a').classList.toggle('hidden', !isMultiple);
+                document.getElementById('option-b').classList.toggle('hidden', !isMultiple);
+                document.getElementById('option-c').classList.toggle('hidden', !isMultiple);
+                document.getElementById('option-d').classList.toggle('hidden', !isMultiple);
             };
         }
 
         function hideAdmin() {
-            document.querySelector('.admin-section').style.display = 'none';
-            document.querySelector('.start-screen').style.display = 'block';
+            document.querySelector('.admin-section').classList.add('hidden');
+            document.querySelector('.start-screen').classList.remove('hidden');
         }
 
         function addQuestion() {
             const type = document.getElementById('question-type').value;
             const text = document.getElementById('question-text').value;
-            const image = document.getElementById('question-image').value;
             const correct = document.getElementById('correct-answer').value.toUpperCase();
             if (!text || !correct) {
-                alert("Teks soal dan jawaban benar harus diisi!");
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Teks soal dan jawaban benar harus diisi!',
+                    icon: 'error',
+                    confirmButtonColor: '#ff6b00'
+                });
                 return;
             }
-            const newQuestion = { type, text, image, correct };
+            const newQuestion = { type, text, correct };
 
             if (type === "multiple") {
                 const options = [
@@ -834,19 +727,32 @@
                     document.getElementById('option-d').value
                 ];
                 if (options.some(opt => !opt)) {
-                    alert("Semua pilihan harus diisi untuk soal pilihan ganda!");
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Semua pilihan harus diisi untuk soal pilihan ganda!',
+                        icon: 'error',
+                        confirmButtonColor: '#ff6b00'
+                    });
                     return;
                 }
                 newQuestion.options = options;
             }
 
             questions.push(newQuestion);
-            alert("Soal berhasil ditambahkan!");
+            Swal.fire({
+                title: 'Sukses',
+                text: 'Soal berhasil ditambahkan!',
+                icon: 'success',
+                timer: 1500,
+                showConfirmButton: false
+            });
             hideAdmin();
         }
 
         function toggleDarkMode() {
             document.body.classList.toggle('dark-mode');
+            document.querySelectorAll('.bg-white').forEach(el => el.classList.toggle('dark:bg-gray-800'));
+            document.querySelectorAll('.text-gray-600').forEach(el => el.classList.toggle('dark:text-gray-300'));
         }
     </script>
 </body>
