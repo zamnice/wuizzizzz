@@ -1,0 +1,1474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WUIZZIZZZ - OSN IPS</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #ff6b00;
+            --secondary: #f4c425;
+            --light: #FFE8B0;
+            --dark: #333;
+            --white: #fff;
+            --correct: #4CAF50;
+            --wrong: #F44336;
+            --time-bar: #4a90e2;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            min-height: 100vh;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        body.dark-mode {
+            background-color: #222;
+            color: #eee;
+            --light: #333;
+            --dark: #eee;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background-color: var(--white);
+            border-radius: 20px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .dark-mode .container {
+            background-color: #444;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .logo h1 {
+            font-size: 3rem;
+            color: var(--primary);
+            margin-bottom: 10px;
+            text-shadow: 3px 3px 0 var(--secondary);
+        }
+
+        .logo p {
+            font-size: 1.2rem;
+            color: var(--dark);
+        }
+
+        .dark-mode .logo p {
+            color: #ccc;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 30px;
+            font-size: 1.2rem;
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            text-align: center;
+            margin: 10px 5px;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(255, 107, 0, 0.4);
+        }
+
+        .btn-secondary {
+            background-color: var(--secondary);
+            color: var(--dark);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 5px 15px rgba(244, 196, 37, 0.4);
+        }
+
+        .welcome-screen, .quiz-screen, .result-screen, .leaderboard-screen {
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .welcome-screen {
+            padding: 40px 20px;
+        }
+
+        .welcome-text {
+            margin: 30px 0;
+            font-size: 1.2rem;
+            line-height: 1.6;
+        }
+
+        .welcome-image {
+            width: 200px;
+            height: 200px;
+            margin: 20px auto;
+            background-image: url('https://img.freepik.com/free-vector/hand-drawn-science-education-background_23-2148499325.jpg');
+            background-size: cover;
+            background-position: center;
+            border-radius: 20px;
+        }
+
+        .quiz-header {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-bottom: 20px;
+            align-items: center;
+        }
+
+        .question-count {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .score-display {
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .time-container {
+            width: 100%;
+            height: 10px;
+            background-color: #eee;
+            border-radius: 5px;
+            margin-bottom: 20px;
+            overflow: hidden;
+        }
+
+        .dark-mode .time-container {
+            background-color: #555;
+        }
+
+        .time-bar {
+            height: 100%;
+            width: 100%;
+            background-color: var(--time-bar);
+            transition: width 0.1s linear;
+        }
+
+        .question-container {
+            width: 100%;
+            margin-bottom: 30px;
+            text-align: left;
+        }
+
+        .question-image {
+            max-width: 100%;
+            max-height: 200px;
+            border-radius: 10px;
+            margin: 15px 0;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            font-weight: 600;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .options-container {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .option-btn {
+            background-color: var(--light);
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            padding: 15px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            text-align: left;
+            display: flex;
+            align-items: center;
+        }
+
+        .option-btn:hover {
+            background-color: var(--secondary);
+            transform: translateX(5px);
+        }
+
+        .option-letter {
+            font-weight: bold;
+            margin-right: 15px;
+            color: var(--primary);
+            font-size: 1.3rem;
+        }
+
+        .fill-in-input {
+            width: 100%;
+            padding: 15px;
+            font-size: 1.1rem;
+            border: 2px solid var(--secondary);
+            border-radius: 15px;
+            margin-top: 10px;
+            background-color: var(--light);
+            color: var(--dark);
+        }
+
+        .dark-mode .fill-in-input {
+            background-color: #555;
+            border-color: var(--primary);
+        }
+
+        .fill-in-note {
+            font-size: 0.9rem;
+            color: #666;
+            margin-top: 5px;
+            text-align: left;
+        }
+
+        .dark-mode .fill-in-note {
+            color: #aaa;
+        }
+
+        .feedback {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin: 20px 0;
+            min-height: 30px;
+        }
+
+        .correct-feedback {
+            color: var(--correct);
+        }
+
+        .wrong-feedback {
+            color: var(--wrong);
+        }
+
+        .next-btn {
+            margin-top: 20px;
+        }
+
+        .result-screen h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .result-details {
+            width: 100%;
+            margin: 20px 0;
+            text-align: left;
+            padding: 20px;
+            background-color: var(--light);
+            border-radius: 15px;
+        }
+
+        .dark-mode .result-details {
+            background-color: #555;
+        }
+
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            margin: 10px 0;
+            font-size: 1.1rem;
+        }
+
+        .result-value {
+            font-weight: 600;
+            color: var(--primary);
+        }
+
+        .leaderboard-screen h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            margin-bottom: 20px;
+        }
+
+        .leaderboard-list {
+            width: 100%;
+            margin: 20px 0;
+            text-align: left;
+        }
+
+        .leaderboard-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 15px;
+            margin: 10px 0;
+            background-color: var(--light);
+            border-radius: 10px;
+            font-size: 1.1rem;
+        }
+
+        .dark-mode .leaderboard-item {
+            background-color: #555;
+        }
+
+        .leaderboard-rank {
+            font-weight: bold;
+            color: var(--primary);
+            margin-right: 15px;
+        }
+
+        .leaderboard-name {
+            flex-grow: 1;
+        }
+
+        .leaderboard-score {
+            font-weight: 600;
+            color: var(--secondary);
+        }
+
+        .hidden {
+            display: none;
+        }
+
+        .correct-answer {
+            background-color: var(--correct);
+            color: white;
+            border-color: var(--correct);
+            animation: pulse 0.5s;
+        }
+
+        .wrong-answer {
+            background-color: var(--wrong);
+            color: white;
+            border-color: var(--wrong);
+            animation: shake 0.5s;
+        }
+
+        .powerup {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--secondary);
+            color: var(--dark);
+            padding: 10px 15px;
+            border-radius: 50px;
+            font-weight: bold;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+            z-index: 100;
+            transform: translateY(-100px);
+            transition: transform 0.5s ease;
+        }
+
+        .powerup.show {
+            transform: translateY(0);
+        }
+
+        .admin-panel {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 100;
+        }
+
+        .dark-mode-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            z-index: 100;
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            20%, 60% { transform: translateX(-5px); }
+            40%, 80% { transform: translateX(5px); }
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 20px 15px;
+                border-radius: 15px;
+            }
+
+            .logo h1 {
+                font-size: 2.2rem;
+            }
+
+            .welcome-text {
+                font-size: 1rem;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+
+            .option-btn {
+                padding: 12px;
+                font-size: 1rem;
+            }
+
+            .result-screen h2, .leaderboard-screen h2 {
+                font-size: 1.5rem;
+            }
+
+            .result-item, .leaderboard-item {
+                font-size: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Welcome Screen -->
+        <div class="welcome-screen" id="welcomeScreen">
+            <div class="logo">
+                <h1>WUIZZIZZZ</h1>
+                <p>OSN IPS - Latihan Soal SMP</p>
+            </div>
+            <div class="welcome-image"></div>
+            <div class="welcome-text">
+                <p>🔥 Siap menguji pengetahuan IPS-mu? 🔥</p>
+                <p>Kuis ini berisi 50 soal (30 PG + 20 isian) untuk persiapan OSN IPS SMP.</p>
+                <p>Waktu pengerjaan: 30 detik per soal PG dan 45 detik per isian.</p>
+                <p><strong>Catatan:</strong> Jawaban isian harus ditulis dengan HURUF BESAR SEMUA dan tanpa tanda baca.</p>
+            </div>
+            <button class="btn" id="startBtn">Mulai Kuis!</button>
+            <button class="btn btn-secondary" id="leaderboardBtn">Lihat Leaderboard</button>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div class="quiz-screen hidden" id="quizScreen">
+            <div class="quiz-header">
+                <div class="question-count" id="questionCount">1/50</div>
+                <div class="score-display" id="scoreDisplay">Skor: 0</div>
+            </div>
+            <div class="time-container">
+                <div class="time-bar" id="timeBar"></div>
+            </div>
+            <div class="question-container">
+                <div class="question-text" id="questionText"></div>
+                <img class="question-image hidden" id="questionImage" alt="Gambar soal">
+                <div class="options-container" id="optionsContainer"></div>
+                <input type="text" class="fill-in-input hidden" id="fillInInput" placeholder="Tulis jawabanmu disini...">
+                <div class="fill-in-note hidden">*Jawaban harus HURUF BESAR SEMUA dan tanpa tanda baca</div>
+            </div>
+            <div class="feedback" id="feedback"></div>
+            <button class="btn next-btn hidden" id="nextBtn">Lanjut</button>
+        </div>
+
+        <!-- Result Screen -->
+        <div class="result-screen hidden" id="resultScreen">
+            <h2>Hasil Kuis Kamu!</h2>
+            <div class="result-details">
+                <div class="result-item">
+                    <span>Total Skor:</span>
+                    <span class="result-value" id="totalScore">0</span>
+                </div>
+                <div class="result-item">
+                    <span>Jawaban Benar:</span>
+                    <span class="result-value" id="correctAnswers">0</span>
+                </div>
+                <div class="result-item">
+                    <span>Jawaban Salah:</span>
+                    <span class="result-value" id="wrongAnswers">0</span>
+                </div>
+                <div class="result-item">
+                    <span>Waktu Pengerjaan:</span>
+                    <span class="result-value" id="timeTaken">0 detik</span>
+                </div>
+            </div>
+            <button class="btn" id="playAgainBtn">Main Lagi</button>
+            <button class="btn btn-secondary" id="shareScoreBtn">Bagikan Skor</button>
+            <button class="btn" id="viewLeaderboardBtn">Lihat Leaderboard</button>
+        </div>
+
+        <!-- Leaderboard Screen -->
+        <div class="leaderboard-screen hidden" id="leaderboardScreen">
+            <h2>Leaderboard</h2>
+            <div class="leaderboard-list" id="leaderboardList"></div>
+            <button class="btn" id="backToHomeBtn">Kembali ke Beranda</button>
+        </div>
+    </div>
+
+    <!-- Powerup Notification -->
+    <div class="powerup" id="powerup">+10 Detik!</div>
+
+    <!-- Dark Mode Toggle -->
+    <button class="dark-mode-toggle" id="darkModeToggle">🌙</button>
+
+    <!-- Admin Panel -->
+    <div class="admin-panel">
+        <button class="btn btn-secondary hidden" id="adminBtn">Admin</button>
+    </div>
+
+    <script>
+        // Quiz Data
+        const quizData = {
+            title: "WUIZZIZZZ - OSN IPS",
+            description: "Latihan soal OSN IPS untuk SMP",
+            questions: [
+                // Pilihan Ganda (1-30)
+                {
+                    type: "mc",
+                    question: "Luas laut Indonesia mencakup 2/3 dari seluruh luas wilayah Indonesia dan memiliki garis pantai terpanjang kedua di dunia dengan berbagai potensi sumberdaya air laut yang perlu dikelola dengan baik. Salah satu potensi sumber daya air laut adalah pemanfaatannya untuk pembuatan garam. Secara geografis wilayah yang paling berpotensi untuk mendukung kegiatan tersebut adalah pesisir ....",
+                    options: ["Utara Papua", "Timur Kalimantan", "Selatan Sulawesi", "Barat Sumatera"],
+                    correctAnswer: 2, // Indeks dimulai dari 0 (C)
+                    image: "https://img.freepik.com/free-photo/aerial-view-coastline-ocean_23-2148888712.jpg",
+                    points: 2
+                },
+                {
+                    type: "mc",
+                    question: "Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran Sahul yang menyatu dengan benua Australia merupakan daerah migrasi fauna. Wilayah peralihan antara kedua dataran ini disebut...",
+                    options: ["Wallacea", "Sunda Shelf", "Paparan Sahul", "Zona Weber"],
+                    correctAnswer: 0,
+                    points: 2
+                },
+                {
+                    type: "mc",
+                    question: "Salah satu faktor yang mempengaruhi persebaran penduduk di Indonesia adalah...",
+                    options: ["Ketersediaan sumber daya alam", "Warna kulit penduduk", "Bahasa yang digunakan", "Agama mayoritas"],
+                    correctAnswer: 0,
+                    points: 1
+                },
+                {
+                    type: "mc",
+                    question: "Pola permukiman linear biasanya berkembang di sepanjang...",
+                    options: ["Pegunungan", "Jalan raya atau sungai", "Pusat kota", "Daerah pertanian"],
+                    correctAnswer: 1,
+                    image: "https://img.freepik.com/free-photo/aerial-view-village-countryside_23-2148888705.jpg",
+                    points: 1
+                },
+                {
+                    type: "mc",
+                    question: "Berikut ini yang bukan termasuk karakteristik negara maju adalah...",
+                    options: ["Tingkat pendidikan tinggi", "Angka harapan hidup tinggi", "Tingkat pengangguran rendah", "Ketergantungan pada sektor primer"],
+                    correctAnswer: 3,
+                    points: 2
+                },
+                // Tambahkan setelah soal ke-5 dan sebelum // Isian Singkat (31-50)
+{
+    type: "mc",
+    question: "Faktor utama yang menyebabkan Indonesia memiliki keanekaragaman hayati yang tinggi adalah...",
+    options: [
+        "Letak di antara dua benua dan dua samudera",
+        "Banyaknya gunung berapi aktif",
+        "Pengaruh budaya asing yang beragam",
+        "Pola migrasi penduduk yang intensif"
+    ],
+    correctAnswer: 0,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Berikut ini yang bukan termasuk ciri masyarakat tradisional menurut Tonnies adalah...",
+    options: [
+        "Hubungan kekerabatan kuat",
+        "Pembagian kerja sederhana",
+        "Mobilitas sosial tinggi",
+        "Produksi untuk kebutuhan sendiri"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Pola permukiman yang berkembang di sekitar daerah pertambangan biasanya berbentuk...",
+    options: [
+        "Memanjang mengikuti jalan",
+        "Menyebar tidak teratur",
+        "Memusat di sekitar lokasi tambang",
+        "Linear sepanjang sungai"
+    ],
+    correctAnswer: 2,
+    image: "https://img.freepik.com/free-photo/aerial-view-coal-mine_23-2148888720.jpg",
+    points: 1
+},
+{
+    type: "mc",
+    question: "Penyebab utama terjadinya urbanisasi di negara berkembang adalah...",
+    options: [
+        "Ketersediaan lapangan kerja di kota",
+        "Fasilitas pendidikan yang lebih baik",
+        "Kesenjangan pembangunan desa-kota",
+        "Semua jawaban benar"
+    ],
+    correctAnswer: 3,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Bentuk muka bumi yang terbentuk akibat proses sedimentasi di daerah muara sungai disebut...",
+    options: [
+        "Delta",
+        "Meander",
+        "Oxbow lake",
+        "Waterfall"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Negara ASEAN yang tidak memiliki wilayah laut adalah...",
+    options: [
+        "Laos",
+        "Myanmar",
+        "Kamboja",
+        "Thailand"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Pola aliran sungai yang berkembang di daerah vulkanik biasanya berbentuk...",
+    options: [
+        "Dendritik",
+        "Trellis",
+        "Radial",
+        "Rectangular"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Berikut ini yang bukan termasuk faktor pendorong perdagangan internasional adalah...",
+    options: [
+        "Perbedaan sumber daya alam",
+        "Perbedaan teknologi",
+        "Kesamaan selera konsumen",
+        "Perbedaan biaya produksi"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Pulau terbesar di Indonesia adalah...",
+    options: [
+        "Sumatera",
+        "Kalimantan",
+        "Jawa",
+        "Papua"
+    ],
+    correctAnswer: 1,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Sistem ekonomi tradisional masih banyak ditemui di...",
+    options: [
+        "Masyarakat pedalaman Papua",
+        "Kota-kota besar di Jawa",
+        "Kawasan industri modern",
+        "Pusat perdagangan internasional"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Berikut ini yang termasuk contoh interaksi sosial asosiatif adalah...",
+    options: [
+        "Konflik",
+        "Persaingan",
+        "Kerjasama",
+        "Pertikaian"
+    ],
+    correctAnswer: 2,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Lembaga sosial yang bertugas menjaga ketertiban dan keamanan masyarakat adalah...",
+    options: [
+        "Keluarga",
+        "Sekolah",
+        "Kepolisian",
+        "Rumah sakit"
+    ],
+    correctAnswer: 2,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Pola permukiman desa yang terletak di sepanjang jalan utama biasanya berbentuk...",
+    options: [
+        "Memanjang (linear)",
+        "Menyebar (dispersed)",
+        "Mengelompok (nucleated)",
+        "Melingkar (circular)"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Faktor utama yang mempengaruhi persebaran flora dan fauna di dunia adalah...",
+    options: [
+        "Iklim dan topografi",
+        "Budaya manusia",
+        "Politik internasional",
+        "Teknologi transportasi"
+    ],
+    correctAnswer: 0,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Berikut ini yang bukan termasuk karakteristik negara berkembang adalah...",
+    options: [
+        "Ketergantungan pada sektor primer",
+        "Angka kelahiran tinggi",
+        "Pendapatan per kapita tinggi",
+        "Infrastruktur terbatas"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Pola interaksi desa-kota yang terjadi ketika kota menyediakan barang manufaktur dan desa menyediakan bahan baku disebut...",
+    options: [
+        "Simbiosis mutualisme",
+        "Kompetisi",
+        "Parasitisme",
+        "Netralisme"
+    ],
+    correctAnswer: 0,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Garis bujur 0° melewati kota...",
+    options: [
+        "Greenwich",
+        "Paris",
+        "New York",
+        "Tokyo"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Berikut ini yang bukan termasuk bentuk perubahan sosial adalah...",
+    options: [
+        "Evolusi",
+        "Revolusi",
+        "Regresi",
+        "Inovasi"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Pola permukiman yang berkembang di daerah pegunungan biasanya berbentuk...",
+    options: [
+        "Mengelompok di lembah",
+        "Menyebar di lereng gunung",
+        "Linear sepanjang jalan",
+        "Memusat di puncak gunung"
+    ],
+    correctAnswer: 1,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Sistem tanam paksa (cultuurstelsel) di Indonesia diperkenalkan oleh...",
+    options: [
+        "VOC",
+        "Herman Willem Daendels",
+        "Johannes van den Bosch",
+        "Raffles"
+    ],
+    correctAnswer: 2,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Berikut ini yang termasuk contoh interaksi sosial disosiatif adalah...",
+    options: [
+        "Kerjasama",
+        "Akomodasi",
+        "Persaingan",
+        "Asimilasi"
+    ],
+    correctAnswer: 2,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Pola aliran sungai yang berkembang di daerah dengan batuan homogen biasanya berbentuk...",
+    options: [
+        "Dendritik",
+        "Trellis",
+        "Radial",
+        "Rectangular"
+    ],
+    correctAnswer: 0,
+    points: 2
+},
+{
+    type: "mc",
+    question: "Negara di Asia Tenggara yang tidak pernah dijajah adalah...",
+    options: [
+        "Thailand",
+        "Indonesia",
+        "Malaysia",
+        "Vietnam"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Pola permukiman yang berkembang di daerah dataran rendah subur biasanya berbentuk...",
+    options: [
+        "Mengelompok",
+        "Menyebar",
+        "Linear",
+        "Memusat"
+    ],
+    correctAnswer: 0,
+    points: 1
+},
+{
+    type: "mc",
+    question: "Faktor utama yang mempengaruhi persebaran penduduk di Indonesia adalah...",
+    options: [
+        "Ketersediaan air",
+        "Kesuburan tanah",
+        "Iklim",
+        "Semua jawaban benar"
+    ],
+    correctAnswer: 3,
+    points: 1
+},
+
+// Tambahkan soal isian singkat (31-50) setelah soal isian ke-5
+{
+    type: "fi",
+    question: "Proses pengikisan batuan oleh air, angin, atau es disebut ........",
+    correctAnswer: "EROSI",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Ibukota negara Malaysia adalah ........",
+    correctAnswer: "KUALA LUMPUR",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Garis khayal yang membagi bumi menjadi belahan timur dan barat disebut garis ........",
+    correctAnswer: "BUJUR",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Lembaga keuangan yang berfungsi sebagai penjamin terakhir dalam sistem keuangan suatu negara adalah ........",
+    correctAnswer: "BANK SENTRAL",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Pola permukiman yang berkembang di sepanjang jalan atau sungai disebut pola ........",
+    correctAnswer: "LINEAR",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Proses perubahan sosial yang terjadi secara lambat disebut ........",
+    correctAnswer: "EVOLUSI",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Lembaga sosial yang bertanggung jawab dalam proses sosialisasi primer adalah ........",
+    correctAnswer: "KELUARGA",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Pola aliran sungai yang menyerupai bentuk pohon disebut ........",
+    correctAnswer: "DENDRITIK",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Negara di Asia Tenggara yang berbentuk kerajaan adalah ........",
+    correctAnswer: "THAILAND",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Proses masuknya unsur kebudayaan asing ke dalam suatu masyarakat disebut ........",
+    correctAnswer: "DIFUSI",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Lembaga yang mengatur lalu lintas devisa di Indonesia adalah ........",
+    correctAnswer: "BANK INDONESIA",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Pola permukiman yang tersebar biasanya ditemui di daerah ........",
+    correctAnswer: "PEGUNUNGAN",
+    points: 1
+},
+{
+    type: "fi",
+    question: "Proses pembentukan tanah dari batuan induk disebut ........",
+    correctAnswer: "PELAPUKAN",
+    points: 2
+},
+{
+    type: "fi",
+    question: "Ibukota provinsi Jawa Timur adalah ........",
+    correctAnswer: "SURABAYA",
+    points: 1
+},
+                {
+                    type: "fi",
+                    question: "Garis khayal yang membagi bumi menjadi belahan utara dan selatan disebut garis ........",
+                    correctAnswer: "LINTANG",
+                    points: 1
+                }
+                // Isian Singkat (31-50)
+                {
+                    type: "fi",
+                    question: "Persebaran flora di Indonesia sama dengan pola persebaran faunanya yang berpangkal pada sejarah pembentukan daratan kepulauan Indonesia pada masa zaman es. Pada awal zaman es, Dataran Sunda masih bersatu dengan benua Asia dan Dataran ................. yang menyatu dengan benua Australia merupakan daerah migrasi fauna.",
+                    correctAnswer: "SAHUL",
+                    points: 3
+                },
+                {
+                    type: "fi",
+                    question: "Lembaga keuangan bukan bank yang kegiatannya menghimpun dana dengan cara mengeluarkan kertas berharga dan menyalurkan dana untuk membiayai investasi perusahaan-perusahaan adalah ........",
+                    correctAnswer: "PASAR MODAL",
+                    points: 3
+                },
+                {
+                    type: "fi",
+                    question: "Pola aliran sungai yang membentuk sudut tegak lurus atau hampir tegak lurus disebut pola aliran ........",
+                    correctAnswer: "TRELLIS",
+                    points: 2
+                },
+                {
+                    type: "fi",
+                    question: "Ibukota provinsi Sulawesi Utara adalah ........",
+                    correctAnswer: "MANADO",
+                    points: 1
+                },
+                {
+                    type: "fi",
+                    question: "Pulau terbesar di dunia adalah ........",
+                    correctAnswer: "GREENLAND",
+                    image: "https://img.freepik.com/free-photo/aerial-view-icebergs-greenland_23-2148888708.jpg",
+                    points: 1
+                }
+                // Catatan: Dalam implementasi lengkap, tambahkan 45 soal lagi sesuai kebutuhan
+            ]
+        };
+
+         // Variabel State Kuis
+        let currentQuestionIndex = 0;
+        let score = 0;
+        let correctAnswers = 0;
+        let wrongAnswers = 0;
+        let timeLeft = 0;
+        let timer;
+        let quizStartTime;
+        let quizEndTime;
+        let selectedOption = null;
+        let answerSubmitted = false;
+
+        // Elemen DOM
+        const welcomeScreen = document.getElementById('welcomeScreen');
+        const quizScreen = document.getElementById('quizScreen');
+        const resultScreen = document.getElementById('resultScreen');
+        const leaderboardScreen = document.getElementById('leaderboardScreen');
+        const startBtn = document.getElementById('startBtn');
+        const nextBtn = document.getElementById('nextBtn');
+        const playAgainBtn = document.getElementById('playAgainBtn');
+        const shareScoreBtn = document.getElementById('shareScoreBtn');
+        const viewLeaderboardBtn = document.getElementById('viewLeaderboardBtn');
+        const leaderboardBtn = document.getElementById('leaderboardBtn');
+        const backToHomeBtn = document.getElementById('backToHomeBtn');
+        const questionCount = document.getElementById('questionCount');
+        const scoreDisplay = document.getElementById('scoreDisplay');
+        const timeBar = document.getElementById('timeBar');
+        const questionText = document.getElementById('questionText');
+        const questionImage = document.getElementById('questionImage');
+        const optionsContainer = document.getElementById('optionsContainer');
+        const fillInInput = document.getElementById('fillInInput');
+        const fillInNote = document.getElementById('fillInNote');
+        const feedback = document.getElementById('feedback');
+        const totalScore = document.getElementById('totalScore');
+        const correctAnswersEl = document.getElementById('correctAnswers');
+        const wrongAnswersEl = document.getElementById('wrongAnswers');
+        const timeTaken = document.getElementById('timeTaken');
+        const leaderboardList = document.getElementById('leaderboardList');
+        const powerup = document.getElementById('powerup');
+        const darkModeToggle = document.getElementById('darkModeToggle');
+        const adminBtn = document.getElementById('adminBtn');
+
+        // Event Listeners
+        startBtn.addEventListener('click', startQuiz);
+        nextBtn.addEventListener('click', nextQuestion);
+        playAgainBtn.addEventListener('click', resetQuiz);
+        shareScoreBtn.addEventListener('click', shareScore);
+        viewLeaderboardBtn.addEventListener('click', showLeaderboard);
+        leaderboardBtn.addEventListener('click', showLeaderboard);
+        backToHomeBtn.addEventListener('click', backToHome);
+        darkModeToggle.addEventListener('click', toggleDarkMode);
+        adminBtn.addEventListener('click', showAdminPanel);
+
+        // Cek apakah admin (untuk keperluan demo, kita set manual)
+        const isAdmin = false; // Ganti ke true untuk mengaktifkan fitur admin
+        if (isAdmin) {
+            adminBtn.classList.remove('hidden');
+        }
+
+        // Fungsi untuk memulai kuis
+        function startQuiz() {
+            welcomeScreen.classList.add('hidden');
+            quizScreen.classList.remove('hidden');
+            currentQuestionIndex = 0;
+            score = 0;
+            correctAnswers = 0;
+            wrongAnswers = 0;
+            quizStartTime = new Date();
+            loadQuestion();
+        }
+
+        // Fungsi untuk memuat pertanyaan
+        function loadQuestion() {
+            answerSubmitted = false;
+            const question = quizData.questions[currentQuestionIndex];
+            questionCount.textContent = `${currentQuestionIndex + 1}/${quizData.questions.length}`;
+            scoreDisplay.textContent = `Skor: ${score}`;
+            questionText.textContent = question.question;
+            
+            // Reset UI
+            optionsContainer.innerHTML = '';
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            nextBtn.classList.add('hidden');
+            fillInInput.classList.add('hidden');
+            fillInNote.classList.add('hidden');
+            questionImage.classList.add('hidden');
+            
+            // Set waktu berdasarkan jenis soal
+            timeLeft = question.type === 'mc' ? 30 : 45;
+            updateTimeBar();
+            
+            // Clear previous timer
+            if (timer) {
+                clearInterval(timer);
+            }
+            
+            // Start new timer
+            timer = setInterval(() => {
+                timeLeft--;
+                updateTimeBar();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    if (!answerSubmitted) {
+                        handleTimeOut();
+                    }
+                }
+            }, 1000);
+            
+            // Load pertanyaan berdasarkan jenis
+            if (question.type === 'mc') {
+                loadMultipleChoiceQuestion(question);
+            } else {
+                loadFillInQuestion(question);
+            }
+            
+            // Tampilkan gambar jika ada
+            if (question.image) {
+                questionImage.src = question.image;
+                questionImage.classList.remove('hidden');
+            }
+        }
+
+        // Fungsi untuk memuat soal pilihan ganda
+        function loadMultipleChoiceQuestion(question) {
+            optionsContainer.classList.remove('hidden');
+            fillInInput.classList.add('hidden');
+            fillInNote.classList.add('hidden');
+            
+            question.options.forEach((option, index) => {
+                const optionBtn = document.createElement('button');
+                optionBtn.className = 'option-btn';
+                optionBtn.innerHTML = `
+                    <span class="option-letter">${String.fromCharCode(65 + index)}</span>
+                    <span class="option-text">${option}</span>
+                `;
+                optionBtn.addEventListener('click', () => selectOption(optionBtn, index));
+                optionsContainer.appendChild(optionBtn);
+            });
+        }
+
+        // Fungsi untuk memuat soal isian singkat
+        function loadFillInQuestion(question) {
+            optionsContainer.classList.add('hidden');
+            fillInInput.classList.remove('hidden');
+            fillInNote.classList.remove('hidden');
+            fillInInput.value = '';
+            fillInInput.focus();
+            
+            fillInInput.addEventListener('keypress', (e) => {
+                if (e.key === 'Enter' && !answerSubmitted) {
+                    checkFillInAnswer();
+                }
+            });
+        }
+
+        // Fungsi untuk memilih opsi (pilihan ganda)
+        function selectOption(optionBtn, optionIndex) {
+            if (answerSubmitted) return;
+            
+            const question = quizData.questions[currentQuestionIndex];
+            selectedOption = optionIndex;
+            
+            // Hilangkan seleksi dari opsi lain
+            document.querySelectorAll('.option-btn').forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            
+            optionBtn.classList.add('selected');
+        }
+
+        // Fungsi untuk memeriksa jawaban isian singkat
+        function checkFillInAnswer() {
+            if (answerSubmitted) return;
+            
+            const userAnswer = fillInInput.value.trim().toUpperCase();
+            const correctAnswer = quizData.questions[currentQuestionIndex].correctAnswer;
+            
+            if (userAnswer === correctAnswer) {
+                handleCorrectAnswer();
+            } else {
+                handleWrongAnswer();
+            }
+        }
+
+        // Fungsi untuk menangani jawaban benar
+        function handleCorrectAnswer() {
+            answerSubmitted = true;
+            clearInterval(timer);
+            
+            const question = quizData.questions[currentQuestionIndex];
+            const points = question.points || 1;
+            
+            // Tambahkan skor
+            score += points;
+            correctAnswers++;
+            
+            // Hitung waktu yang tersisa untuk powerup
+            const timeRemaining = timeLeft;
+            if (timeRemaining > 20) { // Jika menjawab dalam 10 detik (dari 30/45)
+                showPowerUp();
+                timeLeft += 10; // Tambahkan waktu untuk soal berikutnya
+            }
+            
+            // Update UI
+            scoreDisplay.textContent = `Skor: ${score}`;
+            feedback.textContent = `Benar! +${points} poin`;
+            feedback.className = 'feedback correct-feedback';
+            
+            // Untuk pilihan ganda, highlight jawaban benar
+            if (question.type === 'mc') {
+                document.querySelectorAll('.option-btn').forEach((btn, index) => {
+                    if (index === question.correctAnswer) {
+                        btn.classList.add('correct-answer');
+                    } else if (index === selectedOption && selectedOption !== question.correctAnswer) {
+                        btn.classList.add('wrong-answer');
+                    }
+                });
+            }
+            
+            nextBtn.classList.remove('hidden');
+        }
+
+        // Fungsi untuk menangani jawaban salah
+        function handleWrongAnswer() {
+            answerSubmitted = true;
+            clearInterval(timer);
+            
+            const question = quizData.questions[currentQuestionIndex];
+            wrongAnswers++;
+            
+            // Update UI
+            feedback.textContent = `Salah! Jawaban benar: ${question.type === 'mc' ? 
+                question.options[question.correctAnswer] : question.correctAnswer}`;
+            feedback.className = 'feedback wrong-feedback';
+            
+            // Untuk pilihan ganda, highlight jawaban benar dan salah
+            if (question.type === 'mc') {
+                document.querySelectorAll('.option-btn').forEach((btn, index) => {
+                    if (index === question.correctAnswer) {
+                        btn.classList.add('correct-answer');
+                    } else if (index === selectedOption) {
+                        btn.classList.add('wrong-answer');
+                    }
+                });
+            }
+            
+            nextBtn.classList.remove('hidden');
+        }
+
+        // Fungsi untuk menangani waktu habis
+        function handleTimeOut() {
+            answerSubmitted = true;
+            const question = quizData.questions[currentQuestionIndex];
+            wrongAnswers++;
+            
+            // Update UI
+            feedback.textContent = `Waktu habis! Jawaban benar: ${question.type === 'mc' ? 
+                question.options[question.correctAnswer] : question.correctAnswer}`;
+            feedback.className = 'feedback wrong-feedback';
+            
+            // Untuk pilihan ganda, highlight jawaban benar
+            if (question.type === 'mc') {
+                document.querySelectorAll('.option-btn').forEach((btn, index) => {
+                    if (index === question.correctAnswer) {
+                        btn.classList.add('correct-answer');
+                    }
+                });
+            }
+            
+            nextBtn.classList.remove('hidden');
+        }
+
+        // Fungsi untuk pindah ke pertanyaan berikutnya
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex < quizData.questions.length) {
+                loadQuestion();
+            } else {
+                finishQuiz();
+            }
+        }
+
+        // Fungsi untuk menyelesaikan kuis
+        function finishQuiz() {
+            clearInterval(timer);
+            quizEndTime = new Date();
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.remove('hidden');
+            
+            // Hitung waktu pengerjaan
+            const timeDiff = (quizEndTime - quizStartTime) / 1000; // dalam detik
+            const minutes = Math.floor(timeDiff / 60);
+            const seconds = Math.floor(timeDiff % 60);
+            
+            // Update hasil
+            totalScore.textContent = score;
+            correctAnswersEl.textContent = `${correctAnswers} dari ${quizData.questions.length} soal`;
+            wrongAnswersEl.textContent = wrongAnswers;
+            timeTaken.textContent = `${minutes > 0 ? minutes + ' menit ' : ''}${seconds} detik`;
+            
+            // Simpan ke leaderboard
+            saveToLeaderboard(score);
+        }
+
+        // Fungsi untuk mereset kuis
+        function resetQuiz() {
+            resultScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+
+        // Fungsi untuk membagikan skor
+        function shareScore() {
+            const shareText = `Saya baru saja menyelesaikan kuis ${quizData.title} dengan skor ${score} dari ${quizData.questions.length} soal! Coba kamu juga di ${window.location.href}`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'Hasil Kuis WUIZZIZZZ',
+                    text: shareText,
+                    url: window.location.href
+                }).catch(err => {
+                    console.log('Error sharing:', err);
+                    fallbackShare(shareText);
+                });
+            } else {
+                fallbackShare(shareText);
+            }
+        }
+
+        // Fallback untuk share API
+        function fallbackShare(shareText) {
+            // Copy ke clipboard
+            navigator.clipboard.writeText(shareText).then(() => {
+                alert('Teks hasil kuis telah disalin ke clipboard! Silakan bagikan di media sosial.');
+            }).catch(err => {
+                console.log('Could not copy text: ', err);
+                prompt('Salin teks berikut untuk membagikan hasil kamu:', shareText);
+            });
+        }
+
+        // Fungsi untuk menampilkan leaderboard
+        function showLeaderboard() {
+            welcomeScreen.classList.add('hidden');
+            quizScreen.classList.add('hidden');
+            resultScreen.classList.add('hidden');
+            leaderboardScreen.classList.remove('hidden');
+            
+            // Ambil leaderboard dari localStorage
+            const leaderboard = JSON.parse(localStorage.getItem('wuizzizzzLeaderboard')) || [];
+            
+            // Urutkan berdasarkan skor tertinggi
+            leaderboard.sort((a, b) => b.score - a.score);
+            
+            // Tampilkan maksimal 10 teratas
+            leaderboardList.innerHTML = '';
+            
+            if (leaderboard.length === 0) {
+                leaderboardList.innerHTML = '<p>Belum ada data leaderboard.</p>';
+                return;
+            }
+            
+            leaderboard.slice(0, 10).forEach((entry, index) => {
+                const item = document.createElement('div');
+                item.className = 'leaderboard-item';
+                item.innerHTML = `
+                    <div>
+                        <span class="leaderboard-rank">${index + 1}.</span>
+                        <span class="leaderboard-name">${entry.name}</span>
+                    </div>
+                    <span class="leaderboard-score">${entry.score}</span>
+                `;
+                leaderboardList.appendChild(item);
+            });
+        }
+
+        // Fungsi untuk menyimpan ke leaderboard
+        function saveToLeaderboard(score) {
+            const name = prompt('Selamat! Masukkan nama kamu untuk leaderboard:', 'Player');
+            if (!name) return;
+            
+            // Ambil leaderboard yang ada
+            const leaderboard = JSON.parse(localStorage.getItem('wuizzizzzLeaderboard')) || [];
+            
+            // Tambahkan entri baru
+            leaderboard.push({
+                name: name.trim() || 'Anonymous',
+                score: score,
+                date: new Date().toISOString()
+            });
+            
+            // Simpan kembali
+            localStorage.setItem('wuizzizzzLeaderboard', JSON.stringify(leaderboard));
+        }
+
+        // Fungsi untuk kembali ke beranda
+        function backToHome() {
+            leaderboardScreen.classList.add('hidden');
+            welcomeScreen.classList.remove('hidden');
+        }
+
+        // Fungsi untuk update time bar
+        function updateTimeBar() {
+            const question = quizData.questions[currentQuestionIndex];
+            const totalTime = question.type === 'mc' ? 30 : 45;
+            const percentage = (timeLeft / totalTime) * 100;
+            timeBar.style.width = `${percentage}%`;
+            
+            // Ubah warna berdasarkan waktu tersisa
+            if (percentage < 20) {
+                timeBar.style.backgroundColor = '#f44336'; // Merah
+            } else if (percentage < 50) {
+                timeBar.style.backgroundColor = '#ff9800'; // Oranye
+            } else {
+                timeBar.style.backgroundColor = '#4a90e2'; // Biru
+            }
+        }
+
+        // Fungsi untuk menampilkan powerup
+        function showPowerUp() {
+            powerup.classList.add('show');
+            setTimeout(() => {
+                powerup.classList.remove('show');
+            }, 2000);
+        }
+
+        // Fungsi untuk toggle dark mode
+        function toggleDarkMode() {
+            document.body.classList.toggle('dark-mode');
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.textContent = '☀️';
+            } else {
+                darkModeToggle.textContent = '🌙';
+            }
+        }
+
+        // Fungsi untuk panel admin (tambahkan sesuai kebutuhan)
+        function showAdminPanel() {
+            const password = prompt('Masukkan password admin:');
+            if (password === 'admin123') { // Password sederhana untuk demo
+                const newQuestion = prompt('Masukkan pertanyaan baru (format: type|question|options/correctAnswer|points|imageURL):');
+                // Tambahkan logika untuk memproses dan menambahkan pertanyaan baru
+                alert('Fitur admin: Tambahkan soal baru di sini (implementasi lengkap membutuhkan backend)');
+            } else {
+                alert('Password salah!');
+            }
+        }
+
+        // Inisialisasi
+        function init() {
+            // Cek preferensi dark mode
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                document.body.classList.add('dark-mode');
+                darkModeToggle.textContent = '☀️';
+            }
+        }
+
+        init();
+    </script>
+</body>
+</html>
