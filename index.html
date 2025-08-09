@@ -52,12 +52,17 @@
             position: relative;
         }
 
+        body.dark-mode .container {
+            background-color: #2c2c2c;
+        }
+
         .dark-mode-toggle {
             position: absolute;
             top: 20px;
             right: 20px;
             cursor: pointer;
             font-size: 24px;
+            z-index: 10;
         }
 
         #start-page, #quiz-page, #results-page {
@@ -128,16 +133,13 @@
             transition: width 0.1s linear;
         }
 
-        #question-counter {
+        #question-counter, #score-display {
             font-size: 1.2rem;
             font-weight: 600;
             color: var(--primary-orange);
         }
         
-        #current-score {
-            font-size: 1.2rem;
-            font-weight: 600;
-            color: var(--primary-orange);
+        #score-display {
             text-align: right;
         }
 
@@ -151,6 +153,9 @@
         .question-card h3 {
             font-size: 1.5rem;
             margin-bottom: 20px;
+        }
+        body.dark-mode .question-card {
+            background-color: #444;
         }
 
         .options-container {
@@ -180,6 +185,10 @@
             cursor: not-allowed;
             opacity: 0.8;
         }
+        body.dark-mode .option-button {
+            background-color: #555;
+            color: white;
+        }
 
         .option-button.correct {
             background-color: var(--correct-green);
@@ -192,7 +201,7 @@
             animation: shake 0.5s ease-in-out;
         }
         
-        .option-button span {
+        .option-button span.option-letter {
             font-weight: 700;
             margin-right: 15px;
             min-width: 25px;
@@ -221,6 +230,10 @@
             color: var(--text-color-light);
             text-transform: uppercase;
         }
+        body.dark-mode #short-answer-input {
+            background-color: #444;
+            color: white;
+        }
 
         #submit-answer-btn {
             margin-top: 15px;
@@ -239,6 +252,10 @@
             border-radius: 15px;
             text-align: left;
         }
+        body.dark-mode .result-details {
+            background-color: #444;
+        }
+
         .result-details p {
             font-size: 1.2rem;
             font-weight: 600;
@@ -253,9 +270,11 @@
             gap: 15px;
             justify-content: center;
             margin-top: 20px;
+            flex-wrap: wrap; /* Menambahkan wrap untuk responsivitas */
         }
         .results-buttons button {
             flex: 1;
+            min-width: 150px;
         }
         
         #leaderboard {
@@ -264,6 +283,9 @@
             padding: 20px;
             border-radius: 15px;
             text-align: left;
+        }
+        body.dark-mode #leaderboard {
+            background-color: #444;
         }
         #leaderboard h3 {
             font-size: 1.5rem;
@@ -283,6 +305,9 @@
             justify-content: space-between;
             align-items: center;
         }
+        body.dark-mode #leaderboard li {
+             border-bottom: 1px solid #666;
+        }
         #leaderboard li:last-child {
             border-bottom: none;
         }
@@ -301,6 +326,10 @@
             background-color: var(--card-bg-light);
             color: var(--text-color-light);
             text-align: center;
+        }
+        body.dark-mode #player-name-input {
+            background-color: #444;
+            color: white;
         }
         
         .logo {
@@ -693,7 +722,6 @@
     let timer;
     let timeRemaining;
     let totalTime = 0;
-    let startTime;
     const questionsTotal = questions.length;
 
     const timerDurations = {
@@ -717,7 +745,6 @@
         correctCount = 0;
         wrongCount = 0;
         totalTime = 0;
-        startTime = new Date();
         scoreDisplay.textContent = 'Skor: ' + score;
         showQuestion();
     }
@@ -732,9 +759,15 @@
         questionCounter.textContent = `${currentQuestionIndex + 1}/${questionsTotal}`;
         questionText.innerHTML = questionData.question;
         questionImage.style.display = 'none';
+        
+        // Atur ulang visibility dan disabled state untuk semua elemen
         optionsContainer.innerHTML = '';
+        optionsContainer.style.display = 'none';
         shortAnswerInput.style.display = 'none';
+        shortAnswerInput.disabled = false; // Memastikan input tidak disabled
+        shortAnswerInput.style.backgroundColor = ''; // Reset warna
         submitAnswerBtn.style.display = 'none';
+        submitAnswerBtn.disabled = false; // Memastikan tombol tidak disabled
 
         if (questionData.type === 'multiple-choice') {
             optionsContainer.style.display = 'flex';
@@ -743,12 +776,11 @@
             questionData.options.forEach((option, index) => {
                 const button = document.createElement('button');
                 button.className = 'option-button';
-                button.innerHTML = `<span>${optionLetters[index]}</span>${option}`;
+                button.innerHTML = `<span class="option-letter">${option.charAt(0)}</span>${option.substring(2)}`;
                 button.onclick = () => checkAnswer(option);
                 optionsContainer.appendChild(button);
             });
         } else if (questionData.type === 'short-answer') {
-            optionsContainer.style.display = 'none';
             shortAnswerInput.style.display = 'block';
             submitAnswerBtn.style.display = 'block';
             shortAnswerInput.value = '';
@@ -773,24 +805,24 @@
             score += 10;
             correctCount++;
             if (timeSpent < 10) {
-                totalTime -= 10; // Bonus waktu
+                totalTime = Math.max(0, totalTime - 10);
                 alert('Waktu Bonus 10 Detik! Keren!');
             }
             if (questionData.type === 'multiple-choice') {
-                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
-                correctButton.classList.add('correct');
+                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer.substring(2)));
+                if (correctButton) correctButton.classList.add('correct');
             } else {
-                shortAnswerInput.style.backgroundColor = varColor('correct-green');
+                shortAnswerInput.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--correct-green');
             }
         } else {
             wrongCount++;
             if (questionData.type === 'multiple-choice') {
-                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
-                const userButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(userAnswer));
+                const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer.substring(2)));
+                const userButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(userAnswer.substring(2)));
                 if (userButton) userButton.classList.add('wrong');
                 if (correctButton) correctButton.classList.add('correct');
             } else {
-                shortAnswerInput.style.backgroundColor = varColor('wrong-red');
+                shortAnswerInput.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--wrong-red');
             }
         }
 
@@ -805,14 +837,15 @@
     function disableOptions() {
         const options = document.querySelectorAll('.option-button');
         options.forEach(button => button.disabled = true);
-        if (shortAnswerInput) shortAnswerInput.disabled = true;
-        if (submitAnswerBtn) submitAnswerBtn.disabled = true;
+        shortAnswerInput.disabled = true;
+        submitAnswerBtn.disabled = true;
     }
 
     function resetTimer(duration) {
+        clearInterval(timer);
         timeRemaining = duration;
         timeBar.style.width = '100%';
-        timeBar.style.backgroundColor = varColor('primary-orange');
+        timeBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-orange');
         
         timer = setInterval(() => {
             timeRemaining--;
@@ -820,11 +853,11 @@
             timeBar.style.width = percentage + '%';
 
             if (percentage < 25) {
-                timeBar.style.backgroundColor = varColor('wrong-red');
+                timeBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--wrong-red');
             } else if (percentage < 50) {
-                timeBar.style.backgroundColor = varColor('secondary-yellow');
+                timeBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--secondary-yellow');
             } else {
-                timeBar.style.backgroundColor = varColor('primary-orange');
+                timeBar.style.backgroundColor = getComputedStyle(document.documentElement).getPropertyValue('--primary-orange');
             }
 
             if (timeRemaining <= 0) {
@@ -835,7 +868,7 @@
                 
                 const questionData = questions[currentQuestionIndex];
                 if (questionData.type === 'multiple-choice') {
-                    const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer));
+                    const correctButton = Array.from(optionsContainer.children).find(btn => btn.textContent.includes(questionData.answer.substring(2)));
                     if (correctButton) correctButton.classList.add('correct');
                 }
                 
@@ -845,10 +878,6 @@
                 }, 1500);
             }
         }, 1000);
-    }
-
-    function varColor(variable) {
-        return getComputedStyle(document.documentElement).getPropertyValue('--' + variable);
     }
 
     function showResults() {
@@ -915,6 +944,7 @@
         darkModeToggle.textContent = isDarkMode ? '☀️' : '🌙';
     }
 
+    // Event Listeners
     startButton.addEventListener('click', startQuiz);
     playAgainButton.addEventListener('click', () => {
         resultsPage.style.display = 'none';
@@ -928,5 +958,6 @@
     renderLeaderboard();
     document.getElementById('start-page').style.display = 'flex';
 </script>
+
 </body>
 </html>
