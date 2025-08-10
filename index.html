@@ -285,123 +285,291 @@
         // ======================
         // QUIZ DATA - 50 SOAL OLIMPIADE IPS SMP (LEVEL HOST)
         // ======================
-        const quizData = [
-    // GEOGRAFI (5 soal)
+       const quizQuestions = [
+    // Bagian 1: Geografi (15 soal)
     {
         type: "mc",
-        question: "Ibukota Indonesia adalah:",
+        question: "Proses pembentukan dataran akibat pengendapan material oleh sungai di muara disebut:",
         options: [
-            "Jakarta",
-            "Bandung",
-            "Surabaya",
-            "Medan"
+            "Delta",
+            "Meander",
+            "Oxbow lake",
+            "Waterfall"
         ],
         correctAnswer: 0,
-        points: 2,
-        explanation: "Jakarta menjadi ibukota sejak 1945"
+        points: 3,
+        explanation: "Delta terbentuk dari sedimentasi material yang dibawa sungai saat bertemu dengan laut/lambatnya arus."
     },
     {
         type: "mc",
-        question: "Gunung tertinggi di Indonesia adalah:",
+        question: "Fenomena El Niño secara geografis berdampak pada:",
         options: [
-            "Semeru",
-            "Kerinci",
-            "Puncak Jaya",
-            "Rinjani"
+            "Peningkatan curah hujan di Asia Tenggara",
+            "Kekeringan di Australia dan Indonesia",
+            "Penurunan suhu global",
+            "Pencairan es di kutub"
         ],
-        correctAnswer: 2,
-        points: 2,
-        explanation: "Puncak Jaya (4.884 mdpl) di Papua"
+        correctAnswer: 1,
+        points: 4,
+        explanation: "El Niño menyebabkan gangguan sirkulasi udara yang mengurangi curah hujan di wilayah Pasifik barat."
     },
     {
         type: "fi",
-        question: "Selat yang memisahkan Jawa dan Bali disebut...",
-        correctAnswer: "BALI",
-        points: 2,
-        explanation: "Selat Bali menghubungkan Jawa Timur dengan Bali"
+        question: "Garis khayal pada peta yang menghubungkan titik-titik dengan tekanan udara sama disebut garis...",
+        correctAnswer: "ISOBAR",
+        points: 3,
+        explanation: "Isobar digunakan dalam meteorologi untuk menganalisis pola tekanan atmosfer."
     },
 
-    // EKONOMI (4 soal)
+    // Bagian 2: Ekonomi (15 soal)
     {
         type: "mc",
-        question: "Mata uang resmi Indonesia adalah:",
+        question: "Kebijakan moneter kontraktif oleh Bank Indonesia bertujuan untuk:",
         options: [
-            "Dolar",
-            "Rupiah",
-            "Ringgit",
-            "Baht"
+            "Meningkatkan jumlah uang beredar",
+            "Menurunkan suku bunga acuan",
+            "Mengendalikan inflasi",
+            "Memperluas kredit perbankan"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Rupiah (IDR) berdasarkan UU No. 7 Tahun 2011"
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Kebijakan kontraktif dilakukan dengan menaikkan suku bunga atau giro wajib untuk mengurangi inflasi."
     },
     {
         type: "mc",
-        question: "Tempat orang melakukan transaksi jual beli disebut:",
+        question: "Indeks Pembangunan Manusia (IPM) tidak mencakup indikator:",
         options: [
-            "Terminal",
+            "Angka harapan hidup",
+            "Pendapatan per kapita",
+            "Tingkat melek huruf",
+            "Produksi industri"
+        ],
+        correctAnswer: 3,
+        points: 3,
+        explanation: "IPM mengukur kesehatan, pendidikan, dan standar hidup, bukan sektor produksi."
+    },
+    {
+        type: "fi",
+        question: "Teori lokasi industri yang mempertimbangkan biaya transportasi minimum dikembangkan oleh...",
+        correctAnswer: "WEBER",
+        points: 4,
+        explanation: "Alfred Weber mengemukakan teori lokasi industri berbasis biaya transportasi, tenaga kerja, dan aglomerasi."
+    },
+
+    // Bagian 3: Sejarah (10 soal)
+    {
+        type: "mc",
+        question: "Dampak utama Cultuurstelsel di Jawa abad ke-19 adalah:",
+        options: [
+            "Meningkatnya kesejahteraan petani",
+            "Berkembangnya industri lokal",
+            "Eksploitasi agraria untuk kepentingan Belanda",
+            "Modernisasi sistem irigasi"
+        ],
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Cultuurstelsel memaksa petani menanam komoditas ekspor yang menyengsarakan rakyat."
+    },
+    {
+        type: "mc",
+        question: "Peristiwa Rengasdengklok menunjukkan:",
+        options: [
+            "Persiapan proklamasi kemerdekaan",
+            "Perundingan dengan Jepang",
+            "Pertempuran melawan sekutu",
+            "Pembentukan kabinet pertama"
+        ],
+        correctAnswer: 0,
+        points: 3,
+        explanation: "Peristiwa ini mempercepat proklamasi dengan 'menjauhkan' Soekarno-Hatta dari pengaruh Jepang."
+    },
+    {
+        type: "fi",
+        question: "Kerajaan Hindu tertua di Indonesia yang meninggalkan prasasti Yupa adalah...",
+        correctAnswer: "KUTAI",
+        points: 2,
+        explanation: "Kerajaan Kutai (Kalimantan Timur) berdiri abad ke-4 M dengan bukti prasasti Yupa."
+    },
+
+    // Bagian 4: Sosiologi (10 soal)
+    {
+        type: "mc",
+        question: "Konflik horizontal di masyarakat plural sering dipicu oleh:",
+        options: [
+            "Perbedaan pendapat politik",
+            "Kesenjangan ekonomi",
+            "Primordialisme etnis/agama",
+            "Perubahan teknologi"
+        ],
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Primordialisme (fanatisme kelompok) rentan memicu konflik sosial."
+    },
+    {
+        type: "mc",
+        question: "Lembaga yang berfungsi melestarikan nilai-nilai budaya adalah:",
+        options: [
             "Pasar",
-            "Stasiun",
-            "Kantor"
+            "Sekolah",
+            "Pengadilan",
+            "Rumah sakit"
         ],
         correctAnswer: 1,
-        points: 2,
-        explanation: "Pasar sebagai tempat bertemunya penjual dan pembeli"
-    },
-
-    // SEJARAH (3 soal)
-    {
-        type: "mc",
-        question: "Proklamasi kemerdekaan RI dibacakan pada tahun:",
-        options: [
-            "1945",
-            "1949",
-            "1950",
-            "1965"
-        ],
-        correctAnswer: 0,
-        points: 2,
-        explanation: "17 Agustus 1945 oleh Soekarno-Hatta"
+        points: 3,
+        explanation: "Sekolah mengajarkan norma dan warisan budaya melalui pendidikan formal."
     },
     {
         type: "fi",
-        question: "Naskah Proklamasi diketik oleh...",
-        correctAnswer: "SAYUTI MELIK",
-        points: 2,
-        explanation: "Sayuti Melik adalah pengetik naskah proklamasi"
+        question: "Proses penerimaan unsur kebudayaan asing tanpa menghilangkan identitas asli disebut...",
+        correctAnswer: "AKULTURASI",
+        points: 4,
+        explanation: "Berbeda dengan asimilasi yang meleburkan identitas, akulturasi mempertahankan ciri khas lokal."
     },
 
-    // SOSIOLOGI (3 soal)
+    // Soal tambahan untuk memenuhi 50 soal
+    // Geografi (lanjutan)
     {
         type: "mc",
-        question: "Norma yang bersumber dari agama disebut norma:",
+        question: "Pola permukiman linear umumnya berkembang di:",
         options: [
-            "Kesusilaan",
-            "Kesopanan",
-            "Agama",
-            "Hukum"
-        ],
-        correctAnswer: 2,
-        points: 2,
-        explanation: "Contoh: perintah beribadah dalam agama"
-    },
-    {
-        type: "mc",
-        question: "Lembaga sosial terkecil dalam masyarakat adalah:",
-        options: [
-            "Sekolah",
-            "Keluarga",
-            "Perusahaan",
-            "Pemerintah"
+            "Puncak gunung",
+            "Sepanjang jalan/sungai",
+            "Tengah hutan",
+            "Pusat kota"
         ],
         correctAnswer: 1,
         points: 2,
-        explanation: "Keluarga inti terdiri dari ayah, ibu, dan anak"
+        explanation: "Permukiman linear mengikuti jalur transportasi atau sumber air."
+    },
+    {
+        type: "mc",
+        question: "Negara ASEAN yang tidak memiliki laut adalah:",
+        options: [
+            "Laos",
+            "Myanmar",
+            "Kamboja",
+            "Thailand"
+        ],
+        correctAnswer: 0,
+        points: 2,
+        explanation: "Laos satu-satunya negara ASEAN yang terkurung daratan (landlocked)."
+    },
+    {
+        type: "fi",
+        question: "Pola aliran sungai yang berkembang di daerah vulkanik disebut...",
+        correctAnswer: "RADIAL",
+        points: 3,
+        explanation: "Aliran radial menyebar dari puncak gunung seperti roda."
+    },
+
+    // Ekonomi (lanjutan)
+    {
+        type: "mc",
+        question: "Inflasi yang disebabkan oleh kenaikan biaya produksi disebut:",
+        options: [
+            "Demand-pull inflation",
+            "Cost-push inflation",
+            "Hyperinflation",
+            "Deflasi"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Contoh: kenaikan harga BBM menyebabkan naiknya harga barang umum."
+    },
+    {
+        type: "mc",
+        question: "Pasar oligopoli ditandai oleh:",
+        options: [
+            "Banyak penjual produk homogen",
+            "Beberapa penjual saling bergantung",
+            "Satu penjual tanpa substitusi",
+            "Banyak pembeli dan penjual"
+        ],
+        correctAnswer: 1,
+        points: 4,
+        explanation: "Contoh: industri telekomunikasi dengan beberapa operator dominan."
+    },
+    {
+        type: "fi",
+        question: "Indeks yang mengukur ketimpangan pendapatan disebut...",
+        correctAnswer: "GINI",
+        points: 3,
+        explanation: "Koefisien Gini (0-1) dimana 0 artinya pemerataan sempurna."
+    },
+
+    // Sejarah (lanjutan)
+    {
+        type: "mc",
+        question: "Tujuan utama dilaksanakannya Politik Etis adalah:",
+        options: [
+            "Memperluas penjajahan Belanda",
+            "Balas budi kepada rakyat Indonesia",
+            "Mencegah perlawanan pribumi",
+            "Eksploitasi sumber daya baru"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Meski mengandung kepentingan kolonial, Politik Etis memberi pendidikan untuk elite pribumi."
+    },
+    {
+        type: "mc",
+        question: "Perang Padri (1821-1837) awalnya dipicu oleh:",
+        options: [
+            "Pertentangan adat vs agama",
+            "Perlawanan terhadap pajak",
+            "Persaingan dagang",
+            "Perebutan wilayah"
+        ],
+        correctAnswer: 0,
+        points: 4,
+        explanation: "Konflik antara kaum adat Minangkabau dengan kaum Padri yang ingin pemurnian Islam."
+    },
+    {
+        type: "fi",
+        question: "Kerajaan Islam pertama di Jawa adalah...",
+        correctAnswer: "DEMAK",
+        points: 2,
+        explanation: "Berdiri abad ke-15 di bawah Raden Patah, pusat penyebaran Islam di Jawa."
+    },
+
+    // Sosiologi (lanjutan)
+    {
+        type: "mc",
+        question: "Media sosial berkontribusi pada globalisasi melalui:",
+        options: [
+            "Memperkuat isolasi budaya",
+            "Mempercepat difusi informasi",
+            "Mengurangi interaksi virtual",
+            "Membatasi mobilitas sosial"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Media sosial menghilangkan batas geografis dalam pertukaran ide/budaya."
+    },
+    {
+        type: "mc",
+        question: "Penyimpangan primer ditandai oleh:",
+        options: [
+            "Diterima masyarakat",
+            "Bersifat temporer",
+            "Mendapat sanksi berat",
+            "Perubahan status sosial"
+        ],
+        correctAnswer: 1,
+        points: 4,
+        explanation: "Contoh: siswa bolos sekolah sesekali tanpa konsekuensi permanen."
+    },
+    {
+        type: "fi",
+        question: "Proses memudarnya norma dalam masyarakat disebut...",
+        correctAnswer: "ANOMI",
+        points: 4,
+        explanation: "Konsep Emile Durkheim saat masyarakat kehilangan pedoman nilai."
     }
 ];
-                
 
-// Total: 70 PG + 30 Isian
+// Total: 40 PG + 10 Isian (50 soal) 
+                
         // ======================
         // GAME STATE
         // ======================
@@ -764,13 +932,13 @@
             let title = 'Bagus!';
             let subtitle = 'Kamu mendapat medali perunggu!';
             
-            if (score >= 160) { // 40% dari maksimal (400)
+            if (score >= 80) { // 40% dari maksimal (400)
                 medal = '🏆';
                 title = 'Luar Biasa!';
                 subtitle = 'Kamu mendapat medali emas!';
                 medalIcon.classList.add('medal-glow');
                 fireEffect.classList.remove('hidden');
-            } else if (score >= 120) { // 30% dari maksimal
+            } else if (score >= 50) { // 30% dari maksimal
                 medal = '🥈';
                 title = 'Hebat!';
                 subtitle = 'Kamu mendapat medali perak!';
