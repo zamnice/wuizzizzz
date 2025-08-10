@@ -5,587 +5,1072 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>WUIZZIZZZ - OSN IPS</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
     <style>
-        body {
+        * {
             font-family: 'Poppins', sans-serif;
-            background: linear-gradient(135deg, #ff6b00, #f4c425);
-            min-height: 100vh;
-            margin: 0;
-            padding: 0;
-            overflow-x: hidden;
         }
-        .dark-mode {
-            background: linear-gradient(135deg, #333, #555);
-            color: #fff;
+        
+        .dark {
+            background-color: #1E293B;
+            color: #F8FAFC;
         }
-        .screen {
-            display: none;
-            width: 100%;
-            min-height: 100vh;
-            padding: 1rem;
-            box-sizing: border-box;
-        }
-        .screen.active {
-            display: block;
-        }
-        .btn {
+        
+        .btn-primary {
+            background: linear-gradient(135deg, #FF6B00, #F4C425);
             transition: all 0.3s ease;
         }
-        .btn:hover {
+        
+        .btn-primary:hover {
+            transform: scale(1.05);
+            box-shadow: 0 10px 25px rgba(255, 107, 0, 0.3);
+        }
+        
+        .btn-secondary {
+            background: linear-gradient(135deg, #F4C425, #4A90E2);
+        }
+        
+        .btn-secondary:hover {
             transform: scale(1.05);
         }
-        .option {
-            transition: all 0.3s ease;
-            cursor: pointer;
+        
+        .shake {
+            animation: shake 0.5s ease-in-out;
         }
-        .option:hover {
-            transform: scale(1.02);
-        }
-        .correct {
-            background-color: #4CAF50 !important;
-            color: white !important;
-            animation: correct 0.5s ease;
-        }
-        .wrong {
-            background-color: #F44336 !important;
-            color: white !important;
-            animation: wrong 0.5s ease;
-        }
-        @keyframes correct {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
-        @keyframes wrong {
-            0% { transform: translateX(0); }
+        
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
             25% { transform: translateX(-5px); }
-            50% { transform: translateX(5px); }
-            75% { transform: translateX(-5px); }
-            100% { transform: translateX(0); }
+            75% { transform: translateX(5px); }
         }
+        
         .pulse {
-            animation: pulse 1s infinite;
+            animation: pulse 0.6s ease-in-out;
         }
+        
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
             100% { transform: scale(1); }
         }
-        .dark-mode-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.2);
-            border: none;
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: #FF6B00;
+            animation: confetti-fall 2s ease-out forwards;
+        }
+        
+        @keyframes confetti-fall {
+            0% {
+                transform: translateY(-100px) rotate(0deg);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(300px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+        
+        .fade-in {
+            animation: fadeIn 0.5s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .timer-bar {
+            transition: width 1s linear;
+        }
+        
+        .option-btn {
+            transition: all 0.2s ease;
+        }
+        
+        .option-btn:hover {
+            transform: translateX(5px);
+            background-color: rgba(255, 107, 0, 0.1);
+        }
+        
+        .correct {
+            background-color: #10B981 !important;
             color: white;
-            font-size: 1.2rem;
         }
-        #homeScreen {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            text-align: center;
-            padding: 2rem;
-        }
-        .logo {
-            font-size: 3rem;
-            font-weight: 700;
+        
+        .incorrect {
+            background-color: #EF4444 !important;
             color: white;
-            margin-bottom: 0.5rem;
-        }
-        .welcome-text {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 1rem;
-            padding: 1.5rem;
-            max-width: 600px;
-            margin: 1rem 0;
-            text-align: left;
-        }
-        .start-btn {
-            background: linear-gradient(135deg, #ff6b00, #f4c425);
-            color: white;
-            font-size: 1.2rem;
-            padding: 1rem 2rem;
-            border-radius: 50px;
-            border: none;
-            cursor: pointer;
-            margin: 1rem 0;
-        }
-        #quizScreen {
-            max-width: 800px;
-            margin: 0 auto;
-            padding-top: 3rem;
-        }
-        .nav-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 1rem;
-            padding: 1rem;
-            margin-bottom: 1rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        .question-card {
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 1rem;
-            padding: 1.5rem;
-        }
-        .options {
-            display: grid;
-            gap: 0.75rem;
-            margin-top: 1.5rem;
-        }
-        .option {
-            background: #f4c425;
-            color: #333;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: left;
-        }
-        .true-false-container {
-            display: flex;
-            justify-content: space-between;
-            margin-top: 1rem;
-        }
-        .true-false-option {
-            width: 48%;
-            padding: 1rem;
-            border-radius: 0.5rem;
-            text-align: center;
-        }
-        #countdownScreen {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background: rgba(0, 0, 0, 0.8);
-        }
-        .countdown-number {
-            font-size: 8rem;
-            color: white;
-            font-weight: bold;
-        }
-        @media (max-width: 768px) {
-            .logo {
-                font-size: 2rem;
-            }
-            .welcome-text {
-                padding: 1rem;
-            }
-            .options {
-                grid-template-columns: 1fr;
-            }
-            .true-false-container {
-                flex-direction: column;
-            }
-            .true-false-option {
-                width: 100%;
-                margin-bottom: 0.5rem;
-            }
-        }
-        @media (min-width: 769px) {
-            .options {
-                grid-template-columns: 1fr 1fr;
-            }
         }
     </style>
 </head>
-<body>
-    <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+<body class="min-h-screen transition-colors duration-300" id="body">
+    <div id="app" class="min-h-screen">
+        <!-- Home Page -->
+        <div id="homePage" class="min-h-screen flex flex-col">
+            <!-- Header -->
+            <header class="p-4 flex justify-between items-center">
+                <div class="flex items-center space-x-2">
+                    <div class="w-10 h-10 bg-gradient-to-r from-orange-500 to-yellow-400 rounded-full flex items-center justify-center">
+                        <span class="text-white font-bold text-xl">W</span>
+                    </div>
+                    <h1 class="text-2xl font-bold bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">WUIZZIZZZ</h1>
+                </div>
+                <button id="darkModeToggle" class="p-2 rounded-full hover:bg-gray-200 dark:hover:bg-gray-700 transition-colors">
+                    <span id="darkModeIcon">🌙</span>
+                </button>
+            </header>
 
-    <!-- Home Screen -->
-    <div id="homeScreen" class="screen active">
-        <div class="logo">WUIZZIZZZ</div>
-        <div class="welcome-text">
-            <h2 style="text-align: center; color: #ff6b00;">🎯 Siap Jadi Juara OSN IPS? 🏆</h2>
-            <p>Halo para calon juara! Selamat datang di WUIZZIZZZ, tempat terbaik untuk berlatih soal-soal Olimpiade IPS. Kamu akan menghadapi 50 soal yang menantang dan seru. Setiap soal punya waktu 30 detik, jadi pastikan kamu fokus dan percaya diri!</p>
-            <p><strong>💡 Tips:</strong> Baca soal dengan teliti, jangan terburu-buru, dan ingat - setiap kesalahan adalah pembelajaran!</p>
-            <p><strong>🔥 Power-up:</strong> Dapatkan +10 detik bonus jika menjawab dalam 10 detik pertama!</p>
+            <!-- Main Content -->
+            <main class="flex-1 flex items-center justify-center px-4">
+                <div class="text-center max-w-2xl">
+                    <!-- Illustration -->
+                    <div class="mb-8">
+                        <svg class="w-64 h-64 mx-auto" viewBox="0 0 400 400" fill="none">
+                            <!-- Student illustration -->
+                            <circle cx="200" cy="120" r="40" fill="#FFB366"/>
+                            <rect x="160" y="160" width="80" height="100" rx="10" fill="#4A90E2"/>
+                            <rect x="140" y="200" width="120" height="80" rx="15" fill="#F4C425"/>
+                            <circle cx="185" cy="110" r="3" fill="#333"/>
+                            <circle cx="215" cy="110" r="3" fill="#333"/>
+                            <path d="M190 125 Q200 135 210 125" stroke="#333" stroke-width="2" fill="none"/>
+                            <!-- Book -->
+                            <rect x="220" y="180" width="40" height="30" rx="3" fill="#FF6B00"/>
+                            <line x1="225" y1="185" x2="255" y2="185" stroke="white" stroke-width="2"/>
+                            <line x1="225" y1="190" x2="250" y2="190" stroke="white" stroke-width="1"/>
+                            <line x1="225" y1="195" x2="255" y2="195" stroke="white" stroke-width="1"/>
+                        </svg>
+                    </div>
+
+                    <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
+                        OSN IPS SMP
+                    </h2>
+                    <p class="text-xl mb-8 text-gray-600 dark:text-gray-300">
+                        Siap menghadapi Olimpiade Sains Nasional IPS? <br>
+                        Uji kemampuanmu dengan 50 soal pilihan ganda dan isian!
+                    </p>
+
+                    <div class="space-y-4">
+                        <button id="startQuizBtn" class="btn-primary text-white px-8 py-4 rounded-full text-xl font-semibold w-full max-w-xs">
+                            🚀 Mulai Kuis
+                        </button>
+                        <button id="leaderboardBtn" class="btn-secondary text-white px-8 py-3 rounded-full text-lg font-semibold w-full max-w-xs">
+                            🏆 Leaderboard
+                        </button>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Footer -->
+            <footer class="p-4 text-center text-gray-500 dark:text-gray-400">
+                <p>© 2024 WUIZZIZZZ - Persiapan OSN IPS SMP</p>
+            </footer>
         </div>
-        <button class="start-btn" onclick="startCountdown()">🚀 MULAI KUIS</button>
-    </div>
 
-    <!-- Countdown Screen -->
-    <div id="countdownScreen" class="screen">
-        <div class="countdown-number">3</div>
-    </div>
+        <!-- Quiz Page -->
+        <div id="quizPage" class="min-h-screen hidden">
+            <!-- Quiz Header -->
+            <header class="bg-white dark:bg-gray-800 shadow-lg p-4">
+                <div class="max-w-4xl mx-auto flex justify-between items-center">
+                    <div class="flex items-center space-x-4">
+                        <span id="questionCounter" class="text-lg font-semibold">Soal 1/50</span>
+                        <span id="scoreDisplay" class="text-lg font-semibold text-orange-500">🎯 0 Poin</span>
+                    </div>
+                    <div class="flex items-center space-x-4">
+                        <span id="timerDisplay" class="text-lg font-semibold text-blue-500">⏱ 30s</span>
+                        <button id="quitBtn" class="text-red-500 hover:text-red-700">❌</button>
+                    </div>
+                </div>
+                <!-- Timer Bar -->
+                <div class="max-w-4xl mx-auto mt-2">
+                    <div class="w-full bg-gray-200 dark:bg-gray-700 rounded-full h-2">
+                        <div id="timerBar" class="timer-bar bg-gradient-to-r from-orange-500 to-yellow-400 h-2 rounded-full" style="width: 100%"></div>
+                    </div>
+                </div>
+            </header>
 
-    <!-- Quiz Screen -->
-    <div id="quizScreen" class="screen">
-        <div class="nav-card">
-            <div class="score">Skor: 0</div>
-            <div class="powerup hidden pulse">🔥</div>
-            <div class="timer">30 detik</div>
+            <!-- Quiz Content -->
+            <main class="max-w-4xl mx-auto p-6">
+                <div id="questionContainer" class="fade-in">
+                    <!-- Question will be inserted here -->
+                </div>
+
+                <!-- Feedback -->
+                <div id="feedback" class="mt-6 text-center hidden">
+                    <div id="feedbackContent" class="text-2xl font-bold"></div>
+                </div>
+
+                <!-- Next Button -->
+                <div class="mt-8 text-center">
+                    <button id="nextBtn" class="btn-primary text-white px-8 py-3 rounded-full text-lg font-semibold hidden">
+                        Soal Berikutnya →
+                    </button>
+                </div>
+            </main>
         </div>
-        <div class="question-card">
-            <div class="question-number"></div>
-            <div class="question-text"></div>
-            <div class="options"></div>
-            <div class="short-answer hidden">
-                <input type="text" placeholder="Masukkan jawaban (HURUF BESAR)">
-                <button class="btn" onclick="checkShortAnswer()">Kirim</button>
+
+        <!-- Results Page -->
+        <div id="resultsPage" class="min-h-screen hidden">
+            <div class="max-w-2xl mx-auto p-6 text-center">
+                <div class="fade-in">
+                    <!-- Medal -->
+                    <div id="medalContainer" class="mb-8">
+                        <div id="medal" class="text-8xl mb-4">🏆</div>
+                        <h2 id="resultTitle" class="text-3xl font-bold mb-2">Selamat!</h2>
+                        <p id="resultSubtitle" class="text-xl text-gray-600 dark:text-gray-300">Kamu mendapat medali emas!</p>
+                    </div>
+
+                    <!-- Stats -->
+                    <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 mb-8 shadow-lg">
+                        <h3 class="text-2xl font-bold mb-4">Statistik Kamu</h3>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="text-center">
+                                <div id="finalScore" class="text-3xl font-bold text-orange-500">0</div>
+                                <div class="text-gray-600 dark:text-gray-300">Total Poin</div>
+                            </div>
+                            <div class="text-center">
+                                <div id="correctCount" class="text-3xl font-bold text-green-500">0</div>
+                                <div class="text-gray-600 dark:text-gray-300">✅ Benar</div>
+                            </div>
+                            <div class="text-center">
+                                <div id="incorrectCount" class="text-3xl font-bold text-red-500">0</div>
+                                <div class="text-gray-600 dark:text-gray-300">❌ Salah</div>
+                            </div>
+                            <div class="text-center">
+                                <div id="totalTime" class="text-3xl font-bold text-blue-500">0:00</div>
+                                <div class="text-gray-600 dark:text-gray-300">⏱ Waktu</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Name Input -->
+                    <div id="nameInputSection" class="mb-6">
+                        <input id="playerName" type="text" placeholder="Masukkan nama kamu..." 
+                               class="w-full p-3 rounded-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 text-center text-lg">
+                    </div>
+
+                    <!-- Action Buttons -->
+                    <div class="space-y-4">
+                        <button id="saveScoreBtn" class="btn-primary text-white px-8 py-3 rounded-full text-lg font-semibold w-full">
+                            💾 Simpan Skor
+                        </button>
+                        <button id="playAgainBtn" class="btn-secondary text-white px-8 py-3 rounded-full text-lg font-semibold w-full">
+                            🔄 Main Lagi
+                        </button>
+                        <button id="shareBtn" class="bg-green-500 hover:bg-green-600 text-white px-8 py-3 rounded-full text-lg font-semibold w-full transition-all">
+                            📱 Bagikan Skor
+                        </button>
+                    </div>
+                </div>
             </div>
-            <div class="true-false hidden">
-                <div class="true-false-container">
-                    <div class="true-false-option option" onclick="checkTrueFalse('A')"></div>
-                    <div class="true-false-option option" onclick="checkTrueFalse('B')"></div>
+        </div>
+
+        <!-- Leaderboard Page -->
+        <div id="leaderboardPage" class="min-h-screen hidden">
+            <div class="max-w-4xl mx-auto p-6">
+                <div class="text-center mb-8">
+                    <h2 class="text-4xl font-bold mb-4 bg-gradient-to-r from-orange-500 to-yellow-400 bg-clip-text text-transparent">
+                        🏆 Leaderboard
+                    </h2>
+                    <p class="text-xl text-gray-600 dark:text-gray-300">10 Pemain Terbaik</p>
+                </div>
+
+                <div class="bg-white dark:bg-gray-800 rounded-2xl shadow-lg overflow-hidden">
+                    <div id="leaderboardTable">
+                        <!-- Leaderboard will be inserted here -->
+                    </div>
+                </div>
+
+                <div class="text-center mt-8">
+                    <button id="backHomeBtn" class="btn-primary text-white px-8 py-3 rounded-full text-lg font-semibold">
+                        🏠 Kembali ke Beranda
+                    </button>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- Result Screen -->
-    <div id="resultScreen" class="screen">
-        <div style="max-width: 800px; margin: 2rem auto; background: white; padding: 2rem; border-radius: 1rem;">
-            <h2 style="color: #ff6b00;">Hasil Kuis</h2>
-            <p id="total-score"></p>
-            <p id="correct-answers"></p>
-            <p id="time-taken"></p>
-            <div class="redemption hidden">
-                <h3>Redemption Quiz</h3>
-                <p>Pilih hingga 3 soal yang salah/tidak dijawab untuk dijawab ulang:</p>
-                <div id="redemption-options"></div>
-                <button class="btn" onclick="startRedemption()">Mulai Redemption</button>
-            </div>
-            <div style="display: flex; gap: 1rem; justify-content: center; margin-top: 2rem;">
-                <button class="btn" onclick="playAgain()">Main Lagi</button>
-                <button class="btn" onclick="shareScore()">Bagikan Skor</button>
-            </div>
-            <div class="leaderboard" style="margin-top: 2rem;">
-                <h3>Leaderboard</h3>
-                <ul id="leaderboard-list"></ul>
-            </div>
-        </div>
-    </div>
-
     <script>
-        const questions = [
-            // 25 Pilihan Ganda
+        // Quiz Data
+        const quizData = [
+            // Multiple Choice Questions (30 questions)
             {
-                type: "multiple",
-                text: "Luas laut Indonesia mencakup 2/3 dari seluruh luas wilayah Indonesia dan memiliki garis pantai terpanjang kedua di dunia. Salah satu potensi sumber daya air laut adalah pemanfaatannya untuk pembuatan garam. Secara geografis, wilayah yang paling berpotensi untuk mendukung kegiatan tersebut adalah pesisir ....",
-                options: ["Utara Papua", "Timur Kalimantan", "Selatan Sulawesi", "Barat Sumatera"],
-                correct: "C"
+                type: "mc",
+                question: "Wilayah Indonesia bagian barat memiliki fauna yang mirip dengan benua Asia karena dahulu tergabung dalam...",
+                options: ["Dataran Sunda", "Dataran Sahul", "Laut Mediterania", "Paparan Sunda"],
+                correctAnswer: 3,
+                points: 2
             },
             {
-                type: "multiple",
-                text: "Interaksi lempeng tektonik Indo-Australia dan Eurasia menghasilkan zona subduksi yang memengaruhi aktivitas vulkanik di Indonesia. Fenomena ini paling dominan di wilayah ....",
-                options: ["Cincin Api Pasifik", "Dataran Sunda", "Lempeng Sahul", "Pegunungan Himalaya"],
-                correct: "A"
-            },
-            // Tambahkan 23 soal pilihan ganda lainnya...
-            
-            // 10 Isian Singkat
-            {
-                type: "short",
-                text: "Persebaran flora dan fauna di Indonesia dipengaruhi oleh sejarah geologis pada masa zaman es. Dataran Sunda bersatu dengan Asia, sedangkan Dataran .... menyatu dengan Australia.",
-                correct: "SAHUL"
+                type: "mc",
+                question: "Ibukota provinsi Jawa Timur adalah...",
+                options: ["Malang", "Surabaya", "Kediri", "Blitar"],
+                correctAnswer: 1,
+                points: 1
             },
             {
-                type: "short",
-                text: "Kerajaan Islam pertama di Indonesia yang menjadi pusat pendidikan agama pada abad ke-16 adalah ....",
-                correct: "DEMAK"
-            },
-            // Tambahkan 8 soal isian singkat lainnya...
-            
-            // 5 Benar/Salah
-            {
-                type: "truefalse",
-                text: "Pilihlah pernyataan yang BENAR:",
-                options: [
-                    "Sistem tanam paksa diterapkan oleh pemerintah kolonial Belanda",
-                    "Sistem tanam paksa menguntungkan petani Indonesia"
-                ],
-                correct: "A"
+                type: "mc",
+                question: "Faktor utama yang menyebabkan terjadinya urbanisasi adalah...",
+                options: ["Cuaca yang buruk", "Kesempatan kerja di kota", "Bencana alam", "Transportasi murah"],
+                correctAnswer: 1,
+                points: 2
             },
             {
-                type: "truefalse",
-                text: "Pilihlah pernyataan yang SALAH:",
-                options: [
-                    "Kerajaan Sriwijaya menguasai perdagangan di Selat Malaka",
-                    "Kerajaan Sriwijaya merupakan kerajaan Hindu pertama di Indonesia"
-                ],
-                correct: "B"
+                type: "mc",
+                question: "Negara yang berbatasan langsung dengan Indonesia di sebelah utara adalah...",
+                options: ["Thailand", "Malaysia", "Filipina", "Brunei"],
+                correctAnswer: 1,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Sistem ekonomi yang menggabungkan unsur kapitalis dan sosialis disebut...",
+                options: ["Ekonomi campuran", "Ekonomi komando", "Ekonomi pasar", "Ekonomi tradisional"],
+                correctAnswer: 0,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Pulau terbesar di Indonesia adalah...",
+                options: ["Jawa", "Sumatera", "Kalimantan", "Papua"],
+                correctAnswer: 2,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Proses perpindahan penduduk dari desa ke kota disebut...",
+                options: ["Migrasi", "Urbanisasi", "Transmigrasi", "Imigrasi"],
+                correctAnswer: 1,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Garis khayal yang membagi bumi menjadi belahan utara dan selatan adalah...",
+                options: ["Garis Bujur", "Garis Lintang", "Khatulistiwa", "Meridian"],
+                correctAnswer: 2,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Bentuk kerja sama ekonomi antar negara ASEAN adalah...",
+                options: ["AFTA", "APEC", "WTO", "IMF"],
+                correctAnswer: 0,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Mata uang negara Singapura adalah...",
+                options: ["Ringgit", "Baht", "Dollar Singapura", "Peso"],
+                correctAnswer: 2,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Faktor yang mempengaruhi persebaran flora dan fauna adalah...",
+                options: ["Iklim dan tanah", "Politik dan ekonomi", "Budaya dan agama", "Teknologi dan komunikasi"],
+                correctAnswer: 0,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Danau terbesar di Indonesia adalah...",
+                options: ["Danau Toba", "Danau Singkarak", "Danau Maninjau", "Danau Sentani"],
+                correctAnswer: 0,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Organisasi regional Asia Tenggara adalah...",
+                options: ["ASEAN", "APEC", "SAARC", "EU"],
+                correctAnswer: 0,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Proses pembentukan tanah dari batuan induk disebut...",
+                options: ["Erosi", "Sedimentasi", "Pelapukan", "Abrasi"],
+                correctAnswer: 2,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Negara dengan jumlah penduduk terbanyak di dunia adalah...",
+                options: ["India", "China", "Amerika Serikat", "Indonesia"],
+                correctAnswer: 1,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Bentuk interaksi sosial yang bersifat asosiatif adalah...",
+                options: ["Konflik", "Persaingan", "Kerja sama", "Kontravensi"],
+                correctAnswer: 2,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Sumber daya alam yang dapat diperbaharui adalah...",
+                options: ["Minyak bumi", "Gas alam", "Hutan", "Batu bara"],
+                correctAnswer: 2,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Lembaga sosial yang berfungsi mengatur hubungan kekerabatan adalah...",
+                options: ["Keluarga", "Sekolah", "Pemerintah", "Agama"],
+                correctAnswer: 0,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Faktor pendorong terjadinya perdagangan internasional adalah...",
+                options: ["Perbedaan sumber daya", "Kesamaan budaya", "Jarak yang dekat", "Bahasa yang sama"],
+                correctAnswer: 0,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Benua yang memiliki luas wilayah terkecil adalah...",
+                options: ["Australia", "Eropa", "Antartika", "Amerika Selatan"],
+                correctAnswer: 0,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Proses perubahan sosial yang terjadi secara cepat disebut...",
+                options: ["Evolusi", "Revolusi", "Reformasi", "Transformasi"],
+                correctAnswer: 1,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Negara yang terletak di dua benua adalah...",
+                options: ["Rusia", "Turki", "Mesir", "Semua benar"],
+                correctAnswer: 3,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Sistem pemerintahan Indonesia adalah...",
+                options: ["Monarki", "Republik", "Federal", "Kesatuan"],
+                correctAnswer: 1,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Dampak positif globalisasi dalam bidang ekonomi adalah...",
+                options: ["Meningkatnya pengangguran", "Berkembangnya teknologi", "Hilangnya budaya lokal", "Kesenjangan sosial"],
+                correctAnswer: 1,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Gunung tertinggi di Indonesia adalah...",
+                options: ["Gunung Kerinci", "Puncak Jaya", "Gunung Semeru", "Gunung Rinjani"],
+                correctAnswer: 1,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Lembaga keuangan internasional yang memberikan pinjaman kepada negara berkembang adalah...",
+                options: ["World Bank", "IMF", "ADB", "Semua benar"],
+                correctAnswer: 3,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Proses masuknya kebudayaan asing ke dalam kebudayaan lokal disebut...",
+                options: ["Akulturasi", "Asimilasi", "Difusi", "Enkulturasi"],
+                correctAnswer: 0,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Negara yang tidak memiliki laut adalah...",
+                options: ["Mongolia", "Kazakhstan", "Afghanistan", "Semua benar"],
+                correctAnswer: 3,
+                points: 1
+            },
+            {
+                type: "mc",
+                question: "Faktor yang mempengaruhi pertumbuhan penduduk adalah...",
+                options: ["Kelahiran dan kematian", "Migrasi masuk dan keluar", "Keduanya benar", "Tidak ada yang benar"],
+                correctAnswer: 2,
+                points: 2
+            },
+            {
+                type: "mc",
+                question: "Samudra terluas di dunia adalah...",
+                options: ["Samudra Atlantik", "Samudra Pasifik", "Samudra Hindia", "Samudra Arktik"],
+                correctAnswer: 1,
+                points: 1
+            },
+
+            // Fill in the blank questions (20 questions)
+            {
+                type: "fi",
+                question: "Lembaga keuangan yang mengatur kebijakan moneter di Indonesia adalah...",
+                correctAnswer: "BANK INDONESIA",
+                points: 3
+            },
+            {
+                type: "fi",
+                question: "Presiden pertama Republik Indonesia adalah...",
+                correctAnswer: "SOEKARNO",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Selat yang memisahkan pulau Jawa dan Sumatera adalah Selat...",
+                correctAnswer: "SUNDA",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Organisasi negara-negara pengekspor minyak dunia adalah...",
+                correctAnswer: "OPEC",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Ibu kota negara Australia adalah...",
+                correctAnswer: "CANBERRA",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Mata uang negara Jepang adalah...",
+                correctAnswer: "YEN",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Benua yang dijuluki benua hitam adalah...",
+                correctAnswer: "AFRIKA",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Negara yang dijuluki negeri sakura adalah...",
+                correctAnswer: "JEPANG",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Sungai terpanjang di dunia adalah sungai...",
+                correctAnswer: "NIL",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Negara yang memiliki bentuk pemerintahan monarki absolut adalah...",
+                correctAnswer: "ARAB SAUDI",
+                points: 3
+            },
+            {
+                type: "fi",
+                question: "Pulau yang dijuluki pulau dewata adalah...",
+                correctAnswer: "BALI",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Organisasi buruh internasional adalah...",
+                correctAnswer: "ILO",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Negara yang terletak di semenanjung Indochina adalah...",
+                correctAnswer: "VIETNAM",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Laut yang terletak di antara Indonesia dan Australia adalah Laut...",
+                correctAnswer: "TIMOR",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Negara yang dijuluki negeri ginseng adalah...",
+                correctAnswer: "KOREA SELATAN",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Gunung berapi yang meletus pada tahun 1883 adalah Gunung...",
+                correctAnswer: "KRAKATAU",
+                points: 3
+            },
+            {
+                type: "fi",
+                question: "Negara yang memiliki sistem pemerintahan federal adalah...",
+                correctAnswer: "AMERIKA SERIKAT",
+                points: 2
+            },
+            {
+                type: "fi",
+                question: "Organisasi kesehatan dunia adalah...",
+                correctAnswer: "WHO",
+                points: 1
+            },
+            {
+                type: "fi",
+                question: "Negara yang dijuluki negeri seribu pagoda adalah...",
+                correctAnswer: "MYANMAR",
+                points: 3
+            },
+            {
+                type: "fi",
+                question: "Danau yang terletak di perbatasan Indonesia-Papua Nugini adalah Danau...",
+                correctAnswer: "SENTANI",
+                points: 3
             }
-            // Tambahkan 3 soal benar/salah lainnya...
         ];
 
-        let currentQuestion = 0;
+        // Game State
+        let currentQuestionIndex = 0;
         let score = 0;
         let correctAnswers = 0;
+        let incorrectAnswers = 0;
         let startTime = null;
-        let timerInterval = null;
-        let timeLeft = 30;
-        let answers = [];
-        let redemptionQuestions = [];
+        let questionStartTime = null;
+        let timer = null;
+        let timeLeft = 0;
+        let isDarkMode = false;
 
-        function showScreen(screenId) {
-            document.querySelectorAll('.screen').forEach(screen => {
-                screen.classList.remove('active');
-            });
-            document.getElementById(screenId).classList.add('active');
-        }
+        // DOM Elements
+        const body = document.getElementById('body');
+        const homePage = document.getElementById('homePage');
+        const quizPage = document.getElementById('quizPage');
+        const resultsPage = document.getElementById('resultsPage');
+        const leaderboardPage = document.getElementById('leaderboardPage');
 
-        function startCountdown() {
-            showScreen('countdownScreen');
-            const countdownElement = document.querySelector('.countdown-number');
-            let count = 3;
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            loadDarkMode();
+            setupEventListeners();
+            loadLeaderboard();
+        });
+
+        function setupEventListeners() {
+            // Dark mode toggle
+            document.getElementById('darkModeToggle').addEventListener('click', toggleDarkMode);
             
-            const countdownInterval = setInterval(() => {
-                countdownElement.textContent = count;
-                count--;
-                
-                if (count < 0) {
-                    clearInterval(countdownInterval);
-                    startQuiz();
-                }
-            }, 1000);
-        }
-
-        function startQuiz() {
-            showScreen('quizScreen');
-            startTime = new Date();
-            answers = Array(questions.length).fill(null);
-            currentQuestion = 0;
-            score = 0;
-            correctAnswers = 0;
-            loadQuestion();
-        }
-
-        function loadQuestion() {
-            const q = questions[currentQuestion];
-            timeLeft = 30;
-            document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/${questions.length}`;
-            document.querySelector('.question-text').textContent = q.text;
-            document.querySelector('.score').textContent = `Skor: ${score}`;
-            document.querySelector('.powerup').classList.add('hidden');
-
-            const optionsDiv = document.querySelector('.options');
-            const shortAnswerDiv = document.querySelector('.short-answer');
-            const trueFalseDiv = document.querySelector('.true-false');
+            // Navigation buttons
+            document.getElementById('startQuizBtn').addEventListener('click', startQuiz);
+            document.getElementById('leaderboardBtn').addEventListener('click', showLeaderboard);
+            document.getElementById('backHomeBtn').addEventListener('click', showHome);
+            document.getElementById('playAgainBtn').addEventListener('click', startQuiz);
+            document.getElementById('quitBtn').addEventListener('click', showHome);
             
-            optionsDiv.innerHTML = '';
-            shortAnswerDiv.classList.add('hidden');
-            trueFalseDiv.classList.add('hidden');
-
-            if (q.type === "multiple") {
-                optionsDiv.classList.remove('hidden');
-                q.options.forEach((option, i) => {
-                    const btn = document.createElement('div');
-                    btn.classList.add('option');
-                    btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
-                    btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
-                    optionsDiv.appendChild(btn);
-                });
-            } else if (q.type === "short") {
-                shortAnswerDiv.classList.remove('hidden');
-                shortAnswerDiv.querySelector('input').value = '';
-                shortAnswerDiv.querySelector('input').disabled = false;
-            } else if (q.type === "truefalse") {
-                trueFalseDiv.classList.remove('hidden');
-                const options = trueFalseDiv.querySelectorAll('.true-false-option');
-                options[0].textContent = `A. ${q.options[0]}`;
-                options[1].textContent = `B. ${q.options[1]}`;
-            }
-
-            startTimer();
-        }
-
-        function startTimer() {
-            clearInterval(timerInterval);
-            document.querySelector('.timer').textContent = `${timeLeft} detik`;
-
-            timerInterval = setInterval(() => {
-                timeLeft--;
-                document.querySelector('.timer').textContent = `${timeLeft} detik`;
-
-                if (timeLeft <= 0) {
-                    clearInterval(timerInterval);
-                    if (questions[currentQuestion].type === "short") {
-                        checkShortAnswer();
-                    } else {
-                        checkAnswer(null);
-                    }
-                }
-            }, 1000);
-        }
-
-        function checkAnswer(answer) {
-            clearInterval(timerInterval);
-            const q = questions[currentQuestion];
-            let isCorrect = false;
-
-            if (q.type === "multiple") {
-                const options = document.querySelectorAll('.option');
-                options.forEach((opt, i) => {
-                    if (String.fromCharCode(65 + i) === q.correct) {
-                        opt.classList.add('correct');
-                    } else if (String.fromCharCode(65 + i) === answer) {
-                        opt.classList.add('wrong');
-                    }
-                    opt.onclick = null;
-                });
-                isCorrect = answer === q.correct;
-            } else if (q.type === "truefalse") {
-                const options = document.querySelectorAll('.true-false-option');
-                options[0].classList.toggle('correct', q.correct === "A");
-                options[1].classList.toggle('correct', q.correct === "B");
-                if (answer) {
-                    options[answer === "A" ? 0 : 1].classList.add('wrong');
-                }
-                isCorrect = answer === q.correct;
-            }
-
-            answers[currentQuestion] = { answer, isCorrect };
-
-            if (isCorrect) {
-                score += 10;
-                correctAnswers++;
-                if (timeLeft > 20) {
-                    timeLeft += 10;
-                    document.querySelector('.powerup').classList.remove('hidden');
-                    document.querySelector('.timer').textContent = `${timeLeft} detik`;
-                }
-            }
-
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    loadQuestion();
-                } else {
-                    showResult();
-                }
-            }, 1000);
-        }
-
-        function checkShortAnswer() {
-            const answer = document.querySelector('.short-answer input').value.toUpperCase().trim();
-            const q = questions[currentQuestion];
-            const isCorrect = answer === q.correct;
+            // Quiz buttons
+            document.getElementById('nextBtn').addEventListener('click', nextQuestion);
             
-            document.querySelector('.short-answer input').disabled = true;
-            document.querySelector('.short-answer input').style.backgroundColor = isCorrect ? '#4CAF50' : '#F44336';
-            document.querySelector('.short-answer input').style.color = 'white';
-            
-            answers[currentQuestion] = { answer, isCorrect };
-
-            if (isCorrect) {
-                score += 10;
-                correctAnswers++;
-                if (timeLeft > 20) {
-                    timeLeft += 10;
-                    document.querySelector('.powerup').classList.remove('hidden');
-                    document.querySelector('.timer').textContent = `${timeLeft} detik`;
-                }
-            }
-
-            setTimeout(() => {
-                currentQuestion++;
-                if (currentQuestion < questions.length) {
-                    loadQuestion();
-                } else {
-                    showResult();
-                }
-            }, 1000);
-        }
-
-        function checkTrueFalse(answer) {
-            checkAnswer(answer);
-        }
-
-        function showResult() {
-            showScreen('resultScreen');
-            const timeTaken = Math.floor((new Date() - startTime) / 1000);
-            document.getElementById('total-score').textContent = `Skor Total: ${score}`;
-            document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/${questions.length}`;
-            document.getElementById('time-taken').textContent = `Waktu: ${Math.floor(timeTaken / 60)} menit ${timeTaken % 60} detik`;
-
-            const incorrectQuestions = answers
-                .map((ans, i) => ({ index: i, isCorrect: ans ? ans.isCorrect : false }))
-                .filter(ans => !ans.isCorrect)
-                .map(ans => ans.index);
-
-            if (incorrectQuestions.length > 0) {
-                document.querySelector('.redemption').classList.remove('hidden');
-                const redemptionOptions = document.getElementById('redemption-options');
-                redemptionOptions.innerHTML = '';
-                incorrectQuestions.forEach(i => {
-                    const btn = document.createElement('button');
-                    btn.classList.add('btn');
-                    btn.textContent = `Soal ${i + 1}`;
-                    btn.onclick = () => toggleRedemptionQuestion(i);
-                    redemptionOptions.appendChild(btn);
-                });
-            }
-
-            updateLeaderboard();
-        }
-
-        function toggleRedemptionQuestion(index) {
-            const btn = document.querySelector(`#redemption-options button:nth-child(${index + 1})`);
-            if (redemptionQuestions.includes(index)) {
-                redemptionQuestions = redemptionQuestions.filter(i => i !== index);
-                btn.classList.remove('selected');
-            } else if (redemptionQuestions.length < 3) {
-                redemptionQuestions.push(index);
-                btn.classList.add('selected');
-            }
-        }
-
-        function startRedemption() {
-            if (redemptionQuestions.length === 0) {
-                alert('Silakan pilih minimal satu soal untuk redemption quiz!');
-                return;
-            }
-            currentQuestion = redemptionQuestions[0];
-            redemptionQuestions = redemptionQuestions.slice(1);
-            showScreen('quizScreen');
-            loadQuestion();
-        }
-
-        function updateLeaderboard() {
-            const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
-            const name = prompt('Masukkan nama Anda untuk leaderboard:');
-            if (name) {
-                leaderboard.push({ 
-                    name, 
-                    score, 
-                    time: Math.floor((new Date() - startTime) / 1000) 
-                });
-                leaderboard.sort((a, b) => b.score - a.score || a.time - b.time);
-                localStorage.setItem('leaderboard', JSON.stringify(leaderboard.slice(0, 5)));
-                
-                const list = document.getElementById('leaderboard-list');
-                list.innerHTML = '';
-                leaderboard.slice(0, 5).forEach((entry, i) => {
-                    const li = document.createElement('li');
-                    li.textContent = `${i + 1}. ${entry.name}: ${entry.score} (${Math.floor(entry.time / 60)}m ${entry.time % 60}s)`;
-                    list.appendChild(li);
-                });
-            }
-        }
-
-        function playAgain() {
-            showScreen('homeScreen');
-        }
-
-        function shareScore() {
-            alert('Fitur bagikan skor akan datang!');
+            // Results buttons
+            document.getElementById('saveScoreBtn').addEventListener('click', saveScore);
+            document.getElementById('shareBtn').addEventListener('click', shareScore);
         }
 
         function toggleDarkMode() {
-            document.body.classList.toggle('dark-mode');
+            isDarkMode = !isDarkMode;
+            body.classList.toggle('dark', isDarkMode);
+            document.getElementById('darkModeIcon').textContent = isDarkMode ? '☀️' : '🌙';
+            localStorage.setItem('darkMode', isDarkMode);
+        }
+
+        function loadDarkMode() {
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'true') {
+                isDarkMode = true;
+                body.classList.add('dark');
+                document.getElementById('darkModeIcon').textContent = '☀️';
+            }
+        }
+
+        function showHome() {
+            homePage.classList.remove('hidden');
+            quizPage.classList.add('hidden');
+            resultsPage.classList.add('hidden');
+            leaderboardPage.classList.add('hidden');
+        }
+
+        function showLeaderboard() {
+            homePage.classList.add('hidden');
+            leaderboardPage.classList.remove('hidden');
+            displayLeaderboard();
+        }
+
+        function startQuiz() {
+            // Reset game state
+            currentQuestionIndex = 0;
+            score = 0;
+            correctAnswers = 0;
+            incorrectAnswers = 0;
+            startTime = new Date();
+            
+            // Show quiz page
+            homePage.classList.add('hidden');
+            resultsPage.classList.add('hidden');
+            leaderboardPage.classList.add('hidden');
+            quizPage.classList.remove('hidden');
+            
+            // Start first question
+            showQuestion();
+        }
+
+        function showQuestion() {
+            const question = quizData[currentQuestionIndex];
+            const container = document.getElementById('questionContainer');
+            
+            // Update counters
+            document.getElementById('questionCounter').textContent = `Soal ${currentQuestionIndex + 1}/50`;
+            document.getElementById('scoreDisplay').textContent = `🎯 ${score} Poin`;
+            
+            // Set timer based on question type
+            timeLeft = question.type === 'mc' ? 30 : 45;
+            document.getElementById('timerDisplay').textContent = `⏱ ${timeLeft}s`;
+            
+            // Create question HTML
+            let questionHTML = `
+                <div class="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
+                    <div class="flex justify-between items-start mb-4">
+                        <h3 class="text-xl font-semibold flex-1">${question.question}</h3>
+                        <span class="bg-orange-500 text-white px-3 py-1 rounded-full text-sm font-semibold ml-4">
+                            ${question.points} Poin
+                        </span>
+                    </div>
+            `;
+            
+            if (question.type === 'mc') {
+                questionHTML += '<div class="space-y-3">';
+                question.options.forEach((option, index) => {
+                    questionHTML += `
+                        <button class="option-btn w-full text-left p-4 rounded-lg border-2 border-gray-200 dark:border-gray-600 hover:border-orange-500 transition-all"
+                                onclick="selectAnswer(${index})">
+                            <span class="font-semibold text-orange-500">${String.fromCharCode(65 + index)}.</span> ${option}
+                        </button>
+                    `;
+                });
+                questionHTML += '</div>';
+            } else {
+                questionHTML += `
+                    <div class="mt-4">
+                        <input type="text" id="fillAnswer" placeholder="TULISKAN JAWABAN DENGAN HURUF BESAR..." 
+                               class="w-full p-4 text-lg border-2 border-gray-300 dark:border-gray-600 dark:bg-gray-700 rounded-lg focus:border-orange-500 focus:outline-none"
+                               onkeypress="handleEnterKey(event)">
+                        <button onclick="submitFillAnswer()" 
+                                class="mt-4 btn-primary text-white px-6 py-3 rounded-lg font-semibold">
+                            Submit Jawaban
+                        </button>
+                    </div>
+                `;
+            }
+            
+            questionHTML += '</div>';
+            container.innerHTML = questionHTML;
+            
+            // Start timer
+            startTimer();
+            
+            // Hide feedback and next button
+            document.getElementById('feedback').classList.add('hidden');
+            document.getElementById('nextBtn').classList.add('hidden');
+        }
+
+        function startTimer() {
+            questionStartTime = new Date();
+            updateTimerBar();
+            
+            timer = setInterval(() => {
+                timeLeft--;
+                document.getElementById('timerDisplay').textContent = `⏱ ${timeLeft}s`;
+                updateTimerBar();
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timer);
+                    timeUp();
+                }
+            }, 1000);
+        }
+
+        function updateTimerBar() {
+            const question = quizData[currentQuestionIndex];
+            const totalTime = question.type === 'mc' ? 30 : 45;
+            const percentage = (timeLeft / totalTime) * 100;
+            document.getElementById('timerBar').style.width = percentage + '%';
+        }
+
+        function selectAnswer(selectedIndex) {
+            clearInterval(timer);
+            const question = quizData[currentQuestionIndex];
+            const buttons = document.querySelectorAll('.option-btn');
+            
+            // Disable all buttons
+            buttons.forEach(btn => btn.disabled = true);
+            
+            // Show correct/incorrect
+            buttons[question.correctAnswer].classList.add('correct');
+            
+            if (selectedIndex === question.correctAnswer) {
+                showFeedback(true, question.points);
+                score += question.points;
+                correctAnswers++;
+                createConfetti();
+            } else {
+                buttons[selectedIndex].classList.add('incorrect');
+                buttons[selectedIndex].classList.add('shake');
+                showFeedback(false, 0, question.options[question.correctAnswer]);
+                incorrectAnswers++;
+            }
+            
+            document.getElementById('scoreDisplay').textContent = `🎯 ${score} Poin`;
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        function submitFillAnswer() {
+            const input = document.getElementById('fillAnswer');
+            const userAnswer = input.value.trim().toUpperCase();
+            
+            if (!userAnswer) {
+                alert('Silakan masukkan jawaban terlebih dahulu!');
+                return;
+            }
+            
+            // Validate input format
+            if (!/^[A-Z\s]+$/.test(userAnswer)) {
+                alert('Hanya gunakan HURUF BESAR dan spasi!');
+                return;
+            }
+            
+            clearInterval(timer);
+            const question = quizData[currentQuestionIndex];
+            
+            input.disabled = true;
+            
+            if (userAnswer === question.correctAnswer) {
+                input.classList.add('correct');
+                showFeedback(true, question.points);
+                score += question.points;
+                correctAnswers++;
+                createConfetti();
+            } else {
+                input.classList.add('incorrect', 'shake');
+                showFeedback(false, 0, question.correctAnswer);
+                incorrectAnswers++;
+            }
+            
+            document.getElementById('scoreDisplay').textContent = `🎯 ${score} Poin`;
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        function handleEnterKey(event) {
+            if (event.key === 'Enter') {
+                submitFillAnswer();
+            }
+        }
+
+        function timeUp() {
+            const question = quizData[currentQuestionIndex];
+            
+            if (question.type === 'mc') {
+                const buttons = document.querySelectorAll('.option-btn');
+                buttons.forEach(btn => btn.disabled = true);
+                buttons[question.correctAnswer].classList.add('correct');
+            } else {
+                document.getElementById('fillAnswer').disabled = true;
+            }
+            
+            showFeedback(false, 0, question.type === 'mc' ? question.options[question.correctAnswer] : question.correctAnswer);
+            incorrectAnswers++;
+            document.getElementById('nextBtn').classList.remove('hidden');
+        }
+
+        function showFeedback(isCorrect, points, correctAnswer = null) {
+            const feedback = document.getElementById('feedback');
+            const content = document.getElementById('feedbackContent');
+            
+            if (isCorrect) {
+                content.innerHTML = `<span class="text-green-500 pulse">✅ Benar! +${points} Poin</span>`;
+            } else {
+                content.innerHTML = `<span class="text-red-500">❌ Salah!</span><br><span class="text-sm text-gray-600 dark:text-gray-300">Jawaban yang benar: ${correctAnswer}</span>`;
+            }
+            
+            feedback.classList.remove('hidden');
+        }
+
+        function createConfetti() {
+            for (let i = 0; i < 20; i++) {
+                setTimeout(() => {
+                    const confetti = document.createElement('div');
+                    confetti.className = 'confetti';
+                    confetti.style.left = Math.random() * 100 + '%';
+                    confetti.style.backgroundColor = ['#FF6B00', '#F4C425', '#4A90E2'][Math.floor(Math.random() * 3)];
+                    document.body.appendChild(confetti);
+                    
+                    setTimeout(() => {
+                        confetti.remove();
+                    }, 2000);
+                }, i * 100);
+            }
+        }
+
+        function nextQuestion() {
+            currentQuestionIndex++;
+            
+            if (currentQuestionIndex >= quizData.length) {
+                showResults();
+            } else {
+                showQuestion();
+            }
+        }
+
+        function showResults() {
+            quizPage.classList.add('hidden');
+            resultsPage.classList.remove('hidden');
+            
+            const endTime = new Date();
+            const totalTime = Math.floor((endTime - startTime) / 1000);
+            const minutes = Math.floor(totalTime / 60);
+            const seconds = totalTime % 60;
+            
+            // Determine medal
+            let medal = '🥉';
+            let title = 'Bagus!';
+            let subtitle = 'Kamu mendapat medali perunggu!';
+            
+            if (score >= 80) {
+                medal = '🏆';
+                title = 'Luar Biasa!';
+                subtitle = 'Kamu mendapat medali emas!';
+            } else if (score >= 60) {
+                medal = '🥈';
+                title = 'Hebat!';
+                subtitle = 'Kamu mendapat medali perak!';
+            }
+            
+            document.getElementById('medal').textContent = medal;
+            document.getElementById('resultTitle').textContent = title;
+            document.getElementById('resultSubtitle').textContent = subtitle;
+            document.getElementById('finalScore').textContent = score;
+            document.getElementById('correctCount').textContent = correctAnswers;
+            document.getElementById('incorrectCount').textContent = incorrectAnswers;
+            document.getElementById('totalTime').textContent = `${minutes}:${seconds.toString().padStart(2, '0')}`;
+        }
+
+        function saveScore() {
+            const playerName = document.getElementById('playerName').value.trim();
+            
+            if (!playerName) {
+                alert('Silakan masukkan nama kamu terlebih dahulu!');
+                return;
+            }
+            
+            const scoreData = {
+                name: playerName,
+                score: score,
+                correct: correctAnswers,
+                incorrect: incorrectAnswers,
+                date: new Date().toLocaleDateString('id-ID')
+            };
+            
+            let leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+            leaderboard.push(scoreData);
+            leaderboard.sort((a, b) => b.score - a.score);
+            leaderboard = leaderboard.slice(0, 10); // Keep only top 10
+            
+            localStorage.setItem('leaderboard', JSON.stringify(leaderboard));
+            
+            alert('Skor berhasil disimpan! 🎉');
+            document.getElementById('saveScoreBtn').disabled = true;
+            document.getElementById('saveScoreBtn').textContent = '✅ Tersimpan';
+        }
+
+        function shareScore() {
+            const playerName = document.getElementById('playerName').value.trim() || 'Seseorang';
+            const text = `🎯 ${playerName} mendapat ${score} poin di WUIZZIZZZ - OSN IPS!\n✅ ${correctAnswers} benar, ❌ ${incorrectAnswers} salah\n\nIkutan main yuk! 🚀`;
+            
+            if (navigator.share) {
+                navigator.share({
+                    title: 'WUIZZIZZZ - OSN IPS',
+                    text: text
+                });
+            } else {
+                navigator.clipboard.writeText(text).then(() => {
+                    alert('Skor berhasil disalin ke clipboard! 📋');
+                });
+            }
+        }
+
+        function loadLeaderboard() {
+            const leaderboard = JSON.parse(localStorage.getItem('leaderboard') || '[]');
+            return leaderboard;
+        }
+
+        function displayLeaderboard() {
+            const leaderboard = loadLeaderboard();
+            const table = document.getElementById('leaderboardTable');
+            
+            if (leaderboard.length === 0) {
+                table.innerHTML = `
+                    <div class="p-8 text-center text-gray-500 dark:text-gray-400">
+                        <div class="text-6xl mb-4">🏆</div>
+                        <p class="text-xl">Belum ada data leaderboard</p>
+                        <p>Jadilah yang pertama!</p>
+                    </div>
+                `;
+                return;
+            }
+            
+            let tableHTML = `
+                <div class="p-6">
+                    <div class="space-y-4">
+            `;
+            
+            leaderboard.forEach((player, index) => {
+                const rank = index + 1;
+                let badge = '';
+                let bgClass = '';
+                
+                if (rank === 1) {
+                    badge = '🏆';
+                    bgClass = 'bg-gradient-to-r from-yellow-400 to-orange-500 text-white';
+                } else if (rank === 2) {
+                    badge = '🥈';
+                    bgClass = 'bg-gradient-to-r from-gray-300 to-gray-400 text-gray-800';
+                } else if (rank === 3) {
+                    badge = '🥉';
+                    bgClass = 'bg-gradient-to-r from-orange-400 to-yellow-600 text-white';
+                } else {
+                    bgClass = 'bg-gray-100 dark:bg-gray-700';
+                }
+                
+                tableHTML += `
+                    <div class="flex items-center justify-between p-4 rounded-lg ${bgClass}">
+                        <div class="flex items-center space-x-4">
+                            <div class="text-2xl font-bold">${badge || rank}</div>
+                            <div>
+                                <div class="font-semibold text-lg">${player.name}</div>
+                                <div class="text-sm opacity-75">${player.date}</div>
+                            </div>
+                        </div>
+                        <div class="text-right">
+                            <div class="text-2xl font-bold">${player.score}</div>
+                            <div class="text-sm opacity-75">✅ ${player.correct} ❌ ${player.incorrect}</div>
+                        </div>
+                    </div>
+                `;
+            });
+            
+            tableHTML += `
+                    </div>
+                </div>
+            `;
+            
+            table.innerHTML = tableHTML;
         }
     </script>
-</body>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'96ccb5f684ba8977',t:'MTc1NDc5OTczMi4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
