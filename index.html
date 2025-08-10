@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>WUIZZIZZZ - OSN IPS</title>
+    <title>WUIZZIZZZ - Quiz Olimpiade IPS Keren!!!!</title>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
@@ -12,13 +12,21 @@
             font-family: 'Poppins', sans-serif;
             transition: background-color 0.3s, color 0.3s;
             overflow-x: hidden;
-        }
-        .gradient-bg {
             background: linear-gradient(135deg, #ff6b00, #f4c425);
+            min-height: 100vh;
         }
         .dark-mode {
             background: linear-gradient(135deg, #333, #555);
             color: #fff;
+        }
+        .screen {
+            display: none;
+            width: 100%;
+            min-height: 100vh;
+            padding: 1rem;
+        }
+        .screen.active {
+            display: block;
         }
         .btn {
             transition: all 0.3s ease;
@@ -65,23 +73,34 @@
         .dark-mode-toggle {
             position: fixed;
             top: 20px;
-            right: 70px;
-            z-index: 20;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            color: white;
+            font-size: 1.2rem;
         }
         .question-text {
             font-size: 1.1rem;
             line-height: 1.5;
         }
         
-        /* New Styles for Improved UI */
-        .home-screen {
+        /* Home Screen Styles */
+        #homeScreen {
             display: flex;
             flex-direction: column;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
-            padding: 2rem;
             text-align: center;
+            padding: 2rem;
         }
         .logo {
             font-size: 4rem;
@@ -126,34 +145,63 @@
             cursor: pointer;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
             transition: all 0.3s ease;
+            margin-bottom: 1rem;
         }
         .start-btn:hover {
             transform: translateY(-5px);
             box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
         }
-        .countdown {
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        z-index: 1000; /* Pastikan z-index lebih tinggi dari elemen lain */
-        font-size: 10rem;
-        color: white;
-        font-weight: bold;
-        animation: zoomIn 0.5s;
-    }
-    .countdown.hidden {
-        display: none;
-    }
-        @keyframes zoomOut {
-        from { transform: scale(1); opacity: 1; }
-        to { transform: scale(0); opacity: 0; }
-    }
+        
+        /* Quiz Screen Styles */
+        #quizScreen {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-top: 3rem;
+        }
+        .nav-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .question-card {
+            background: rgba(255, 255, 255, 0.9);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+        }
+        .options {
+            display: grid;
+            gap: 0.75rem;
+            margin-top: 1.5rem;
+        }
+        .option {
+            background: #f4c425;
+            color: #333;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            text-align: left;
+        }
+        
+        /* Countdown Screen */
+        #countdownScreen {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: rgba(0, 0, 0, 0.8);
+        }
+        .countdown-number {
+            font-size: 10rem;
+            color: white;
+            font-weight: bold;
+            animation: zoomIn 0.5s;
+        }
+        
+        /* Animations */
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
@@ -162,18 +210,13 @@
             from { transform: scale(0); opacity: 0; }
             to { transform: scale(1); opacity: 1; }
         }
+        @keyframes zoomOut {
+            from { transform: scale(1); opacity: 1; }
+            to { transform: scale(0); opacity: 0; }
+        }
         
-        @media (max-width: 600px) {
-            .question-text {
-                font-size: 0.9rem;
-            }
-            .dark-mode-toggle {
-                right: 40px;
-            }
-            .btn {
-                padding: 0.5rem 1rem;
-                font-size: 0.9rem;
-            }
+        /* Responsive Styles */
+        @media (max-width: 768px) {
             .logo {
                 font-size: 2.5rem;
             }
@@ -187,90 +230,91 @@
                 padding: 0.8rem 2rem;
                 font-size: 1rem;
             }
+            .question-text {
+                font-size: 1rem;
+            }
+            .countdown-number {
+                font-size: 6rem;
+            }
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        @media (min-width: 769px) {
+            .options {
+                grid-template-columns: 1fr 1fr;
+            }
         }
     </style>
 </head>
-<body class="gradient-bg min-h-screen">
-    <div class="dark-mode-toggle bg-orange-500 text-white p-2 rounded-full cursor-pointer" onclick="toggleDarkMode()">🌙</div>
-    
+<body>
+    <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
+
     <!-- Home Screen -->
-    <div class="home-screen" id="homeScreen">
+    <div id="homeScreen" class="screen active">
         <div class="logo">WUIZZIZZZ</div>
-        <div class="subtitle">OSN IPS - Olimpiade Sains Nasional</div>
+        <div class="subtitle">Quiz Seru - Olimpiade Sains IPS</div>
         
         <div class="welcome-text">
-            <h2>🎯 Siap Jadi Juara OSN IPS? 🏆</h2>
-            <p>Halo para calon juara! Selamat datang di WUIZZIZZZ, tempat terbaik untuk berlatih soal-soal Olimpiade IPS. 
-            Kamu akan menghadapi 50 soal pilihan ganda yang menantang dan seru. Setiap soal punya waktu 30 detik, 
-            jadi pastikan kamu fokus dan percaya diri!</p>
+            <h2>🎯 Siap Jadi Juara Olimpiade IPS? 🏆</h2>
+            <p>Halo para calon juara! Selamat datang di WUIZZIZZZ, tempat terbaik untuk berlatih soal-soal Olimpiade IPS. Kamu akan menghadapi 50 soal pilihan ganda yang menantang dan seru. Setiap soal punya waktu 30 detik, jadi pastikan kamu fokus dan percaya diri!</p>
             <p><strong>💡 Tips:</strong> Baca soal dengan teliti, jangan terburu-buru, dan ingat - setiap kesalahan adalah pembelajaran!</p>
             <p><strong>🔥 Power-up:</strong> Dapatkan +10 detik bonus jika menjawab dalam 10 detik pertama!</p>
         </div>
         
-        <div class="flex gap-4 z-10">
-            <button class="start-btn" onclick="startCountdown()">🚀 MULAI KUIS</button>
-            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold" onclick="showAdmin()">Tambah Soal (Admin)</button>
-        </div>
+        <button class="start-btn" onclick="startCountdown()">🚀 MULAI KUIS</button>
     </div>
 
-    <div class="question-screen hidden">
-        <div class="nav-card bg-white dark:bg-gray-800 rounded-2xl p-4 mb-4 shadow-lg flex justify-between items-center">
+    <!-- Countdown Screen -->
+    <div id="countdownScreen" class="screen">
+        <div class="countdown-number">3</div>
+    </div>
+
+    <!-- Quiz Screen -->
+    <div id="quizScreen" class="screen">
+        <div class="nav-card">
             <div class="score text-lg font-semibold text-orange-500">Skor: 0</div>
             <div class="powerup hidden text-2xl pulse">🔥</div>
             <div class="timer flex items-center">
                 <div class="timer-bar w-32 h-2 bg-gray-300 rounded-full overflow-hidden mr-2">
                     <div class="timer-progress h-full bg-yellow-400 transition-all" style="width: 100%;"></div>
                 </div>
-                <span class="timer-text text-gray-600 dark:text-gray-300">30 detik</span>
+                <span class="timer-text text-gray-600">30 detik</span>
             </div>
         </div>
-        <div class="question-card bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg">
-            <div class="question-number text-lg font-semibold text-gray-600 dark:text-gray-300 mb-2"></div>
+        <div class="question-card">
+            <div class="question-number text-lg font-semibold text-gray-600 mb-2"></div>
             <div class="question-text mb-4"></div>
             <div class="options grid gap-3"></div>
             <div class="short-answer hidden">
-                <input type="text" class="w-full p-3 border-2 border-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300 text-uppercase" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
+                <input type="text" class="w-full p-3 border-2 border-orange-500 rounded-lg focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Masukkan jawaban (HURUF BESAR, TANPA TANDA BACA)">
                 <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold mt-3" onclick="checkShortAnswer()">Kirim</button>
             </div>
         </div>
     </div>
 
-    <div class="result-screen hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-        <h2 class="text-2xl font-bold text-orange-500 mb-4">Hasil Kuis</h2>
-        <p id="total-score" class="text-lg mb-2"></p>
-        <p id="correct-answers" class="text-lg mb-2"></p>
-        <p id="time-taken" class="text-lg mb-4"></p>
-        <div class="redemption hidden mb-4">
-            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Redemption Quiz</h3>
-            <p class="text-gray-600 dark:text-gray-300 mb-2">Pilih hingga 3 soal yang salah/tidak dijawab untuk dijawab ulang:</p>
-            <div id="redemption-options" class="flex flex-wrap gap-2"></div>
-            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold mt-3" onclick="startRedemption()">Mulai Redemption</button>
-        </div>
-        <div class="flex gap-4">
-            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="playAgain()">Main Lagi</button>
-            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold" onclick="shareScore()">Bagikan Skor</button>
-        </div>
-        <div class="leaderboard mt-6">
-            <h3 class="text-lg font-semibold text-gray-600 dark:text-gray-300">Leaderboard</h3>
-            <ul id="leaderboard-list" class="text-left"></ul>
-        </div>
-    </div>
-
-    <div class="admin-section hidden bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg">
-        <h2 class="text-2xl font-bold text-orange-500 mb-4">Tambah Soal Baru</h2>
-        <select id="question-type" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-orange-300">
-            <option value="multiple">Pilihan Ganda</option>
-            <option value="short">Isian Singkat</option>
-        </select>
-        <textarea id="question-text" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Masukkan teks soal"></textarea>
-        <input id="option-a" class="w-full p-3 border rounded-lg mb-4 hidden focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Pilihan A">
-        <input id="option-b" class="w-full p-3 border rounded-lg mb-4 hidden focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Pilihan B">
-        <input id="option-c" class="w-full p-3 border rounded-lg mb-4 hidden focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Pilihan C">
-        <input id="option-d" class="w-full p-3 border rounded-lg mb-4 hidden focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Pilihan D">
-        <input id="correct-answer" class="w-full p-3 border rounded-lg mb-4 focus:outline-none focus:ring-2 focus:ring-orange-300" placeholder="Jawaban benar (A/B/C/D untuk pilihan ganda, teks untuk isian)">
-        <div class="flex gap-4">
-            <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="addQuestion()">Tambah Soal</button>
-            <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold" onclick="hideAdmin()">Kembali</button>
+    <!-- Result Screen -->
+    <div id="resultScreen" class="screen">
+        <div class="bg-white rounded-2xl p-8 shadow-lg max-w-3xl mx-auto mt-8">
+            <h2 class="text-2xl font-bold text-orange-500 mb-4">Hasil Kuis</h2>
+            <p id="total-score" class="text-lg mb-2"></p>
+            <p id="correct-answers" class="text-lg mb-2"></p>
+            <p id="time-taken" class="text-lg mb-4"></p>
+            <div class="redemption hidden mb-4">
+                <h3 class="text-lg font-semibold text-gray-600">Redemption Quiz</h3>
+                <p class="text-gray-600 mb-2">Pilih hingga 3 soal yang salah/tidak dijawab untuk dijawab ulang:</p>
+                <div id="redemption-options" class="flex flex-wrap gap-2"></div>
+                <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold mt-3" onclick="startRedemption()">Mulai Redemption</button>
+            </div>
+            <div class="flex gap-4 justify-center">
+                <button class="btn bg-orange-500 text-white px-6 py-3 rounded-lg font-semibold" onclick="playAgain()">Main Lagi</button>
+                <button class="btn bg-yellow-400 text-gray-800 px-6 py-3 rounded-lg font-semibold" onclick="shareScore()">Bagikan Skor</button>
+            </div>
+            <div class="leaderboard mt-6">
+                <h3 class="text-lg font-semibold text-gray-600">Leaderboard</h3>
+                <ul id="leaderboard-list" class="text-left"></ul>
+            </div>
         </div>
     </div>
 
@@ -570,98 +614,76 @@
         let answers = [];
         let redemptionQuestions = [];
 
+        function showScreen(screenId) {
+            document.querySelectorAll('.screen').forEach(screen => {
+                screen.classList.remove('active');
+            });
+            document.getElementById(screenId).classList.add('active');
+        }
+
         function startCountdown() {
-        const homeScreen = document.getElementById('homeScreen');
-        homeScreen.classList.add('hidden');
-        
-        // Buat elemen countdown baru
-        const countdownElement = document.createElement('div');
-        countdownElement.className = 'countdown';
-        document.body.appendChild(countdownElement);
-        
-        let count = 3;
-        countdownElement.textContent = count;
-        
-        const countdownInterval = setInterval(() => {
-            count--;
-            countdownElement.textContent = count > 0 ? count : 'MULAI!';
+            showScreen('countdownScreen');
+            const countdownElement = document.querySelector('.countdown-number');
+            let count = 3;
             
-            if (count === 0) {
-                clearInterval(countdownInterval);
-                setTimeout(() => {
-                    // Tambahkan animasi fade out sebelum menghapus
+            const countdownInterval = setInterval(() => {
+                countdownElement.textContent = count;
+                count--;
+                
+                if (count < 0) {
+                    clearInterval(countdownInterval);
                     countdownElement.style.animation = 'zoomOut 0.5s forwards';
                     setTimeout(() => {
-                        countdownElement.remove();
                         startQuiz();
                     }, 500);
-                }, 1000);
-            }
-        }, 1000);
-    }
+                }
+            }, 1000);
+        }
 
         function startQuiz() {
-            try {
-                document.getElementById('homeScreen').classList.add('hidden');
-                document.querySelector('.question-screen').classList.remove('hidden');
-                startTime = new Date();
-                answers = Array(questions.length).fill(null);
-                redemptionQuestions = [];
-                loadQuestion();
-            } catch (e) {
-                console.error('Error in startQuiz:', e);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Terjadi kesalahan saat memulai kuis. Silakan coba lagi.',
-                    icon: 'error',
-                    confirmButtonColor: '#ff6b00'
-                });
-            }
+            showScreen('quizScreen');
+            startTime = new Date();
+            answers = Array(questions.length).fill(null);
+            redemptionQuestions = [];
+            currentQuestion = 0;
+            score = 0;
+            correctAnswers = 0;
+            loadQuestion();
         }
 
         function loadQuestion() {
-            try {
-                const q = questions[currentQuestion];
-                timeLeft = q.type === "multiple" ? 30 : 45;
-                document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/50`;
-                document.querySelector('.question-text').textContent = q.text;
-                document.querySelector('.score').textContent = `Skor: ${score}`;
-                document.querySelector('.powerup').classList.add('hidden');
+            const q = questions[currentQuestion];
+            timeLeft = q.type === "multiple" ? 30 : 45;
+            document.querySelector('.question-number').textContent = `Soal ${currentQuestion + 1}/${questions.length}`;
+            document.querySelector('.question-text').textContent = q.text;
+            document.querySelector('.score').textContent = `Skor: ${score}`;
+            document.querySelector('.powerup').classList.add('hidden');
 
-                const optionsDiv = document.querySelector('.options');
-                const shortAnswerDiv = document.querySelector('.short-answer');
-                optionsDiv.innerHTML = '';
-                shortAnswerDiv.classList.add('hidden');
+            const optionsDiv = document.querySelector('.options');
+            const shortAnswerDiv = document.querySelector('.short-answer');
+            optionsDiv.innerHTML = '';
+            shortAnswerDiv.classList.add('hidden');
 
-                if (q.type === "multiple") {
-                    optionsDiv.classList.remove('hidden');
-                    q.options.forEach((option, i) => {
-                        const btn = document.createElement('div');
-                        btn.classList.add('option', 'bg-yellow-400', 'text-gray-800', 'p-4', 'rounded-lg', 'transition-all');
-                        btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
-                        btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
-                        optionsDiv.appendChild(btn);
-                    });
-                } else {
-                    shortAnswerDiv.classList.remove('hidden');
-                    optionsDiv.classList.add('hidden');
-                    const input = document.querySelector('.short-answer input');
-                    input.value = '';
-                    input.disabled = false;
-                    input.classList.remove('border-green-500', 'border-red-500');
-                    document.querySelector('.short-answer .btn').disabled = false;
-                }
-
-                startTimer();
-            } catch (e) {
-                console.error('Error in loadQuestion:', e);
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Terjadi kesalahan saat memuat soal. Silakan coba lagi.',
-                    icon: 'error',
-                    confirmButtonColor: '#ff6b00'
+            if (q.type === "multiple") {
+                optionsDiv.classList.remove('hidden');
+                q.options.forEach((option, i) => {
+                    const btn = document.createElement('div');
+                    btn.classList.add('option', 'bg-yellow-400', 'text-gray-800', 'p-4', 'rounded-lg', 'transition-all');
+                    btn.textContent = `${String.fromCharCode(65 + i)}. ${option}`;
+                    btn.onclick = () => checkAnswer(String.fromCharCode(65 + i));
+                    optionsDiv.appendChild(btn);
                 });
+            } else {
+                shortAnswerDiv.classList.remove('hidden');
+                optionsDiv.classList.add('hidden');
+                const input = document.querySelector('.short-answer input');
+                input.value = '';
+                input.disabled = false;
+                input.classList.remove('border-green-500', 'border-red-500');
+                document.querySelector('.short-answer .btn').disabled = false;
             }
+
+            startTimer();
         }
 
         function startTimer() {
@@ -746,11 +768,10 @@
         }
 
         function showResult() {
-            document.querySelector('.question-screen').classList.add('hidden');
-            document.querySelector('.result-screen').classList.remove('hidden');
+            showScreen('resultScreen');
             const timeTaken = Math.floor((new Date() - startTime) / 1000);
             document.getElementById('total-score').textContent = `Skor Total: ${score}`;
-            document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/50`;
+            document.getElementById('correct-answers').textContent = `Jawaban Benar: ${correctAnswers}/${questions.length}`;
             document.getElementById('time-taken').textContent = `Waktu: ${Math.floor(timeTaken / 60)} menit ${timeTaken % 60} detik`;
 
             const incorrectQuestions = answers
@@ -817,8 +838,7 @@
             score -= answers.filter(ans => ans && ans.isCorrect).length * 10;
             correctAnswers = 0;
             answers = Array(questions.length).fill(null);
-            document.querySelector('.result-screen').classList.add('hidden');
-            document.querySelector('.question-screen').classList.remove('hidden');
+            showScreen('quizScreen');
             loadQuestion();
         }
 
@@ -851,14 +871,7 @@
         }
 
         function playAgain() {
-            currentQuestion = 0;
-            score = 0;
-            correctAnswers = 0;
-            totalTime = 0;
-            redemptionQuestions = [];
-            answers = [];
-            document.querySelector('.result-screen').classList.add('hidden');
-            document.getElementById('homeScreen').classList.remove('hidden');
+            showScreen('homeScreen');
         }
 
         function shareScore() {
@@ -868,69 +881,6 @@
                 icon: 'info',
                 confirmButtonColor: '#ff6b00'
             });
-        }
-
-        function showAdmin() {
-            document.getElementById('homeScreen').classList.add('hidden');
-            document.querySelector('.admin-section').classList.remove('hidden');
-            document.getElementById('question-type').onchange = function() {
-                const isMultiple = this.value === "multiple";
-                document.getElementById('option-a').classList.toggle('hidden', !isMultiple);
-                document.getElementById('option-b').classList.toggle('hidden', !isMultiple);
-                document.getElementById('option-c').classList.toggle('hidden', !isMultiple);
-                document.getElementById('option-d').classList.toggle('hidden', !isMultiple);
-            };
-        }
-
-        function hideAdmin() {
-            document.querySelector('.admin-section').classList.add('hidden');
-            document.getElementById('homeScreen').classList.remove('hidden');
-        }
-
-        function addQuestion() {
-            const type = document.getElementById('question-type').value;
-            const text = document.getElementById('question-text').value;
-            const correct = document.getElementById('correct-answer').value.toUpperCase();
-            if (!text || !correct) {
-                Swal.fire({
-                    title: 'Error',
-                    text: 'Teks soal dan jawaban benar harus diisi!',
-                    icon: 'error',
-                    confirmButtonColor: '#ff6b00'
-                });
-                return;
-            }
-            const newQuestion = { type, text, correct };
-
-            if (type === "multiple") {
-                const options = [
-                    document.getElementById('option-a').value,
-                    document.getElementById('option-b').value,
-                    document.getElementById('option-c').value,
-                    document.getElementById('option-d').value
-                ];
-                if (options.some(opt => !opt)) {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Semua pilihan harus diisi untuk soal pilihan ganda!',
-                        icon: 'error',
-                        confirmButtonColor: '#ff6b00'
-                    });
-                    return;
-                }
-                newQuestion.options = options;
-            }
-
-            questions.push(newQuestion);
-            Swal.fire({
-                title: 'Sukses',
-                text: 'Soal berhasil ditambahkan!',
-                icon: 'success',
-                timer: 1500,
-                showConfirmButton: false,
-                confirmButtonColor: '#ff6b00'
-            });
-            hideAdmin();
         }
 
         function toggleDarkMode() {
