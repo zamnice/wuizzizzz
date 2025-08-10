@@ -910,13 +910,13 @@
             let title = 'Bagus!';
             let subtitle = 'Kamu mendapat medali perunggu!';
             
-            if (score >= 80) { // 40% dari maksimal (400)
+            if (score >= 50) { // 40% dari maksimal (400)
                 medal = '🏆';
                 title = 'Luar Biasa!';
                 subtitle = 'Kamu mendapat medali emas!';
                 medalIcon.classList.add('medal-glow');
                 fireEffect.classList.remove('hidden');
-            } else if (score >= 50) { // 30% dari maksimal
+            } else if (score >= 20) { // 30% dari maksimal
                 medal = '🥈';
                 title = 'Hebat!';
                 subtitle = 'Kamu mendapat medali perak!';
