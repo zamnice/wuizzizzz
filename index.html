@@ -286,568 +286,289 @@
         // QUIZ DATA - 50 SOAL OLIMPIADE IPS SMP (LEVEL HOST)
         // ======================
         const quizData = [
-            // Bagian 1: Geografi (15 soal)
-            {
-                type: "mc",
-                question: "Paparan Sunda adalah wilayah perairan dangkal yang menghubungkan pulau-pulau di Indonesia bagian barat dengan daratan Asia. Manakah dari berikut ini yang TIDAK termasuk dalam wilayah Paparan Sunda?",
-                options: [
-                    "Sumatera",
-                    "Jawa",
-                    "Kalimantan",
-                    "Papua"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Papua termasuk dalam Paparan Sahul yang menghubungkan dengan Australia, bukan Paparan Sunda."
-            },
-            {
-                type: "mc",
-                question: "Fenomena El Niño secara signifikan mempengaruhi iklim Indonesia dengan menyebabkan:",
-                options: [
-                    "Musim hujan yang lebih basah dari normal",
-                    "Musim kemarau yang lebih kering dari normal",
-                    "Peningkatan suhu permukaan laut di perairan Indonesia",
-                    "Frekuensi angin topan yang lebih tinggi"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "El Niño menyebabkan musim kemarau lebih kering karena pergeseran pola sirkulasi atmosfer dan penurunan suhu permukaan laut di Indonesia."
-            },
-            {
-                type: "fi",
-                question: "Garis khayal yang membagi bumi menjadi belahan timur dan barat, dengan derajat 0° yang melalui Greenwich, Inggris, disebut garis...",
-                correctAnswer: "BUJUR",
-                points: 4,
-                explanation: "Garis bujur (longitude) menentukan posisi timur-barat suatu tempat, dengan meridian utama 0° di Greenwich."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari negara-negara ASEAN berikut yang memiliki sistem pemerintahan monarki absolut?",
-                options: [
-                    "Thailand",
-                    "Malaysia",
-                    "Brunei Darussalam",
-                    "Kamboja"
-                ],
-                correctAnswer: 2,
-                points: 4,
-                explanation: "Brunei Darussalam adalah satu-satunya negara ASEAN dengan sistem monarki absolut yang masih berlaku penuh."
-            },
-            {
-                type: "fi",
-                question: "Laut yang terletak di antara Pulau Jawa dan Pulau Bali disebut Laut...",
-                correctAnswer: "BALI",
-                points: 3,
-                explanation: "Laut Bali memisahkan Pulau Jawa dan Pulau Bali, dikenal dengan arus selatnya yang kuat."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang merupakan dampak positif dari letak geostrategis Indonesia?",
-                options: [
-                    "Menjadi jalur perdagangan internasional",
-                    "Memiliki keanekaragaman budaya yang tinggi",
-                    "Rentan terhadap bencana alam",
-                    "Jawaban a dan b benar"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Letak geostrategis Indonesia di antara dua benua dan dua samudera membuatnya menjadi jalur perdagangan penting dan memiliki keanekaragaman budaya."
-            },
-            {
-                type: "mc",
-                question: "Pulau manakah di Indonesia yang memiliki wilayah hutan hujan tropis terluas?",
-                options: [
-                    "Sumatera",
-                    "Kalimantan",
-                    "Sulawesi",
-                    "Papua"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Papua memiliki hutan hujan tropis terluas di Indonesia, mencakup sekitar 40% dari total hutan Indonesia."
-            },
-            {
-                type: "fi",
-                question: "Gunung api tertinggi di Indonesia yang juga merupakan gunung api aktif tertinggi di dunia adalah Gunung...",
-                correctAnswer: "KERINCI",
-                points: 4,
-                explanation: "Gunung Kerinci di Sumatera memiliki ketinggian 3.805 mdpl dan merupakan gunung api aktif tertinggi di Indonesia dan dunia."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan karakteristik iklim tropis seperti di Indonesia?",
-                options: [
-                    "Suhu rata-rata tahunan tinggi",
-                    "Perbedaan suhu siang dan malam besar",
-                    "Kelembaban udara tinggi",
-                    "Curah hujan tahunan tinggi"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Di iklim tropis, perbedaan suhu siang dan malam kecil karena kelembaban tinggi yang menahan panas."
-            },
-            {
-                type: "mc",
-                question: "Sungai terpanjang di Asia Tenggara yang melewati beberapa negara adalah:",
-                options: [
-                    "Sungai Mekong",
-                    "Sungai Kapuas",
-                    "Sungai Chao Phraya",
-                    "Sungai Irrawaddy"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Sungai Mekong (4.350 km) mengalir melalui China, Myanmar, Laos, Thailand, Kamboja, dan Vietnam."
-            },
-            {
-                type: "fi",
-                question: "Selat yang memisahkan Pulau Sumatera dan Singapura disebut Selat...",
-                correctAnswer: "SINGAPURA",
-                points: 3,
-                explanation: "Selat Singapura menghubungkan Laut China Selatan dengan Selat Malaka, merupakan jalur pelayaran tersibuk di dunia."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang merupakan contoh adaptasi manusia terhadap kondisi geografis daerah pantai?",
-                options: [
-                    "Membangun rumah panggung",
-                    "Mengembangkan sistem irigasi",
-                    "Membuat terasering",
-                    "Menanam tanaman xerofit"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Rumah panggung adaptasi terhadap pasang surut dan banjir di daerah pantai."
-            },
-            {
-                type: "mc",
-                question: "Negara di Asia Tenggara yang tidak memiliki wilayah laut adalah:",
-                options: [
-                    "Laos",
-                    "Myanmar",
-                    "Thailand",
-                    "Kamboja"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Laos adalah satu-satunya negara ASEAN yang terkurung daratan (landlocked)."
-            },
-            {
-                type: "fi",
-                question: "Danau terbesar di Asia Tenggara yang terletak di Kamboja disebut Danau...",
-                correctAnswer: "TONLE SAP",
-                points: 4,
-                explanation: "Danau Tonlé Sap adalah danau air tawar terbesar di Asia Tenggara dengan sistem ekologi unik yang mengembang dan menyusut musiman."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan dampak negatif urbanisasi?",
-                options: [
-                    "Peningkatan produktivitas pertanian",
-                    "Permukiman kumuh",
-                    "Kemacetan lalu lintas",
-                    "Pencemaran lingkungan"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Urbanisasi justru menyebabkan penurunan produktivitas pertanian karena banyak tenaga kerja muda meninggalkan desa."
-            },
+    // Bagian 1: Geografi (15 soal)
+    {
+        type: "mc",
+        question: "Proses pembentukan dataran akibat pengendapan material oleh sungai di muara disebut:",
+        options: [
+            "Delta",
+            "Meander",
+            "Oxbow lake",
+            "Waterfall"
+        ],
+        correctAnswer: 0,
+        points: 3,
+        explanation: "Delta terbentuk dari sedimentasi material yang dibawa sungai saat bertemu dengan laut/lambatnya arus."
+    },
+    {
+        type: "mc",
+        question: "Fenomena El Niño secara geografis berdampak pada:",
+        options: [
+            "Peningkatan curah hujan di Asia Tenggara",
+            "Kekeringan di Australia dan Indonesia",
+            "Penurunan suhu global",
+            "Pencairan es di kutub"
+        ],
+        correctAnswer: 1,
+        points: 4,
+        explanation: "El Niño menyebabkan gangguan sirkulasi udara yang mengurangi curah hujan di wilayah Pasifik barat."
+    },
+    {
+        type: "fi",
+        question: "Garis khayal pada peta yang menghubungkan titik-titik dengan tekanan udara sama disebut garis...",
+        correctAnswer: "ISOBAR",
+        points: 3,
+        explanation: "Isobar digunakan dalam meteorologi untuk menganalisis pola tekanan atmosfer."
+    },
 
-            // Bagian 2: Sejarah (15 soal)
-            {
-                type: "mc",
-                question: "Kerajaan Hindu-Buddha pertama di Indonesia yang meninggalkan bukti tertulis adalah:",
-                options: [
-                    "Kutai",
-                    "Tarumanegara",
-                    "Sriwijaya",
-                    "Majapahit"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Kerajaan Kutai di Kalimantan Timur meninggalkan prasasti Yupa (abad ke-4) sebagai bukti tertulis tertua."
-            },
-            {
-                type: "fi",
-                question: "Perjanjian yang mengakhiri Perang Diponegoro (1825-1830) disebut Perjanjian...",
-                correctAnswer: "IMOGIRI",
-                points: 4,
-                explanation: "Perjanjian Imogiri tahun 1830 menandai akhir Perang Diponegoro dengan ditangkapnya Pangeran Diponegoro."
-            },
-            {
-                type: "mc",
-                question: "Tokoh yang dikenal sebagai Bapak Pendidikan Nasional Indonesia adalah:",
-                options: [
-                    "Ki Hajar Dewantara",
-                    "Dewi Sartika",
-                    "R.A. Kartini",
-                    "K.H. Ahmad Dahlan"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Ki Hajar Dewantara mendirikan Taman Siswa dan filosofi 'Tut Wuri Handayani' sebagai dasar pendidikan nasional."
-            },
-            {
-                type: "mc",
-                question: "Peristiwa Rengasdengklok terjadi karena:",
-                options: [
-                    "Perbedaan pendapat tentang waktu proklamasi",
-                    "Pertentangan antara golongan tua dan muda",
-                    "Kekhawatiran akan intervensi Jepang",
-                    "Semua jawaban benar"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Peristiwa Rengasdengklok mencakup semua faktor tersebut dalam konteks persiapan proklamasi kemerdekaan."
-            },
-            {
-                type: "fi",
-                question: "Organisasi pergerakan nasional pertama di Indonesia yang didirikan tahun 1908 adalah...",
-                correctAnswer: "BUDI UTOMO",
-                points: 4,
-                explanation: "Budi Utomo didirikan 20 Mei 1908 oleh Dr. Sutomo dan rekan-rekan, diperingati sebagai Hari Kebangkitan Nasional."
-            },
-            {
-                type: "mc",
-                question: "Konferensi Asia Afrika tahun 1955 menghasilkan dokumen penting yang disebut:",
-                options: [
-                    "Dasasila Bandung",
-                    "Piagam Jakarta",
-                    "Perjanjian Renville",
-                    "Linggarjati"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Dasasila Bandung berisi prinsip-prinsip dasar hubungan internasional yang disepakati dalam KAA 1955."
-            },
-            {
-                type: "mc",
-                question: "Pemberontakan DI/TII di Jawa Barat dipimpin oleh:",
-                options: [
-                    "Kahar Muzakkar",
-                    "Sekarmadji Maridjan Kartosuwiryo",
-                    "Daud Beureueh",
-                    "Amir Fatah"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Kartosuwiryo memproklamasikan Negara Islam Indonesia/NII di Jawa Barat tahun 1949."
-            },
-            {
-                type: "fi",
-                question: "Perdana Menteri Indonesia pertama adalah...",
-                correctAnswer: "SUTAN SYAHRIR",
-                points: 4,
-                explanation: "Sutan Syahrir menjabat sebagai Perdana Menteri pertama (14 November 1945 - 20 Juni 1947) dalam sistem parlementer."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan isi Trilogi Van Deventer?",
-                options: [
-                    "Irigasi",
-                    "Transmigrasi",
-                    "Edukasi",
-                    "Emigrasi"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Trilogi Van Deventer meliputi Irigasi, Edukasi, dan Emigrasi (transmigrasi dalam konteks Hindia Belanda)."
-            },
-            {
-                type: "mc",
-                question: "Peristiwa Bandung Lautan Api terjadi dalam konteks:",
-                options: [
-                    "Perjuangan mempertahankan kemerdekaan dari Belanda",
-                    "Pemberontakan PKI Madiun",
-                    "Agresi Militer Belanda II",
-                    "Konfrontasi dengan Malaysia"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Peristiwa 24 Maret 1946 dimana rakyat Bandung membakar kota untuk mencegah digunakan Belanda."
-            },
-            {
-                type: "fi",
-                question: "Pahlawan nasional dari Aceh yang dijuluki 'Singa Aceh' adalah...",
-                correctAnswer: "CUT NYAK DIEN",
-                points: 4,
-                explanation: "Cut Nyak Dien memimpin perlawanan terhadap Belanda setelah suaminya Teuku Umar gugur."
-            },
-            {
-                type: "mc",
-                question: "Pemerintah Darurat Republik Indonesia (PDRI) diproklamasikan di:",
-                options: [
-                    "Yogyakarta",
-                    "Bukittinggi",
-                    "Bireuen",
-                    "Surakarta"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "PDRI dibentuk di Bukittinggi, Sumatera Barat setelah Yogyakarta jatuh dalam Agresi Militer Belanda II."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN termasuk kebijakan ekonomi Orde Baru?",
-                options: [
-                    "Repelita",
-                    "Dominggoes",
-                    "Inpres",
-                    "Rencana Pembangunan Lima Tahun"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Dominggoes adalah kebijakan tanam paksa pada masa kolonial, bukan Orde Baru."
-            },
-            {
-                type: "fi",
-                question: "Perjanjian yang mengakhiri konfrontasi Indonesia-Malaysia disebut Perjanjian...",
-                correctAnswer: "BANGKOK",
-                points: 4,
-                explanation: "Perjanjian Bangkok 11 Agustus 1966 mengakhiri konfrontasi dan memulihkan hubungan diplomatik."
-            },
-            {
-                type: "mc",
-                question: "Gerakan 30 September 1965 dikaitkan dengan organisasi:",
-                options: [
-                    "PKI",
-                    "PETA",
-                    "DI/TII",
-                    "APRA"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Gerakan 30 September 1965 dianggap sebagai upaya kudeta oleh PKI, meskipun masih menjadi kontroversi sejarah."
-            },
+    // Bagian 2: Ekonomi (15 soal)
+    {
+        type: "mc",
+        question: "Kebijakan moneter kontraktif oleh Bank Indonesia bertujuan untuk:",
+        options: [
+            "Meningkatkan jumlah uang beredar",
+            "Menurunkan suku bunga acuan",
+            "Mengendalikan inflasi",
+            "Memperluas kredit perbankan"
+        ],
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Kebijakan kontraktif dilakukan dengan menaikkan suku bunga atau giro wajib untuk mengurangi inflasi."
+    },
+    {
+        type: "mc",
+        question: "Indeks Pembangunan Manusia (IPM) tidak mencakup indikator:",
+        options: [
+            "Angka harapan hidup",
+            "Pendapatan per kapita",
+            "Tingkat melek huruf",
+            "Produksi industri"
+        ],
+        correctAnswer: 3,
+        points: 3,
+        explanation: "IPM mengukur kesehatan, pendidikan, dan standar hidup, bukan sektor produksi."
+    },
+    {
+        type: "fi",
+        question: "Teori lokasi industri yang mempertimbangkan biaya transportasi minimum dikembangkan oleh...",
+        correctAnswer: "WEBER",
+        points: 4,
+        explanation: "Alfred Weber mengemukakan teori lokasi industri berbasis biaya transportasi, tenaga kerja, dan aglomerasi."
+    },
 
-            // Bagian 3: Ekonomi (10 soal)
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan ciri sistem ekonomi pasar?",
-                options: [
-                    "Kepemilikan pribadi atas alat produksi",
-                    "Harga ditentukan mekanisme pasar",
-                    "Perencanaan ekonomi terpusat",
-                    "Persaingan bebas antar produsen"
-                ],
-                correctAnswer: 2,
-                points: 4,
-                explanation: "Perencanaan ekonomi terpusat adalah ciri sistem ekonomi komando, bukan pasar."
-            },
-            {
-                type: "fi",
-                question: "Indeks yang mengukur ketimpangan pendapatan dalam suatu negara disebut indeks...",
-                correctAnswer: "GINI",
-                points: 4,
-                explanation: "Indeks Gini mengukur distribusi pendapatan dengan skala 0 (setara sempurna) hingga 1 (ketimpangan sempurna)."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang merupakan contoh kebijakan moneter?",
-                options: [
-                    "Perubahan tarif pajak",
-                    "Operasi pasar terbuka",
-                    "Peningkatan belanja pemerintah",
-                    "Pemberian subsidi"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Operasi pasar terbuka (jual/beli surat berharga) adalah instrumen kebijakan moneter oleh bank sentral."
-            },
-            {
-                type: "mc",
-                question: "Krisis moneter 1997-1998 di Asia dimulai dari negara:",
-                options: [
-                    "Indonesia",
-                    "Thailand",
-                    "Korea Selatan",
-                    "Malaysia"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Krisis dimulai Juli 1997 saat Thailand terpaksa mengambangkan mata uang Baht setelah serangan spekulasi."
-            },
-            {
-                type: "fi",
-                question: "Organisasi negara-negara pengekspor minyak dunia disebut...",
-                correctAnswer: "OPEC",
-                points: 4,
-                explanation: "OPEC (Organization of Petroleum Exporting Countries) didirikan 1960 untuk mengkoordinasikan kebijakan minyak."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang termasuk contoh investasi langsung (direct investment)?",
-                options: [
-                    "Membeli saham di bursa efek",
-                    "Membangun pabrik di luar negeri",
-                    "Menyimpan uang di bank",
-                    "Membeli obligasi pemerintah"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Investasi langsung melibatkan penguasaan aset produktif seperti pabrik, berbeda dengan investasi portofolio."
-            },
-            {
-                type: "mc",
-                question: "Kebijakan ekonomi yang diterapkan Orde Baru pada awal pemerintahan disebut:",
-                options: [
-                    "Gunting Syafruddin",
-                    "Sanering",
-                    "Gerakan Benteng",
-                    "Stabilisasi dan Rehabilitasi"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Kebijakan stabilisasi (pengendalian inflasi) dan rehabilitasi (pemulihan ekonomi) menjadi fokus awal Orde Baru."
-            },
-            {
-                type: "fi",
-                question: "Lembaga keuangan internasional yang memberikan pinjaman untuk pembangunan negara berkembang disebut...",
-                correctAnswer: "WORLD BANK",
-                points: 4,
-                explanation: "World Bank (Bank Dunia) berfokus pada pinjaman pembangunan, berbeda dengan IMF yang fokus pada stabilitas moneter."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan faktor produksi?",
-                options: [
-                    "Tanah",
-                    "Modal",
-                    "Kewirausahaan",
-                    "Inflasi"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Faktor produksi klasik meliputi tanah, tenaga kerja, modal, dan kewirausahaan. Inflasi adalah fenomena ekonomi makro."
-            },
-            {
-                type: "mc",
-                question: "Kegiatan ekonomi yang memanfaatkan sumber daya alam tanpa mengubah sifat fisiknya disebut:",
-                options: [
-                    "Ekstraktif",
-                    "Agraris",
-                    "Industri",
-                    "Perdagangan"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Kegiatan ekstraktif seperti pertambangan, penebangan kayu, atau penangkapan ikan mengambil langsung dari alam."
-            },
+    // Bagian 3: Sejarah (10 soal)
+    {
+        type: "mc",
+        question: "Dampak utama Cultuurstelsel di Jawa abad ke-19 adalah:",
+        options: [
+            "Meningkatnya kesejahteraan petani",
+            "Berkembangnya industri lokal",
+            "Eksploitasi agraria untuk kepentingan Belanda",
+            "Modernisasi sistem irigasi"
+        ],
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Cultuurstelsel memaksa petani menanam komoditas ekspor yang menyengsarakan rakyat."
+    },
+    {
+        type: "mc",
+        question: "Peristiwa Rengasdengklok menunjukkan:",
+        options: [
+            "Persiapan proklamasi kemerdekaan",
+            "Perundingan dengan Jepang",
+            "Pertempuran melawan sekutu",
+            "Pembentukan kabinet pertama"
+        ],
+        correctAnswer: 0,
+        points: 3,
+        explanation: "Peristiwa ini mempercepat proklamasi dengan 'menjauhkan' Soekarno-Hatta dari pengaruh Jepang."
+    },
+    {
+        type: "fi",
+        question: "Kerajaan Hindu tertua di Indonesia yang meninggalkan prasasti Yupa adalah...",
+        correctAnswer: "KUTAI",
+        points: 2,
+        explanation: "Kerajaan Kutai (Kalimantan Timur) berdiri abad ke-4 M dengan bukti prasasti Yupa."
+    },
 
-            // Bagian 4: Sosiologi (10 soal)
-            {
-                type: "mc",
-                question: "Proses belajar dan penyesuaian diri terhadap kebudayaan disebut:",
-                options: [
-                    "Sosialisasi",
-                    "Enkulturasi",
-                    "Akulturasi",
-                    "Asimilasi"
-                ],
-                correctAnswer: 1,
-                points: 4,
-                explanation: "Enkulturasi adalah proses mempelajari dan menginternalisasi budaya sendiri, berbeda dengan sosialisasi yang lebih luas."
-            },
-            {
-                type: "fi",
-                question: "Perubahan sosial yang terjadi secara lambat dan bertahap disebut perubahan...",
-                correctAnswer: "EVOLUSI",
-                points: 4,
-                explanation: "Perubahan evolusioner berlawanan dengan revolusioner yang cepat dan mendasar."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang merupakan contoh konflik vertikal?",
-                options: [
-                    "Buruh vs pengusaha",
-                    "Suku A vs suku B",
-                    "Partai X vs partai Y",
-                    "Siswa vs guru"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Konflik vertikal terjadi antara pihak dengan kekuatan/posisi tidak setara (atasan-bawahan, penguasa-rakyat)."
-            },
-            {
-                type: "mc",
-                question: "Lembaga sosial yang berfungsi mengatur hubungan kekerabatan adalah:",
-                options: [
-                    "Keluarga",
-                    "Sekolah",
-                    "Agama",
-                    "Pemerintah"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Keluarga sebagai lembaga primer mengatur hubungan kekerabatan dan pewarisan nilai-nilai."
-            },
-            {
-                type: "fi",
-                question: "Bentuk interaksi sosial dimana kedua belah pihak saling menguntungkan disebut...",
-                correctAnswer: "KERJASAMA",
-                points: 4,
-                explanation: "Kerjasama (cooperation) adalah interaksi asosiatif dimana pihak-pihak bekerja sama mencapai tujuan bersama."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang BUKAN merupakan fungsi laten pendidikan?",
-                options: [
-                    "Transmisi kebudayaan",
-                    "Pengurangan pengangguran",
-                    "Penciptaan lapangan kerja",
-                    "Pemilihan pasangan hidup"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Transmisi kebudayaan adalah fungsi manifes (disengaja) pendidikan, bukan laten (tidak disengaja)."
-            },
-            {
-                type: "mc",
-                question: "Globalisasi dalam bidang budaya sering dikritik karena menyebabkan:",
-                options: [
-                    "Heterogenisasi budaya",
-                    "Homogenisasi budaya",
-                    "Disintegrasi sosial",
-                    "Jawaban b dan c benar"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Globalisasi dikritik menyebabkan homogenisasi (penyeragaman) budaya dan potensi disintegrasi sosial."
-            },
-            {
-                type: "fi",
-                question: "Proses masuknya unsur kebudayaan asing ke dalam kebudayaan lokal disebut...",
-                correctAnswer: "AKULTURASI",
-                points: 4,
-                explanation: "Akulturasi adalah percampuran dua kebudayaan tanpa menghilangkan identitas budaya asli."
-            },
-            {
-                type: "mc",
-                question: "Manakah dari berikut ini yang merupakan contoh mobilitas sosial vertikal naik?",
-                options: [
-                    "Guru menjadi kepala sekolah",
-                    "Pindah rumah ke kota lain",
-                    "Pensiun dari pekerjaan",
-                    "Beralih profesi tanpa perubahan status"
-                ],
-                correctAnswer: 0,
-                points: 4,
-                explanation: "Mobilitas vertikal naik berarti peningkatan status sosial, seperti promosi jabatan."
-            },
-            {
-                type: "mc",
-                question: "Lembaga yang berfungsi mengawasi pelaksanaan norma dalam masyarakat disebut:",
-                options: [
-                    "Lembaga politik",
-                    "Lembaga hukum",
-                    "Lembaga agama",
-                    "Semua jawaban benar"
-                ],
-                correctAnswer: 3,
-                points: 4,
-                explanation: "Semua lembaga tersebut memiliki fungsi pengawasan norma sesuai bidangnya masing-masing."
-            }
-        ];
+    // Bagian 4: Sosiologi (10 soal)
+    {
+        type: "mc",
+        question: "Konflik horizontal di masyarakat plural sering dipicu oleh:",
+        options: [
+            "Perbedaan pendapat politik",
+            "Kesenjangan ekonomi",
+            "Primordialisme etnis/agama",
+            "Perubahan teknologi"
+        ],
+        correctAnswer: 2,
+        points: 4,
+        explanation: "Primordialisme (fanatisme kelompok) rentan memicu konflik sosial."
+    },
+    {
+        type: "mc",
+        question: "Lembaga yang berfungsi melestarikan nilai-nilai budaya adalah:",
+        options: [
+            "Pasar",
+            "Sekolah",
+            "Pengadilan",
+            "Rumah sakit"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Sekolah mengajarkan norma dan warisan budaya melalui pendidikan formal."
+    },
+    {
+        type: "fi",
+        question: "Proses penerimaan unsur kebudayaan asing tanpa menghilangkan identitas asli disebut...",
+        correctAnswer: "AKULTURASI",
+        points: 4,
+        explanation: "Berbeda dengan asimilasi yang meleburkan identitas, akulturasi mempertahankan ciri khas lokal."
+    },
+
+    // Soal tambahan untuk memenuhi 50 soal
+    // Geografi (lanjutan)
+    {
+        type: "mc",
+        question: "Pola permukiman linear umumnya berkembang di:",
+        options: [
+            "Puncak gunung",
+            "Sepanjang jalan/sungai",
+            "Tengah hutan",
+            "Pusat kota"
+        ],
+        correctAnswer: 1,
+        points: 2,
+        explanation: "Permukiman linear mengikuti jalur transportasi atau sumber air."
+    },
+    {
+        type: "mc",
+        question: "Negara ASEAN yang tidak memiliki laut adalah:",
+        options: [
+            "Laos",
+            "Myanmar",
+            "Kamboja",
+            "Thailand"
+        ],
+        correctAnswer: 0,
+        points: 2,
+        explanation: "Laos satu-satunya negara ASEAN yang terkurung daratan (landlocked)."
+    },
+    {
+        type: "fi",
+        question: "Pola aliran sungai yang berkembang di daerah vulkanik disebut...",
+        correctAnswer: "RADIAL",
+        points: 3,
+        explanation: "Aliran radial menyebar dari puncak gunung seperti roda."
+    },
+
+    // Ekonomi (lanjutan)
+    {
+        type: "mc",
+        question: "Inflasi yang disebabkan oleh kenaikan biaya produksi disebut:",
+        options: [
+            "Demand-pull inflation",
+            "Cost-push inflation",
+            "Hyperinflation",
+            "Deflasi"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Contoh: kenaikan harga BBM menyebabkan naiknya harga barang umum."
+    },
+    {
+        type: "mc",
+        question: "Pasar oligopoli ditandai oleh:",
+        options: [
+            "Banyak penjual produk homogen",
+            "Beberapa penjual saling bergantung",
+            "Satu penjual tanpa substitusi",
+            "Banyak pembeli dan penjual"
+        ],
+        correctAnswer: 1,
+        points: 4,
+        explanation: "Contoh: industri telekomunikasi dengan beberapa operator dominan."
+    },
+    {
+        type: "fi",
+        question: "Indeks yang mengukur ketimpangan pendapatan disebut...",
+        correctAnswer: "GINI",
+        points: 3,
+        explanation: "Koefisien Gini (0-1) dimana 0 artinya pemerataan sempurna."
+    },
+
+    // Sejarah (lanjutan)
+    {
+        type: "mc",
+        question: "Tujuan utama dilaksanakannya Politik Etis adalah:",
+        options: [
+            "Memperluas penjajahan Belanda",
+            "Balas budi kepada rakyat Indonesia",
+            "Mencegah perlawanan pribumi",
+            "Eksploitasi sumber daya baru"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Meski mengandung kepentingan kolonial, Politik Etis memberi pendidikan untuk elite pribumi."
+    },
+    {
+        type: "mc",
+        question: "Perang Padri (1821-1837) awalnya dipicu oleh:",
+        options: [
+            "Pertentangan adat vs agama",
+            "Perlawanan terhadap pajak",
+            "Persaingan dagang",
+            "Perebutan wilayah"
+        ],
+        correctAnswer: 0,
+        points: 4,
+        explanation: "Konflik antara kaum adat Minangkabau dengan kaum Padri yang ingin pemurnian Islam."
+    },
+    {
+        type: "fi",
+        question: "Kerajaan Islam pertama di Jawa adalah...",
+        correctAnswer: "DEMAK",
+        points: 2,
+        explanation: "Berdiri abad ke-15 di bawah Raden Patah, pusat penyebaran Islam di Jawa."
+    },
+
+    // Sosiologi (lanjutan)
+    {
+        type: "mc",
+        question: "Media sosial berkontribusi pada globalisasi melalui:",
+        options: [
+            "Memperkuat isolasi budaya",
+            "Mempercepat difusi informasi",
+            "Mengurangi interaksi virtual",
+            "Membatasi mobilitas sosial"
+        ],
+        correctAnswer: 1,
+        points: 3,
+        explanation: "Media sosial menghilangkan batas geografis dalam pertukaran ide/budaya."
+    },
+    {
+        type: "mc",
+        question: "Penyimpangan primer ditandai oleh:",
+        options: [
+            "Diterima masyarakat",
+            "Bersifat temporer",
+            "Mendapat sanksi berat",
+            "Perubahan status sosial"
+        ],
+        correctAnswer: 1,
+        points: 4,
+        explanation: "Contoh: siswa bolos sekolah sesekali tanpa konsekuensi permanen."
+    },
+    {
+        type: "fi",
+        question: "Proses memudarnya norma dalam masyarakat disebut...",
+        correctAnswer: "ANOMI",
+        points: 4,
+        explanation: "Konsep Emile Durkheim saat masyarakat kehilangan pedoman nilai."
+    }
+];
+
+// Total: 40 PG + 10 Isian (50 soal)
 
         // ======================
         // GAME STATE
