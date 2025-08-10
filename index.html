@@ -285,288 +285,615 @@
         // ======================
         // QUIZ DATA - 50 SOAL OLIMPIADE IPS SMP (LEVEL HOST)
         // ======================
-        const quizData = [
-    // Geography (15 questions)
-    {
-        type: "mc",
-        question: "Benua terbesar di dunia adalah:",
-        options: [
-            "Asia",
-            "Afrika",
-            "Amerika",
-            "Eropa"
+        const quizQuestions = [
+            [
+      {
+        "type": "mc",
+        "question": "Analisislah dampak dari letak astronomis Indonesia terhadap pola musim: Mengapa Indonesia mengalami iklim tropis dengan dua musim utama?",
+        "options": [
+            "Karena berada di garis khatulistiwa, menyebabkan curah hujan tinggi sepanjang tahun",
+            "Karena pengaruh angin muson, yang berganti arah setiap enam bulan",
+            "Karena letak lintang rendah, menghasilkan suhu tinggi dan evaporasi cepat",
+            "Karena interaksi antara Samudra Hindia dan Pasifik, memicu siklon tropis"
         ],
-        correctAnswer: 0,
-        points: 2,
-        explanation: "Asia mencakup sekitar 30% daratan dunia."
+        "correctAnswer": 1,
+        "points": 4,
+        "explanation": "Angin muson berganti arah karena perbedaan tekanan udara antara benua dan samudra, menyebabkan musim hujan dan kemarau di Indonesia."
     },
     {
-        type: "mc",
-        question: "Ibukota negara Jepang adalah:",
-        options: [
-            "Osaka",
-            "Kyoto",
-            "Tokyo",
-            "Hiroshima"
+        "type": "mc",
+        "question": "Evaluasilah kebijakan transmigrasi di Indonesia: Apa alasan utama kegagalan program ini di beberapa daerah?",
+        "options": [
+            "Kurangnya infrastruktur pendukung di daerah tujuan",
+            "Konflik budaya antara pendatang dan penduduk lokal",
+            "Kurangnya adaptasi terhadap kondisi tanah yang berbeda",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 2,
-        points: 2,
-        explanation: "Tokyo menjadi ibukota Jepang sejak 1868."
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Transmigrasi sering gagal karena kombinasi faktor infrastruktur, budaya, dan adaptasi lingkungan."
     },
     {
-        type: "fi",
-        question: "Gunung tertinggi di Jawa adalah...",
-        correctAnswer: "SEMERU",
-        points: 2,
-        explanation: "Gunung Semeru setinggi 3.676 mdpl di Jawa Timur."
-    },
-
-    // Economy (15 questions)
-    {
-        type: "mc",
-        question: "Alat pembayaran resmi di Indonesia adalah:",
-        options: [
-            "Dolar",
-            "Rupiah",
-            "Ringgit",
-            "Peso"
+        "type": "mc",
+        "question": "Sintesislah hubungan antara keragaman suku bangsa di Indonesia dengan potensi konflik horizontal: Bagaimana globalisasi mempengaruhi hal ini?",
+        "options": [
+            "Globalisasi meningkatkan toleransi melalui pertukaran budaya",
+            "Globalisasi memperburuk konflik karena penyebaran informasi palsu",
+            "Globalisasi netral, konflik lebih dipengaruhi faktor ekonomi",
+            "Globalisasi mengurangi konflik dengan meningkatkan kesadaran hak asasi manusia"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Mata uang Indonesia adalah Rupiah (IDR)."
+        "correctAnswer": 1,
+        "points": 4,
+        "explanation": "Globalisasi dapat memperburuk konflik melalui media sosial yang menyebarkan hoaks dan provokasi."
     },
     {
-        type: "mc",
-        question: "Tempat terjadinya jual beli saham disebut:",
-        options: [
-            "Pasar tradisional",
-            "Bursa efek",
-            "Supermarket",
-            "Toko online"
+        "type": "mc",
+        "question": "Analisislah peran Sungai Mekong dalam perekonomian negara-negara ASEAN: Mengapa sungai ini menjadi sumber konflik antarnegara?",
+        "options": [
+            "Karena pembangunan bendungan oleh Cina mengurangi aliran air ke hilir",
+            "Karena polusi industri dari Vietnam mempengaruhi perikanan di Kamboja",
+            "Karena banjir musiman yang memerlukan kerjasama lintas batas",
+            "Karena eksploitasi sumber daya mineral di dasar sungai"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Bursa Efek Indonesia (BEI) di Jakarta."
+        "correctAnswer": 0,
+        "points": 4,
+        "explanation": "Bendungan di Cina mengganggu aliran air, mempengaruhi pertanian dan perikanan di negara hilir seperti Vietnam dan Kamboja."
     },
     {
-        type: "fi",
-        question: "Orang yang melakukan kegiatan wirausaha disebut...",
-        correctAnswer: "WIRAUSAHAWAN",
-        points: 2,
-        explanation: "Wirausahawan atau entrepreneur."
-    },
-
-    // History (10 questions)
-    {
-        type: "mc",
-        question: "Proklamasi kemerdekaan Indonesia dibacakan pada tanggal:",
-        options: [
-            "16 Agustus 1945",
-            "17 Agustus 1945",
-            "18 Agustus 1945",
-            "19 Agustus 1945"
+        "type": "mc",
+        "question": "Evaluasilah dampak erupsi Gunung Merapi terhadap masyarakat sekitar: Apa strategi mitigasi terbaik untuk mengurangi risiko?",
+        "options": [
+            "Pembangunan bendungan sabo untuk menahan lahar",
+            "Relokasi penduduk ke daerah aman",
+            "Pendidikan masyarakat tentang tanda-tanda erupsi",
+            "Pembangunan infrastruktur tahan gempa"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Dibacakan oleh Soekarno-Hatta di Jl. Pegangsaan Timur 56."
+        "correctAnswer": 1,
+        "points": 3,
+        "explanation": "Relokasi adalah strategi jangka panjang untuk menghindari bahaya berulang dari lahar dan abu vulkanik."
     },
     {
-        type: "mc",
-        question: "Pahlawan nasional dari Aceh yang melawan Belanda adalah:",
-        options: [
-            "Pattimura",
-            "Diponegoro",
-            "Cut Nyak Dien",
-            "Sudirman"
+        "type": "mc",
+        "question": "Sintesislah pengaruh Samudra Hindia terhadap iklim Indonesia: Bagaimana fenomena Indian Ocean Dipole mempengaruhi curah hujan?",
+        "options": [
+            "Meningkatkan curah hujan saat fase positif",
+            "Menyebabkan kekeringan saat fase negatif",
+            "Stabil selama fase netral",
+            "Tidak berpengaruh karena jarak yang jauh"
         ],
-        correctAnswer: 2,
-        points: 2,
-        explanation: "Cut Nyak Dien memimpin perlawanan di Aceh."
+        "correctAnswer": 1,
+        "points": 4,
+        "explanation": "Fase negatif IOD menyebabkan air hangat bergeser ke timur, mengurangi curah hujan di Indonesia barat."
     },
     {
-        type: "fi",
-        question: "Kerajaan Hindu pertama di Indonesia adalah...",
-        correctAnswer: "KUTAI",
-        points: 2,
-        explanation: "Berdiri di Kalimantan Timur sekitar abad ke-4."
-    },
-
-    // Sociology (10 questions)
-    {
-        type: "mc",
-        question: "Kelompok sosial terkecil dalam masyarakat adalah:",
-        options: [
-            "RT",
-            "Keluarga",
-            "Sekolah",
-            "Perusahaan"
+        "type": "mc",
+        "question": "Analisislah perbedaan antara litosfer dan astenosfer: Mengapa perbedaan ini penting untuk teori lempeng tektonik?",
+        "options": [
+            "Litosfer kaku, astenosfer plastis, memungkinkan pergerakan lempeng",
+            "Litosfer tipis, astenosfer tebal, mempengaruhi kedalaman gempa",
+            "Litosfer dingin, astenosfer panas, menyebabkan vulkanisme",
+            "Litosfer padat, astenosfer cair, menghasilkan magma"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Keluarga inti (ayah, ibu, anak) merupakan unit terkecil."
+        "correctAnswer": 0,
+        "points": 3,
+        "explanation": "Sifat plastis astenosfer memungkinkan litosfer bergerak di atasnya, menjelaskan pergeseran benua."
     },
     {
-        type: "mc",
-        question: "Norma yang bersumber dari agama disebut norma:",
-        options: [
-            "Kesusilaan",
-            "Kesopanan",
-            "Agama",
-            "Hukum"
+        "type": "mc",
+        "question": "Evaluasilah keberhasilan program konservasi hutan mangrove di pantai utara Jawa: Apa tantangan utama yang dihadapi?",
+        "options": [
+            "Abrasi pantai yang terus menerus",
+            "Konversi lahan untuk tambak udang",
+            "Kurangnya partisipasi masyarakat lokal",
+            "Pencemaran dari limbah industri"
         ],
-        correctAnswer: 2,
-        points: 2,
-        explanation: "Contoh: perintah beribadah dalam agama."
+        "correctAnswer": 1,
+        "points": 4,
+        "explanation": "Konversi lahan untuk akuakultur sering menghancurkan mangrove, meskipun program restorasi dilakukan."
     },
     {
-        type: "fi",
-        question: "Proses belajar menjadi anggota masyarakat disebut...",
-        correctAnswer: "SOSIALISASI",
-        points: 2,
-        explanation: "Proses seumur hidup untuk mempelajari nilai-nilai sosial."
-    },
-
-    // Additional questions to reach 50
-    // Geography
-    {
-        type: "mc",
-        question: "Laut yang memisahkan Jawa dan Sumatera adalah:",
-        options: [
-            "Laut Jawa",
-            "Selat Sunda",
-            "Selat Malaka",
-            "Laut Arafuru"
+        "type": "mc",
+        "question": "Sintesislah hubungan antara urbanisasi dan degradasi lingkungan di Jakarta: Bagaimana subsidence tanah mempengaruhi kota ini?",
+        "options": [
+            "Penurunan permukaan tanah karena ekstraksi air tanah berlebih",
+            "Peningkatan banjir karena drainase yang buruk",
+            "Pencemaran udara dari lalu lintas kendaraan",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Selat Sunda menghubungkan Jawa dan Sumatera."
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Subsidence di Jakarta disebabkan oleh ekstraksi air tanah, memperburuk banjir dan degradasi."
     },
     {
-        type: "mc",
-        question: "Ibukota provinsi Jawa Barat adalah:",
-        options: [
-            "Bandung",
-            "Bogor",
-            "Bekasi",
-            "Cirebon"
+        "type": "mc",
+        "question": "Analisislah peran Selat Malaka dalam perdagangan internasional: Mengapa selat ini rentan terhadap pembajakan?",
+        "options": [
+            "Lalu lintas kapal yang padat dan wilayah sempit",
+            "Kurangnya patroli maritim dari negara sekitar",
+            "Kondisi ekonomi miskin di pesisir",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 0,
-        points: 2,
-        explanation: "Bandung menjadi ibukota Jawa Barat sejak 1810."
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Kombinasi lalu lintas tinggi, pengawasan lemah, dan kemiskinan mendorong pembajakan di Selat Malaka."
     },
     {
-        type: "fi",
-        question: "Sungai terpanjang di Indonesia adalah...",
-        correctAnswer: "KAPUAS",
-        points: 2,
-        explanation: "Sungai Kapuas di Kalimantan (1.143 km)."
-    },
-
-    // Economy
-    {
-        type: "mc",
-        question: "Kegiatan menghasilkan barang/jasa disebut:",
-        options: [
-            "Konsumsi",
-            "Produksi",
-            "Distribusi",
-            "Investasi"
+        "type": "mc",
+        "question": "Evaluasilah dampak Revolusi Hijau terhadap pertanian Indonesia: Apa kelemahan utama dari penggunaan pupuk kimia berlebih?",
+        "options": [
+            "Degradasi tanah dan pencemaran air",
+            "Peningkatan ketergantungan pada impor benih",
+            "Penurunan biodiversitas tanaman",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Produksi menciptakan nilai guna barang."
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Pupuk kimia menyebabkan degradasi tanah, pencemaran, dan hilangnya varietas tanaman lokal."
     },
     {
-        type: "mc",
-        question: "Bank sentral Indonesia adalah:",
-        options: [
-            "Bank Mandiri",
-            "Bank Indonesia",
-            "Bank BCA",
-            "Bank BRI"
+        "type": "mc",
+        "question": "Sintesislah pengaruh Orde Baru terhadap demokrasi Indonesia: Bagaimana sentralisasi kekuasaan mempengaruhi otonomi daerah?",
+        "options": [
+            "Meningkatkan efisiensi tetapi menekan aspirasi lokal",
+            "Mendorong korupsi di tingkat pusat",
+            "Menghambat pembangunan merata",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Bank Indonesia (BI) bertugas menjaga stabilitas rupiah."
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Sentralisasi di Orde Baru menyebabkan ketidakmerataan dan penekanan terhadap daerah."
     },
     {
-        type: "fi",
-        question: "Orang yang membeli barang disebut...",
-        correctAnswer: "KONSUMEN",
-        points: 2,
-        explanation: "Konsumen menggunakan barang/jasa."
-    },
-
-    // History
-    {
-        type: "mc",
-        question: "Penjajahan Belanda di Indonesia berlangsung selama:",
-        options: [
-            "100 tahun",
-            "200 tahun",
-            "300 tahun",
-            "350 tahun"
+        "type": "mc",
+        "question": "Analisislah peran Soekarno dalam Konferensi Asia-Afrika 1955: Mengapa konferensi ini penting untuk gerakan non-blok?",
+        "options": [
+            "Menyatukan negara-negara baru merdeka melawan kolonialisme",
+            "Mempromosikan perdamaian di tengah Perang Dingin",
+            "Meningkatkan posisi Indonesia di dunia internasional",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 3,
-        points: 2,
-        explanation: "Dihitung sejak 1596 (Cornelis de Houtman) hingga 1945."
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "KAA menjadi dasar Gerakan Non-Blok, menyatukan negara ketiga."
     },
     {
-        type: "mc",
-        question: "Tokoh yang mengetik naskah proklamasi adalah:",
-        options: [
-            "Soekarno",
-            "Sayuti Melik",
-            "B.M. Diah",
-            "Latief Hendraningrat"
+        "type": "mc",
+        "question": "Evaluasilah kebijakan ekonomi Orde Lama: Apa dampak dari nasionalisasi perusahaan asing terhadap investasi?",
+        "options": [
+            "Meningkatkan kontrol negara tetapi menurunkan kepercayaan investor",
+            "Memicu inflasi karena kurangnya manajemen",
+            "Mendorong swasembada pangan",
+            "Mengurangi ketergantungan pada bantuan luar negeri"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Sayuti Melik mengetik naskah setelah didikte Soekarno."
+        "correctAnswer": 0,
+        "points": 4,
+        "explanation": "Nasionalisasi menakut-nakuti investor asing, menyebabkan penurunan modal masuk."
     },
     {
-        type: "fi",
-        question: "Pahlawan nasional dari Sulawesi Selatan adalah...",
-        correctAnswer: "SULTAN HASANUDDIN",
-        points: 2,
-        explanation: "Dijuluki 'Ayam Jantan dari Timur'."
-    },
-
-    // Sociology
-    {
-        type: "mc",
-        question: "Contoh interaksi sosial adalah:",
-        options: [
-            "Bermain game sendiri",
-            "Berbicara dengan teman",
-            "Tidur",
-            "Membaca buku"
+        "type": "mc",
+        "question": "Sintesislah hubungan antara Perjanjian Linggarjati dan agresi militer Belanda: Bagaimana perjanjian ini memicu konflik?",
+        "options": [
+            "Belanda melanggar perjanjian dengan menyerang wilayah Republik",
+            "Indonesia menolak pengakuan atas negara boneka",
+            "PBB terlibat untuk mediasi",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Interaksi membutuhkan minimal dua orang."
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Pelanggaran Belanda terhadap Linggarjati memicu agresi dan intervensi internasional."
     },
     {
-        type: "mc",
-        question: "Lembaga yang mengatur lalu lintas adalah:",
-        options: [
-            "Sekolah",
-            "Polisi",
-            "Rumah sakit",
-            "Pasar"
+        "type": "mc",
+        "question": "Analisislah dampak Reformasi 1998 terhadap sistem politik Indonesia: Mengapa amandemen UUD 1945 diperlukan?",
+        "options": [
+            "Untuk membatasi kekuasaan presiden dan memperkuat DPR",
+            "Untuk menghapus dwifungsi ABRI",
+            "Untuk memastikan pemilu yang demokratis",
+            "Semua jawaban di atas benar"
         ],
-        correctAnswer: 1,
-        points: 2,
-        explanation: "Polisi lalu lintas (Polantas)."
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Amandemen menyesuaikan konstitusi dengan tuntutan demokrasi pasca-Orde Baru."
     },
     {
-        type: "fi",
-        question: "Perubahan sosial yang cepat disebut...",
-        correctAnswer: "REVOLUSI",
-        points: 2,
-        explanation: "Contoh: Revolusi Industri di Eropa."
+        "type": "mc",
+        "question": "Evaluasilah peran VOC dalam kolonialisme Belanda di Indonesia: Apa strategi utama VOC untuk monopolisasi perdagangan?",
+        "options": [
+            "Hongi tochten untuk menghancurkan tanaman rempah saingan",
+            "Perjanjian dengan sultan lokal",
+            "Pembangunan benteng di pelabuhan strategis",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "VOC menggunakan kekerasan dan diplomasi untuk menguasai rempah-rempah."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah pengaruh Hindu-Buddha terhadap kerajaan-kerajaan Nusantara: Bagaimana sistem kasta mempengaruhi struktur sosial?",
+        "options": [
+            "Menciptakan hierarki raja sebagai dewa-raja",
+            "Mempromosikan seni dan arsitektur candi",
+            "Memperkenalkan bahasa Sanskerta",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Pengaruh Hindu-Buddha membentuk sistem sosial dan budaya kerajaan seperti Majapahit."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah penyebab Perang Diponegoro: Mengapa perang ini dianggap sebagai perlawanan rakyat terbesar?",
+        "options": [
+            "Gabungan antara faktor agama, ekonomi, dan politik",
+            "Dukungan luas dari masyarakat Jawa",
+            "Strategi gerilya yang efektif",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Perang Diponegoro melibatkan rakyat luas melawan penindasan Belanda."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah dampak Politik Etis terhadap pendidikan di Indonesia: Apa kelemahan dari kebijakan ini?",
+        "options": [
+            "Hanya menjangkau kalangan priyayi, bukan rakyat biasa",
+            "Meningkatkan kesadaran nasionalisme",
+            "Mendorong migrasi ke kota",
+            "Mengurangi angka buta huruf"
+        ],
+        "correctAnswer": 0,
+        "points": 3,
+        "explanation": "Politik Etis lebih menguntungkan elite, bukan massa rakyat."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah peran Sumpah Pemuda dalam pergerakan nasional: Bagaimana sumpah ini mempersatukan pemuda Indonesia?",
+        "options": [
+            "Menekankan satu tanah air, bangsa, dan bahasa",
+            "Mendorong pembentukan organisasi pemuda lintas etnis",
+            "Menjadi dasar Hari Sumpah Pemuda",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Sumpah Pemuda menyatukan pemuda dari berbagai daerah untuk kemerdekaan."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah dampak inflasi tinggi terhadap masyarakat berpenghasilan rendah: Mengapa inflasi ini memperlebar kesenjangan sosial?",
+        "options": [
+            "Harga barang naik lebih cepat daripada upah",
+            "Pengusaha besar bisa menaikkan harga produk",
+            "Pemerintah kesulitan subsidi",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Inflasi memukul kelas bawah karena daya beli menurun, sementara kaya terlindungi."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah kebijakan subsidi BBM di Indonesia: Apa alternatif terbaik untuk mengurangi beban APBN?",
+        "options": [
+            "Beralih ke subsidi langsung tunai untuk masyarakat miskin",
+            "Meningkatkan pajak kendaraan bermotor",
+            "Promosi transportasi umum",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Subsidi langsung lebih tepat sasaran daripada subsidi umum yang dinikmati semua kelas."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah hubungan antara ekspor minyak sawit dan deforestasi: Bagaimana kebijakan berkelanjutan dapat diterapkan?",
+        "options": [
+            "Sertifikasi RSPO untuk memastikan produksi ramah lingkungan",
+            "Diversifikasi tanaman ke komoditas lain",
+            "Penegakan hukum terhadap pembukaan lahan ilegal",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Ekspor sawit menyebabkan deforestasi, tetapi sertifikasi dan penegakan hukum bisa mitigasi."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah peran UMKM dalam perekonomian Indonesia: Mengapa UMKM lebih tahan terhadap krisis ekonomi?",
+        "options": [
+            "Fleksibilitas dan adaptasi cepat terhadap perubahan pasar",
+            "Kurang bergantung pada pinjaman bank besar",
+            "Fokus pada pasar lokal",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "UMKM sering bertahan karena skala kecil dan orientasi domestik."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah dampak MEA terhadap tenaga kerja Indonesia: Apa tantangan utama bagi pekerja terampil?",
+        "options": [
+            "Persaingan dengan tenaga kerja asing yang lebih kompetitif",
+            "Kurangnya pengakuan sertifikasi internasional",
+            "Mobilitas tenaga kerja yang terbatas",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "MEA membuka persaingan, tetapi Indonesia perlu tingkatkan skill dan sertifikasi."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah pengaruh nilai tukar rupiah terhadap impor: Bagaimana depresiasi rupiah mempengaruhi inflasi?",
+        "options": [
+            "Membuat impor lebih mahal, mendorong inflasi impor",
+            "Meningkatkan ekspor, menstabilkan neraca perdagangan",
+            "Menurunkan daya saing produk lokal",
+            "Mengurangi cadangan devisa"
+        ],
+        "correctAnswer": 0,
+        "points": 4,
+        "explanation": "Depresiasi membuat barang impor mahal, yang ditransfer ke konsumen sebagai inflasi."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah kebijakan pajak progresif: Mengapa sistem ini dianggap adil dalam redistribusi kekayaan?",
+        "options": [
+            "Orang kaya membayar persentase lebih tinggi, mengurangi kesenjangan",
+            "Mendorong investasi di kalangan menengah",
+            "Meningkatkan penerimaan negara untuk program sosial",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Pajak progresif membantu redistribusi dari kaya ke miskin melalui program pemerintah."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah peran bank sentral dalam mengendalikan inflasi: Apa instrumen utama yang digunakan BI?",
+        "options": [
+            "Suku bunga acuan untuk mengatur likuiditas",
+            "Operasi pasar terbuka untuk jual beli surat berharga",
+            "Cadangan wajib bank",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Bank Indonesia menggunakan berbagai alat moneter untuk stabilisasi."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah dampak pandemi COVID-19 terhadap sektor pariwisata: Bagaimana diversifikasi ekonomi dapat membantu pemulihan?",
+        "options": [
+            "Mengembangkan ekowisata dan wisata virtual",
+            "Investasi di sektor kesehatan dan teknologi",
+            "Kerjasama internasional untuk vaksinasi",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Diversifikasi mengurangi ketergantungan pada pariwisata yang rentan pandemi."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah perbedaan antara ekonomi pasar dan ekonomi komando: Mengapa Indonesia mengadopsi sistem campuran?",
+        "options": [
+            "Untuk menggabungkan efisiensi pasar dengan intervensi negara",
+            "Untuk menghindari monopoli swasta",
+            "Untuk memastikan kesejahteraan sosial",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Sistem campuran memadukan kebebasan pasar dengan pengawasan pemerintah."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah dampak media sosial terhadap interaksi sosial: Apa risiko utama dari penggunaan berlebih?",
+        "options": [
+            "Penurunan kualitas hubungan tatap muka",
+            "Penyebaran cyberbullying",
+            "Hilangnya privasi",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Media sosial mengubah interaksi menjadi virtual, dengan risiko psikologis."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah hubungan antara stratifikasi sosial dan mobilitas vertikal: Bagaimana pendidikan mempengaruhi hal ini?",
+        "options": [
+            "Pendidikan membuka peluang naik kelas sosial",
+            "Stratifikasi membatasi akses pendidikan bagi kelas bawah",
+            "Mobilitas vertikal tergantung pada meritokrasi",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Pendidikan adalah kunci mobilitas, tetapi stratifikasi sering menghambat akses."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah proses akulturasi di masyarakat multikultural Indonesia: Mengapa akulturasi lebih sering terjadi daripada asimilasi?",
+        "options": [
+            "Karena kelompok mempertahankan identitas sambil mengadopsi elemen baru",
+            "Asimilasi memerlukan hilangnya identitas asli",
+            "Akulturasi didorong oleh globalisasi",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Akulturasi memungkinkan pertukaran budaya tanpa kehilangan identitas."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah peran norma sosial dalam mengendalikan perilaku: Apa konsekuensi jika norma dilanggar?",
+        "options": [
+            "Sanksi sosial seperti pengucilan",
+            "Hilangnya kepercayaan masyarakat",
+            "Konflik internal dalam kelompok",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Norma menjaga ketertiban, pelanggaran menyebabkan sanksi dan ketidakharmonisan."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah dampak urbanisasi terhadap struktur keluarga: Bagaimana urbanisasi mengubah keluarga inti dari keluarga luas?",
+        "options": [
+            "Keluarga inti lebih adaptif di kota dengan ruang terbatas",
+            "Kurangnya dukungan dari kerabat luas",
+            "Peningkatan peran wanita bekerja",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Urbanisasi mendorong keluarga kecil untuk efisiensi ekonomi dan ruang."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah konflik sosial di Papua: Mengapa isu otonomi khusus belum menyelesaikan masalah?",
+        "options": [
+            "Kurangnya implementasi yang efektif",
+            "Ketidakadilan distribusi sumber daya",
+            "Pengaruh separatisme",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Otonomi khusus gagal karena korupsi dan ketidakmerataan."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah keberhasilan program desa wisata: Apa faktor kunci untuk keberlanjutan?",
+        "options": [
+            "Partisipasi masyarakat lokal",
+            "Pengelolaan lingkungan yang baik",
+            "Promosi digital",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Desa wisata berhasil jika melibatkan warga dan menjaga keberlanjutan."
+    },
+    {
+        "type": "mc",
+        "question": "Sintesislah peran gender dalam pembagian kerja: Bagaimana feminisme mempengaruhi perubahan ini?",
+        "options": [
+            "Mendorong kesetaraan akses pekerjaan",
+            "Mengurangi stereotip gender",
+            "Meningkatkan partisipasi wanita di sektor formal",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Feminisme menantang pembagian kerja tradisional berbasis gender."
+    },
+    {
+        "type": "mc",
+        "question": "Analisislah dampak globalisasi terhadap budaya lokal: Mengapa homogenisasi budaya menjadi ancaman?",
+        "options": [
+            "Dominasi budaya Barat melalui media",
+            "Hilangnya tradisi unik",
+            "Peningkatan konsumerisme",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 4,
+        "explanation": "Globalisasi menyebabkan erosi budaya lokal oleh pengaruh asing."
+    },
+    {
+        "type": "mc",
+        "question": "Evaluasilah integrasi sosial di masyarakat plural: Apa strategi terbaik untuk mencegah disintegrasi?",
+        "options": [
+            "Pendidikan multikultural",
+            "Kebijakan afirmasi untuk minoritas",
+            "Dialog antaragama",
+            "Semua jawaban di atas benar"
+        ],
+        "correctAnswer": 3,
+        "points": 3,
+        "explanation": "Integrasi memerlukan pendidikan dan kebijakan inklusif."
+    },
+    {
+        "type": "fi",
+        "question": "Fenomena alam di mana lempeng tektonik bertabrakan menyebabkan pembentukan pegunungan disebut...",
+        "correctAnswer": "OROGENESIS",
+        "points": 4,
+        "explanation": "Orogenesis adalah proses pembentukan gunung melalui tabrakan lempeng."
+    },
+    {
+        "type": "fi",
+        "question": "Perjanjian internasional yang mengatur perdagangan bebas di ASEAN disebut...",
+        "correctAnswer": "AFTA",
+        "points": 3,
+        "explanation": "AFTA adalah ASEAN Free Trade Area untuk mengurangi tarif perdagangan."
+    },
+    {
+        "type": "fi",
+        "question": "Tokoh yang memimpin perlawanan rakyat Bali melawan Belanda pada 1908 disebut...",
+        "correctAnswer": "PUPUTAN",
+        "points": 4,
+        "explanation": "Puputan adalah perlawanan heroik raja-raja Bali."
+    },
+    {
+        "type": "fi",
+        "question": "Kurva yang menunjukkan hubungan antara inflasi dan pengangguran disebut kurva...",
+        "correctAnswer": "PHILLIPS",
+        "points": 4,
+        "explanation": "Kurva Phillips menunjukkan trade-off antara inflasi dan pengangguran."
+    },
+    {
+        "type": "fi",
+        "question": "Proses di mana individu mengadopsi nilai-nilai kelompok disebut...",
+        "correctAnswer": "INTERNALISASI",
+        "points": 3,
+        "explanation": "Internalisasi adalah bagian dari sosialisasi di mana nilai menjadi bagian diri."
+    },
+    {
+        "type": "fi",
+        "question": "Bentuk konflik sosial yang melibatkan perebutan sumber daya terbatas disebut konflik...",
+        "correctAnswer": "REALISTIS",
+        "points": 4,
+        "explanation": "Konflik realistis berdasarkan kompetisi sumber daya, berbeda dengan non-realistis."
+    },
+    {
+        "type": "fi",
+        "question": "Teori yang menjelaskan perubahan sosial melalui konflik kelas disebut teori...",
+        "correctAnswer": "MARXIS",
+        "points": 4,
+        "explanation": "Teori Marx melihat perubahan melalui dialektika kelas buruh dan kapitalis."
+    },
+    {
+        "type": "fi",
+        "question": "Indeks yang mengukur ketidakmerataan pendapatan disebut indeks...",
+        "correctAnswer": "GINI",
+        "points": 3,
+        "explanation": "Indeks Gini mengukur distribusi pendapatan, 0 sempurna setara, 1 tidak setara."
+    },
+    {
+        "type": "fi",
+        "question": "Periode sejarah Indonesia pasca kemerdekaan hingga 1950 disebut periode...",
+        "correctAnswer": "REVOLUSI",
+        "points": 4,
+        "explanation": "Periode Revolusi Fisik melibatkan perjuangan mempertahankan kemerdekaan."
+    },
+    {
+        "type": "fi",
+        "question": "Fenomena cuaca ekstrem yang disebabkan oleh pemanasan permukaan Samudra Pasifik disebut...",
+        "correctAnswer": "ELNINO",
+        "points": 4,
+        "explanation": "El Nino menyebabkan kekeringan di Indonesia."
     }
-];
+    ];
+                
+
+// Total: 70 PG + 30 Isian
         // ======================
         // GAME STATE
         // ======================
